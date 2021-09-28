@@ -1,8 +1,6 @@
-* linguist-vendored
+static/* linguist-vendored
+staticfiles/* linguist-vendored
+templates/* linguist-vendored
 
-*.Python linguist-detectable=true
-*.js linguist-detectable=false
-*.html linguist-detectable=false
-*.css linguist-detectable=false
 
 
