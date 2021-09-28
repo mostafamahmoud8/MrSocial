@@ -5,12 +5,15 @@
 
 **MrScoial** it's a web app where users can write what is on their mind by writing a **post** and be friends with each other and see each other posts and interact with their posts by like or comment or share each other posts, and users can be members in a **group**.
 
-![MrSocial](static/images/logo/Opera Snapshot_2021-09-01_175631_127.0.0.1.png)
+![MrSocial](https://github.com/mostafamahmoud8/MrSocial/blob/main/static/images/logo/Opera%20Snapshot_2021-09-01_175631_127.0.0.1.png)
 
 ## Techniques
 
-this project is build on Python web framework **Django**, and an structure database useing **Postgresql**,
+
+this project is built on Python web framework **Django**, and an structured database using **Postgresql**,
+and django Channels, web sockets for real time notification.
 and for Frontend used  HTML,CSS,Jquery and AJAX technique.
+
 
 ## Installation
 
