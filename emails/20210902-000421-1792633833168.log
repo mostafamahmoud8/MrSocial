@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: heam@hema.com
+Date: Wed, 01 Sep 2021 22:04:21 -0000
+Message-ID: <163053386168.9836.4487693887971746782@3azemA>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/accounts/reset/OQ/asbmv9-557586ef01c5be5c7254f41f3e2bebe4/
+
+Your username, in case you’ve forgotten: heam@hema.com
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+-------------------------------------------------------------------------------

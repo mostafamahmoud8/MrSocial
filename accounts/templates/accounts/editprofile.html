@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{{user.first_name}} {{user.last_name}} | MrSocial
+{% endblock %}
+{% block content %}
+<div class='updateform'>
+    {% if form.non_field_errors|length > 0 %}  
+     <div class='formerror'> 
+        <ul>
+            {% for error in form.non_field_errors %}
+            <li>
+                {{error}}
+            </li> 
+            {% endfor %}
+        </ul>
+     </div>   
+    {% endif %}  
+    <form method="POST" enctype="multipart/form-data">
+         {% csrf_token %}
+          <div class='inputcontainer'>
+            <i class="fa fa-user" aria-hidden="true"></i>
+            {% if form.first_name.errors|length > 0 %}  
+            <input  type="text"  placeholder="First Name" style="border: 1px solid red;" name="first_name" value="{{form.first_name.value}}" required>
+            <div class='fielderror'> 
+             <ul>
+                 {% for error in form.first_name.errors %}
+                 <li>
+                     {{error}}
+                 </li> 
+                 {% endfor %}
+             </ul>
+            </div>   
+            {% else %}
+            <input  type="text"  placeholder="First Name" name="first_name" value="{{form.first_name.value}}" required>
+           {% endif %}
+          </div> 
+          <div class='inputcontainer'>
+            <i class="fa fa-user" aria-hidden="true"></i>
+            {% if form.last_name.errors|length > 0 %}  
+            <input  type="text"  placeholder="Last Name" style="border: 1px solid red;" name="last_name" value="{{form.last_name.value}}" required>
+            <div class='fielderror'> 
+             <ul>
+                 {% for error in form.last_name.errors %}
+                 <li>
+                     {{error}}
+                 </li> 
+                 {% endfor %}
+             </ul>
+            </div>   
+            {% else %}
+            <input  type="text"  placeholder="Last Name" name="last_name" value="{{form.last_name.value}}" required>
+           {% endif %}
+          </div>
+          <div class='inputcontainer'>
+            <i class="fa fa-user" aria-hidden="true"></i>
+            {% if form.username.errors|length > 0 %}  
+            <input  type="text"  placeholder="Username" name="username" style="border: 1px solid red;" value="{{form.username.value}}"  required>
+            <div class='fielderror'> 
+             <ul>
+                 {% for error in form.username.errors %}
+                 <li>
+                     {{error}}
+                 </li> 
+                 {% endfor %}
+             </ul>
+            </div>   
+          {% else %}
+           <input  type="text"  placeholder="Username" name="username"  value="{{form.username.value}}" required> 
+          {% endif %}
+          </div>
+          
+          <div class='inputcontainer'>
+            <i class="fa fa-envelope icon"></i>
+            {% if form.email.errors|length > 0 %}  
+            <input  type="email" placeholder="Email Address" name="email" style="border: 1px solid red;" value="{{form.email.value}}"  required>
+            <div class='fielderror'> 
+             <ul>
+                 {% for error in form.email.errors %}
+                 <li>
+                     {{error}}
+                 </li> 
+                 {% endfor %}
+             </ul>
+            </div>   
+            {% else %}
+            <input  type="email" placeholder="Email Address" name="email" value="{{form.email.value}}" required>
+           {% endif %}
+          </div>
+          <div class='inputcontainer'>
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            {% if form.birth_date.errors|length > 0 %}  
+            <input  type="date"  name='birth_date' style="border: 1px solid red;" value="{{form.birth_date.value|date:'Y-m-d'}}" required>
+            <div class='fielderror'> 
+             <ul>
+                 {% for error in form.birth_date.errors %}
+                 <li>
+                     {{error}}
+                 </li> 
+                 {% endfor %}
+             </ul>
+            </div>   
+            {%else%}
+            <input  type="date"  name='birth_date' value="{{form.birth_date.value|date:'Y-m-d'}}" required>
+            {% endif %}
+          </div>
+          <div class='file'>
+            <input type='file' name='image' id="profileimageinput" accept="image/*"/>
+            <label for="profileimageinput"><i class="fas fa-camera"></i>Updata Picture</label>
+          </div>
+          {% if form.image.errors|length > 0 %}
+          <div class='fielderror'> 
+            <ul>
+                {% for error in form.image.errors %}
+                <li>
+                    {{error}}
+                </li> 
+                {% endfor %}
+            </ul>
+           </div>   
+           {% endif %}
+          <div class="profileimagepreview">
+            {% if user.image %}
+             <img src="{{user.image.url}}" alt="Profile Picture">
+            {% else %}
+             <img src="{% static 'default/default.png' %}" alt="Profile Picture">
+            {% endif %}
+            <span class='profileimgdelete'>
+                <i class="fas fa-times"></i>
+            </span>
+          </div>
+        <button class="submit" type="submit">
+            <i class="fas fa-user-edit"></i> Update Profile
+        </button>
+         
+      </form>
+     <div class='go_signup'>
+        <p> Change your Password?</p>  
+        <a href="{% url 'accounts:change-password' %}"> Change Password </a>
+      </div>
+</div>
+
+{% endblock%}

@@ -1,0 +1,31 @@
+{% load static %}
+<div id="sidemenu">
+    <div class="profileimage">
+        {% if user.image %}
+         <img src="{{user.image.url}}" alt="Profile Picture">
+        {% else %}
+         <img src="{% static 'default/default.png' %}" alt="Profile Picture">
+        {% endif %}
+    </div>
+    <div class="username">
+        <span>{{user.first_name}} {{user.last_name}}</span>
+        <span>@{{user.username}}</span>
+    </div>
+    <div class='userinfo'>
+        <button class='myfirends'> {{ user.friendship.count }} friends</button>
+        <button class='myposts'> {{ user.userposts.count }} posts</button>
+    </div>
+    <hr>
+    <div class='navbarlist'>
+         <a href="{% url 'home'  %}"><button class='home'><i class="fas fa-house-user"></i> Home</button></a>
+         <a href="{% url 'accounts:profile' slug=user.slug %}"><button class='profile'><i class="fa fa-user"></i> Profile</button></a>
+         <button class='groups'><i class="fa fa-users"></i> groups </button>
+         <button class='activity'><i class="fas fa-file-medical-alt"></i> activity </button>
+         <button class='network'><i class="fas fa-user-friends"></i> network </button>
+    </div>
+    <button class="logout">
+        <a href="{% url 'accounts:logout' %}">
+            <i class="fas fa-sign-out-alt"></i> Log Out
+        </a> 
+    </button>   
+</div>

@@ -1,0 +1,18 @@
+{% load static %}
+<div class="welcome">
+    <img src="{% static 'images/logo/MrSocial-logos_transparent.png' %}" alt="MrSocail logo"/> 
+    <h1>Welcome to <span>MrSocial</span></h1>
+    <h4>free social app</h4>
+    <div class="auth">
+        <button class="login">
+             <a href="{% url 'accounts:login' %}">
+                  <i class="fa fa-sign-in"></i> Log In
+             </a> 
+        </button>        
+        <button class="signup">
+            <a href="{% url 'accounts:signup' %}">
+               <i class="fa fa-user-plus"></i> Sign Up
+            </a>
+        </button>
+    </div>
+ </div>

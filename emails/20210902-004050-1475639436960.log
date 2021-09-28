@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: lava.1997@yahoo.com
+Date: Wed, 01 Sep 2021 22:40:50 -0000
+Message-ID: <163053605057.8280.9801244713616538976@3azemA>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/accounts/reset/OA/asbok2-97f6c770ff69cf6686ce09e58752f390/
+
+Your username, in case you’ve forgotten: lava.1997@yahoo.com
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+-------------------------------------------------------------------------------

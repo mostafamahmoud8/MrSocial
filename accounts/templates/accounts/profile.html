@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  {{user.first_name}} {{user.last_name}} | MrSocial
+{% endblock %}
+{% block content %}
+{% if profile %}
+ <div class='profile'>
+   <div class='profieldeleteform' id='profiledeleteform_{{profile.id}}'>
+      <form method="POST" action="{% url 'accounts:delete-profile' slug=profile.slug %}" id='deleteprofileForm_{{profile.id}}'>
+        {% csrf_token %}
+        <p>are you sure you want to delete this post ?</p>
+      </form>
+      <div class='formbuttons'>
+        <button type='submit' form='deleteprofileForm_{{profile.id}}'> Delete </button>
+        <button onclick="showprofileaction('profiledeleteform_{{profile.id}}',null,'profilecontent')"> Cancel </button>
+      </div>
+    </div>
+    <div class="profilecontent">
+      <div class="profileinfo">
+        <div class="profileimage">
+            {% if profile.image %}
+            <img src="{{profile.image.url}}" alt="Profile Picture">
+            {% else %}
+            <img src="{% static 'default/default.png' %}" alt="Profile Picture">
+            {% endif %}
+        </div>
+       <div class='profileusername'>
+            <span>{{profile.first_name}} {{profile.last_name}}</span>
+            <span>@{{profile.username}}</span>
+        </div>
+      </div>
+      {% if profile.id == user.id %}
+      <div class='profilesetting'>
+        <span class='settingicon'>
+            <i class="fas fa-cog"></i>
+        </span>
+        <div class='options'>
+          <a href="{% url 'accounts:update-profile' slug=profile.slug %}"><button class='updateprofile'><i class="fas fa-user-cog"></i> Update Account</button></a>
+          <a><button class='deleteprofile' onclick="showprofileaction('profiledeleteform_{{profile.id}}','options','profilecontent')"><i class="fas fa-trash-alt"></i> Delete Account</button></a>
+        </div>
+      </div>  
+      {% endif %}
+      <div class='profiledata'>
+          <span><i class="fas fa-envelope"></i>{{ profile.email }}</span>
+          <span><i class="fas fa-birthday-cake"></i>{{ profile.birth_date }}</span>
+          <span> {{ profile.friendship.count }} friends</span>
+          <span> {{ profile.userposts.count }} posts</span>
+      </div>
+      {% if profile.id != user.id %}
+      <div class='profileaction' style="margin-top: 0.5vw;">
+        <button class='addfriend'><i class="fas fa-user-plus"></i> add friend</button>
+        <button class='Block'><i class="fas fa-user-times"></i> Block</button>
+      </div>
+      {% endif %}
+    </div>
+</div>
+ {% if profile.userposts.count == 0 %}
+   <div class='noposts'>
+       <p> This profile have no created posts yet.</p>
+   </div>
+  {% else %}
+  {% endif%}
+{% else %}
+<div class='profilenotexists'>
+    <div>
+        <h3>this page <span>doesn’t exist</span>. Try searching for something else.</h3>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% load static %}
+<div class="addpost">
+    <div class='addpostinfo'>
+        <div class="userimage">
+            {% if user.image %}
+            <img src="{{user.image.url}}" alt="Profile Picture">
+            {% else %}
+            <img src="{% static 'default/default.png' %}" alt="Profile Picture">
+            {% endif %}
+        </div>
+        <div class='names'>
+            <span>{{user.first_name}} {{user.last_name}}</span>
+        </div>
+    </div>
+    <form method="POST" enctype="multipart/form-data" id='PostForm'>
+        {% csrf_token %}
+        <div class='forminput'>
+            <textarea name='content' placeholder="What's on your mind,{{ user.username }}?"></textarea>
+            <input type="file" name='image' id="imageinput" accept="image/*">
+            <label for="imageinput"><i class="far fa-file-image"></i></label>
+        </div>
+        
+        <div class="imagepreview">
+            <img src='' alt='post image'>
+            <span class='imgdelete'>
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div class='posterrors'>
+        </div>
+        <div class='postdone'>
+            <ul><li>Post has been added successfully</li></ul>
+        </div>
+        <button type='submit'> Post </button>
+    </form>
+</div>
+

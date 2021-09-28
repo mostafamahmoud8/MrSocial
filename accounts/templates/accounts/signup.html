@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  Register
+{% endblock %}
+{% block auth %}
+<div class='logo'>
+    <img src="{% static 'images/logo/MrSocial-logos_transparent.png' %}" alt="MrSocail logo"/>
+</div>
+<div class='login signup'>
+    <div class='loginlogo'>
+        <h2>MrSocial</h2>
+    </div>
+    <div class='Signupform'>
+    {% if form.non_field_errors|length > 0 %}  
+     <div class='formerror'> 
+        <ul>
+            {% for error in form.non_field_errors %}
+            <li>
+                {{error}}
+            </li> 
+            {% endfor %}
+        </ul>
+     </div>   
+    {% endif %}  
+    <form method="POST">
+          {% csrf_token %}
+          <div class='inputcontainer'>
+            <i class="fa fa-user" aria-hidden="true"></i>
+            {% if form.first_name.errors|length > 0 %}  
+            <input  type="text"  placeholder="First Name" style="border: 1px solid red;" name="first_name" value="{{form.first_name.value}}" required>
+            <div class='fielderror'> 
+             <ul>
+                 {% for error in form.first_name.errors %}
+                 <li>
+                     {{error}}
+                 </li> 
+                 {% endfor %}
+             </ul>
+            </div>   
+            {% else %}
+            <input  type="text"  placeholder="First Name" name="first_name"  required>
+           {% endif %}
+          </div> 
+          <div class='inputcontainer'>
+            <i class="fa fa-user" aria-hidden="true"></i>
+            {% if form.last_name.errors|length > 0 %}  
+            <input  type="text"  placeholder="Last Name" style="border: 1px solid red;" name="last_name" value="{{form.last_name.value}}" required>
+            <div class='fielderror'> 
+             <ul>
+                 {% for error in form.last_name.errors %}
+                 <li>
+                     {{error}}
+                 </li> 
+                 {% endfor %}
+             </ul>
+            </div>   
+            {% else %}
+            <input  type="text"  placeholder="Last Name" name="last_name" required>
+           {% endif %}
+          </div>
+          
+          <div class='inputcontainer'>
+            <i class="fa fa-user" aria-hidden="true"></i>
+            {% if form.username.errors|length > 0 %}  
+            <input  type="text"  placeholder="Username" name="username" style="border: 1px solid red;" value="{{form.username.value}}"  required>
+            <div class='fielderror'> 
+             <ul>
+                 {% for error in form.username.errors %}
+                 <li>
+                     {{error}}
+                 </li> 
+                 {% endfor %}
+             </ul>
+            </div>   
+          {% else %}
+           <input  type="text"  placeholder="Username" name="username"  required> 
+          {% endif %}
+          </div>
+          
+          <div class='inputcontainer'>
+            <i class="fa fa-envelope icon"></i>
+            {% if form.email.errors|length > 0 %}  
+            <input  type="email" placeholder="Email Address" name="email" style="border: 1px solid red;" value="{{form.email.value}}"  required>
+            <div class='fielderror'> 
+             <ul>
+                 {% for error in form.email.errors %}
+                 <li>
+                     {{error}}
+                 </li> 
+                 {% endfor %}
+             </ul>
+            </div>   
+            {% else %}
+            <input  type="email" placeholder="Email Address" name="email" required>
+           {% endif %}
+          </div>
+        
+          <div class='inputcontainer'>
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            {% if form.birth_date.errors|length > 0 %}  
+            <input  type="date"  name='birth_date' style="border: 1px solid red;" value="{{form.birth_date.value|date:'Y-m-d'}}" required>
+            <div class='fielderror'> 
+             <ul>
+                 {% for error in form.birth_date.errors %}
+                 <li>
+                     {{error}}
+                 </li> 
+                 {% endfor %}
+             </ul>
+            </div>   
+            {%else%}
+            <input  type="date"  name='birth_date' required>
+            {% endif %}
+          </div>
+          
+          <div  class='inputcontainer'>
+            <i class="fa fa-key icon"></i>
+            <input  type="password" placeholder="Password" name="password1" required>
+            {% if form.password1.errors|length > 0 %}  
+            <div class='fielderror'> 
+             <ul>
+                 {% for error in form.password1.errors %}
+                 <li>
+                     {{error}}
+                 </li> 
+                 {% endfor %}
+             </ul>
+            </div>   
+           {% endif %}
+          </div>
+          
+          <div  class='inputcontainer'>
+            <i class="fa fa-key icon"></i>
+            <input  type="password" placeholder="Confirmation Password" name="password2" required>
+            {% if form.password2.errors|length > 0 %}  
+            <div class='fielderror'> 
+             <ul>
+                 {% for error in form.password2.errors %}
+                 <li>
+                     {{error}}
+                 </li> 
+                 {% endfor %}
+             </ul>
+            </div>   
+          {% endif %}
+          </div>
+          
+           <button class="submit" type="submit">
+                 <i class="fa fa-user-plus"></i> Sign Up
+          </button>
+         
+      </form>
+      <div class='go_signup'>
+        <p>aleardy have an account:</p>  
+        <a href="{% url 'accounts:login' %}"> LogIn here </a>
+      </div>
+    </div>
+
+</div>
+
+{% endblock %}

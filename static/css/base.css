@@ -1,0 +1,1564 @@
+html
+{
+    width: 100%;
+    height: 100%;
+}
+body
+{
+    background-color: #F2EEE4;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+body::-webkit-scrollbar,textarea::-webkit-scrollbar
+{
+     width: 10px;
+}
+body::-webkit-scrollbar-track,textarea::-webkit-scrollbar-track
+{
+     background: #F2EEE4;
+}
+body::-webkit-scrollbar-thumb,textarea::-webkit-scrollbar-thumb
+{
+     background: lightgray;
+     border-radius: 5px;
+}
+body::-webkit-scrollbar-thumb:hover,textarea::-webkit-scrollbar-thumb:hover
+{
+     background: grey;
+}
+div.welcome 
+{
+     position: relative;
+     display: block;
+     top:2vw;
+     background-color: inherit;
+     margin:auto;  
+     width:50%;
+     height:40vw;
+
+}
+div.welcome img
+{
+     position: relative;
+     width: 100%;
+     height: 50%;
+     object-fit: cover;   
+}
+
+div.welcome h1,div.welcome h4
+{
+     text-align: center;
+     margin: auto;
+     color:#5065A8;
+     font-family:Quicksand,sans-serif,serif;
+} 
+div.welcome h1
+{
+     font-size: 2vw;
+}
+div.welcome span
+{
+     font-family: lato, sans-serif,serif;
+     font-weight: bolder;   
+}
+div.auth
+{
+     display: block;
+     position: relative;
+     width: 100%;
+     top: 10%;
+     margin: auto;
+}
+div.auth button
+{
+     display: inline-block;
+     position: relative;
+     margin: 3vw;
+     padding: 10px;
+     width: 30%;
+     background-color: #66ff33;
+     border: 3px solid whitesmoke;
+     border-radius: 10px;
+     cursor: pointer;
+     box-shadow: 2px 4px 8px 2px lightgrey, 2px 6px 20px 2px lightgray;
+
+}
+div.auth button a
+{
+    font-family: lato,sans-serif,serif;
+    font-weight: bolder;
+    font-size:2vw;
+    text-decoration: none;
+    color:whitesmoke;
+}
+button.login
+{
+    float: left;
+}
+button.signup
+{
+    float: right;
+}
+div.logo
+{
+     position: relative;
+     display: inline;
+     float: left;
+     width: 58%;
+     height: 40vw;
+     /*border: 1px solid red;*/
+}
+
+div.login
+{
+     position: relative;
+     display: inline;
+     float: right;
+     right:5vw;
+     width: 30%;
+     top:3vw;
+     height: auto;
+     /*border: 2px solid #5065A8;*/
+     background-color: #5065A8;
+     border-radius: 10px;
+     box-shadow: 2px 4px 8px 2px lightgrey, 2px 6px 20px 2px lightgray;
+}
+div.signup
+{
+     top:.5vw;
+}
+div.logo img 
+{
+     width: 100%;
+     object-fit: cover;
+     height: 100%;
+     position: relative;
+}
+div.loginlogo
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     height:auto;
+     border-radius: 10px 10px 0px 0px;
+     background-color: #5065A8;
+     background-image: url('/static/images/logo/MrSocial-logos_white_icon.png');
+     background-repeat: no-repeat;
+     background-position: 20% 10%;
+     background-size: contain;
+}
+div.loginlogo h2
+{
+     display: inline-block;
+     position: relative;
+     top:.3vw;
+     left:40%;
+     font-family: Lato, sans-serif,serif;
+     color: whitesmoke;
+     font-size: 3vw;
+}
+div.loginform,div.Signupform,div.ResetEmailform ,div.updateform
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     left:0px;
+     background-color: whitesmoke;
+     margin-top: 0vw;
+     height: 70%;
+     border-radius: 10px 10px 5px 5px;
+}
+div.updateform
+{
+     left:auto;
+     height: auto;
+     background-color: whitesmoke;
+     top: 7vw;
+     width: 50%;
+     margin: auto;
+     border-radius: 10px;
+}
+div.formerror ,div.fielderror,div.formmessage
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     height:auto;
+     border: 1px solid red;
+     background-color: rgb(235, 98, 98);
+     border-radius: 10px 10px 0px 0px;
+}
+div.Signupform div.inputcontainer:first-of-type
+{
+     margin-top: 1vw;
+}
+div.fielderror
+{
+     border-radius: 10px;
+     width:93.5%;
+     margin: auto;
+     margin-top: 1vw;
+     margin-bottom: 0vw;
+}
+div.updateform div.fielderror
+{
+     width:80%;
+}
+div.formerror ul,div.fielderror ul
+{
+     list-style-type: none;
+     position: relative;
+     display: block;
+     color: whitesmoke;
+     font-family:Quicksand,sans-serif,serif;
+     font-weight: bold;
+     text-transform: capitalize;
+     word-wrap: break-word;
+}
+div.formmessage
+{
+     background-color: inherit;
+     width:94%;
+     margin: auto;
+     border:none;
+}
+div.formmessage h4 , div.formmessage p
+{
+     font-family: QuikSane,sans-serif;
+     color: #5065A8;
+     text-align: left;
+
+}
+div.loginform form,div.Signupform form,div.updateform form
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     height:100%;
+     border-radius: inherit;
+
+}
+div.inputcontainer:first-of-type
+{
+     top: 2vw;
+}
+div.inputcontainer,div.updateform div.file
+{
+     position: relative;
+     display: block;
+     top:1vw;
+     margin-top: 2vw;
+     width: 100%;
+     height:auto;
+}
+div.updateform div.inputcontainer,div.updateform div.file
+{
+     width:80%;
+     margin: auto;
+     margin-top: 2vw;
+}
+div.updateform div.file
+{
+     display: flex;
+     width:70%;
+}
+div.inputcontainer i
+{
+     position: relative;
+     display: inline;
+     color:whitesmoke;
+     padding: 11px;
+     background-color: #5065A8;
+     font-size: 1.5vw;
+     left:1vw;
+     top:2px;
+     text-align: center;
+     border-radius: 5px 0px 0px 5px;
+}
+div.updateform form input[type=file]
+{
+     display: none;
+}
+div.updateform form div.file label
+{
+     width: 80%;
+     border-radius: 10px;
+     background-color: #5065A8;
+     opacity: 0.7;
+     padding: 10px;
+     border: 1px solid #F2EEE4;
+     text-align: center;
+     margin: auto;
+     color: #F2EEE4;
+     cursor: pointer;
+}
+div.updateform form div.file label:hover
+{
+     opacity: 1;
+}
+
+div.updateform div.file label i
+{
+  margin-right: 1vw; 
+} 
+div.inputcontainer input 
+{
+     position: relative;
+     display: inline;
+     width: 77%;
+     padding: 12px;
+     outline: none;
+     left: 0.7em;
+     margin: 0px;
+     border: 1.5px solid lightgray;
+     border-left:none ;
+     border-radius: 0px 5px 5px 0px ;
+}
+div.inputcontainer input:focus
+{
+     border: 1px solid #5065A8;
+     font-family: Lato, Helvetica, sans-serif;
+     font-weight: bold;
+}
+div.loginform h4
+{
+     display: block;
+     position: relative;
+     text-align: right;
+     margin-top:2vw;
+     margin-right: 1vw;
+     font-family: lato,serif;
+}
+div.loginform h4 a , div.emailsent div a
+{
+     text-decoration: none;
+     color: rgb(56, 167, 204);
+}
+div.loginform h4 a:hover , div.emailsent div a:hover
+{
+     text-decoration: underline;
+     color: #5065A8;
+}
+button.submit
+{
+     position: relative;
+     display: block;
+     width:65%;
+     padding: .5vw;
+     margin: auto;
+     background-color: #5065A8;
+     color:whitesmoke;
+     font-family: QuikSand,sans-serif,serif;
+     top:.5vw;
+     font-size: 2vw;
+     font-weight: bold;
+     border: 2px solid  whitesmoke;
+     border-radius:10px ;
+     cursor: pointer;
+     box-shadow: 2px 4px 8px 2px lightgrey, 2px 6px 20px 2px lightgray;
+}
+div.Signupform button.submit
+{
+     margin-top: 3vw;
+     top: auto;
+}
+div.updateform button.submit
+{
+     margin-top: 5vw;
+     top: auto;
+     width:70%;
+     padding: 10px;
+     font-size: 1.2vw;
+}
+div.changepasswordform button.submit
+{
+     width:60%;
+     margin-top:3vw;
+}
+button.submit:hover
+{
+     border: 2px solid  #5065A8;
+     background-color: whitesmoke;
+     color:#5065A8;
+}
+div.ResetEmailform button.submit
+{
+     margin-top: 3vw;
+     font-size: 1.5vw;
+}
+div.go_signup
+{
+     position: relative;
+     display: block;
+     margin-top: 8vw;
+     bottom:2vw;
+     padding: 5px;
+     text-align: center;
+     width:100%;
+}
+div.Signupform div.go_signup
+{
+     margin-top: 6vw;
+     bottom: 1vw;
+}
+div.updateform div.go_signup
+{
+     margin-top:5vw;
+}
+div.ResetEmailform div.go_signup
+{
+     margin-top: 3vw;
+     bottom: 1vw;
+}
+div.go_signup p ,div.go_signup a 
+{
+    position: relative;
+    display: inline;
+    color:#5065A8;
+    font-family: QuikSand,serif,sans-serif;
+}
+div.go_signup a
+{
+    text-decoration: none;  
+    color:rgb(57, 235, 57);
+}
+div.emailsent
+{
+     position: relative;
+     display: block;
+     margin: auto;
+     background-image: url('/static/images/logo/MrSocial-logos_transparent.png');
+     background-color: #F2EEE4;
+     background-position:left;
+     background-size: cover;
+     background-repeat: no-repeat;
+     height: 30vw;
+     width: 55%;
+}
+div.emailsent div
+{
+     position: relative;
+     display: inline-block;
+     width: 100%;
+     height: auto;
+     padding: 10px;
+     margin-top: 40%;
+}
+div.emailsent div h1 ,div.emailsent div p
+{
+     color: #5065A8;
+     font-family: QuiKSand,sans-serif,serif;
+     text-align: left;   
+     font-weight: bold;
+     word-wrap: break-word;
+}
+#sidemenu 
+{
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0vw;
+  left: 0vw;
+  background-color: #5065A8;
+  overflow: hidden;
+  transition: 0.5s;
+}
+#content
+{
+     position: relative;
+     height: 100%;
+     transition: margin-left .5s;
+}
+#navbar
+{
+     position: fixed;
+     width: 100%;
+     z-index: 1;
+     top: 0vw;
+     right: 0vw;
+     background-color: inherit;
+     transition: width .5s;
+     background-color: inherit;
+}
+div.togglemenu,div.notification,div.search
+{
+     position: relative;
+     display:block;
+     width: auto;
+     height: auto;
+     top:1vw;
+}
+div.togglemenu
+{
+     margin-left: 1vw;
+     float: left;
+}
+div.search
+{
+     width:30%;
+     margin:auto;
+     float: left;
+     margin-left:32%;
+     margin-top: 1%;
+     border: none;
+}
+div.search #search
+{
+     background-color:inherit;
+     background-image: url('/static/images/search-icon.png');
+     background-position: 5px 5px;
+     background-size: 30px 30px;
+     background-repeat: no-repeat;
+     width: 100%;
+     box-sizing: border-box;
+     border: 2px solid lightgray;
+     border-radius: 10px;
+     font-size: 16px;
+     padding: 12px 20px 12px 50px;
+     color: #5065A8;
+     font-family: QuikSand,sans-serif,serif;
+     cursor: pointer;
+     outline: none;
+}
+div.search #search:hover,div.addpost form textarea:hover
+{
+     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+div.search #search:focus
+{
+     border: 2px solid #5065A8;
+}
+div.notification
+{
+    float: right;
+    margin-right: 3vw;   
+}
+div.togglemenu button,div.notification button
+{
+     position: relative;
+     margin:auto ;
+     font-weight: bold;
+     font-size: 2vw;
+     border: none;
+     outline: none;
+     cursor: pointer;
+     text-align: center;
+     border-radius: 5px;
+     padding-top: 2px;
+}
+div.togglemenu button
+{
+     color: #5065A8;
+     background-color: #F2EEE4;
+     padding-top:3px;
+}
+div.notification button
+{
+     color: #F2EEE4;
+     background-color: #5065A8;
+     padding-top: 5px;
+     border-radius: 10px;
+     border: 1px solid whitesmoke;
+}
+div.notification button:hover
+{
+     color: #5065A8;
+     background-color: #F2EEE4;
+     border: 1px solid #5065A8;
+}
+div.togglemenu button:hover
+{
+     background-color: #5065A8;
+     color: #F2EEE4;
+}
+button.open
+{
+     display: block;
+}
+button.close
+{
+     display: none;
+     transform: rotate(90deg);
+}
+span.badge,span.imgdelete,span.profileimgdelete,span.updateimgdelete
+{
+     position:absolute;
+     right:-10px;
+     top:-10px;
+     min-width:10px;
+     min-height:10px;
+     line-height:10px;
+     padding:5px;
+     color:whitesmoke;
+     background-color:#bf1f1f;
+     font-size:.8vw;
+     border-radius:10px;
+     text-align: center;
+     border:solid 1px #c93a3a;
+     cursor: pointer;
+}
+#sidemenu div.profileimage
+{
+     position: relative;
+     display: block;
+     height: 130px;
+     width: 130px;
+     background-color: whitesmoke;
+     margin: auto;
+     margin-top:1vw;
+     padding: 5px;
+     border-radius: 100%;
+}
+#sidemenu div.profileimage img
+{
+     object-fit: cover;
+     width: 100%;
+     height:100%;
+     border-radius:100%;
+}
+#sidemenu div.username
+{
+     position: relative;
+     display: block;
+     margin: auto;
+     margin-top: 1vw;    
+}
+div.username span
+{
+     color:whitesmoke;
+     font-family: QuikSand,serif;
+     text-align: center;
+     display: block;
+}
+div.userinfo
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     margin-top: 1vw;
+}
+div.userinfo button
+{
+     position: relative;
+     display: inline;
+     margin-left:5px;
+     width:47%;
+     padding: 5px;
+     font-family: lato,serif;
+     font-weight: bold;
+     text-align: center;
+     text-transform: capitalize;
+     color: #F2EEE4;
+     background-color: inherit;
+     border-radius: 5px;
+     cursor: pointer;
+     border: none;
+     margin-left: 1px;
+     margin-right: 3px;
+}
+div.userinfo button:hover,div.navbarlist button:hover
+{
+     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+div.navbarlist
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     background-color: inherit;
+}
+div.navbarlist a
+{
+     text-decoration: none;
+}
+div.navbarlist button
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     padding: 1vw;
+     border: none;
+     font-family: QuikSand,sans-serif,serif;
+     color: #F2EEE4;
+     text-align: center;
+     cursor: pointer;
+     background-color: #5065A8;
+     font-weight: bold;
+     border-radius: 5px;
+     font-size: 1.2vw;
+     margin-bottom: 1vw;
+     text-transform: capitalize;
+}
+div.navbarlist button i ,button.logout a i
+{
+     margin-right: .5vw;
+}
+button.logout
+{
+     display: block;
+     position: relative;
+     padding: 10px;
+     width: 80%;
+     margin: auto;
+     margin-top: 3vw;
+     background-color: #F2EEE4;
+     border: 2px solid #c93a3a;
+     border-radius: 10px;
+     cursor: pointer;  
+}
+button.logout a
+{
+     font-family: lato,sans-serif,serif;
+     font-weight: bolder;
+     font-size:1.4vw;
+     text-decoration: none;
+     color:#bf1f1f;
+}
+div.addpost,#createdpost,#showpostdatail
+{
+     position: relative;
+     display: block;
+     width:40%;
+     border-radius: 10px;
+     border: 2px solid lightgray;
+     margin: auto;
+     top:15%;
+}
+#createdpost
+{
+     display: block;
+     margin-top: 2vw;
+}
+div.addpost #PostForm div.posterrors,div.addpost #PostForm div.postdone,div.posteditform form div.posterrors,div.commenterror
+{
+     position: relative;
+     display: none;
+     width: 90%;
+     border:1px solid #bf1f1f;
+     border-radius:10px;
+     color: whitesmoke;
+     background-color: #c93a3a;
+     padding: 5px;
+     margin: auto;
+     margin-top:1vw;
+}
+div.addpost #PostForm div.postdone
+{
+     background-color: lightgreen;
+     border: 1px solid green;
+}
+#PostForm div.posterrors ul,div.addpost #PostForm div.postdone ul,div.posteditform form div.div.posterrors ul,div.commenterror ul
+{
+     position: relative;
+     list-style-type:none;
+     left:-3vw;
+     width: 100%;
+     text-align: center;
+     font-family: QiukSand,sans-serif,serif;
+}
+div.addpost div.addpostinfo ,div.profile div.profileinfo,div.postdetail div.ownerinfo,div.postdetail div.comments div.commentdetail div.content
+{
+     position: relative;
+     display: flex;
+     width: 100%;
+}
+div.postdetail div.showlikes
+{
+     position: absolute;
+     display: none;
+     width:40%;
+     z-index: 2;
+     left:0%;
+     background-color: #5065A8;
+     border: 1px solid #F2EEE4;
+     border-radius: 10px;
+}
+div.postdetail div.shares
+{
+     right: 0%;
+     left: auto;
+}
+div.postdetail div.showlikes div.like
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     margin-bottom: 0.5vw;
+
+}
+div.postdetail div.showlikes button
+{
+    position: relative;
+    display: block;
+    width: 100%;
+    background-color: #5065A8;
+    margin: auto;
+    margin-top: 1vw;
+    margin-bottom: 0.5vw;
+    outline:none;
+    border: none;
+    color:#F2EEE4;
+    font-family:Lato,sans-serif;
+    font-size: 1.2vw;
+    cursor: pointer;
+}
+div.postdetail div.showlikes div.usernames span
+{
+     color: #F2EEE4;
+}
+div.comments div.comment,div.comments div.commentdetail
+{
+     display: block;
+     width:100%;
+}
+div.postdetail div.ownerinfo
+{
+     display: block;
+}
+div.postdetail div.ownerinfo div.info,div.postdetail div.showlikes div.info
+{
+     position: relative;
+     display: inline-block;
+     top: -1.5vw;
+     margin-left: 0.3vw;
+}
+div.postdetail div.showlikes div.info
+{
+     top: -1vw;
+}
+div.posteditform,div.postdeleteform,div.profieldeleteform
+{
+     position: relative;
+     display: none;
+     width:95%;
+     border: 2px solid lightgray;
+     border-radius: 5px;
+     margin:auto;
+     margin-top:1vw;
+     margin-bottom:0.5vw;
+}
+div.profieldeleteform
+{
+     width:100%;
+     border: none;
+}
+div.postdetail div.showlikes a
+{
+     text-decoration: none;
+}
+div.postdetail div.ownerinfo div.info a:hover
+{
+   text-decoration: underline;
+}
+div.postdetail div.ownerinfo div.containuserimag,div.postdetail  div.commentdetail div.containuserimag,div.postdetail div.showlikes div.containuserimag
+{
+     display: inline-block;
+}
+div.addpostinfo div.userimage,div.profile div.profileinfo div.profileimage,div.postdetail div.ownerinfo div.userimage,div.commentdetail div.containuserimag div.userimage,div.postdetail div.showlikes div.userimage
+{
+     position: relative;
+     display: flex;
+     width: 50px;
+     height: 50px;
+     border-radius: 100%;
+     padding: 2px;
+     background-color: #F2EEE4;
+     border: 1px solid lightgray;
+     margin-left: 0.5vw;
+     margin-top: 0.5vw;
+}
+div.commentdetail div.containuserimag div.userimage
+{
+     width: 40px;
+     height: 40px;
+
+}
+div.postdetail div.showlikes div.userimage
+{
+     width: 35px;
+     height: 35px;
+     padding: 0px;
+     border: 2px solid #F2EEE4;
+}
+div.profile div.profileinfo div.profileimage
+{
+     width: 150px;
+     height: 150px;
+     margin-top: 1vw;
+     margin-left: 1vw;
+     border: 2px solid lightgray;
+}
+div.postdetail div.ownerinfo div.userimage
+{
+     width: 60px;
+     height: 60px;
+}
+div.addpostinfo div.userimage img , div.profile div.profileimage img ,div.postdetail div.ownerinfo div.userimage img,div.postdetail div.commentdetail div.userimage img,div.postdetail div.showlikes div.userimage img
+{
+     object-fit: cover;
+     width: 100%;
+     height:100%;
+     border-radius:100%;
+}
+div.addpostinfo div.names ,div.profile div.profileinfo div.profileusername
+{
+     position: relative;
+     display: inline;
+     margin-top: 2.2vw;
+     margin-left: 0.5vw;
+}
+div.profile div.profileinfo div.profileusername
+{
+     margin-top: 6vw;
+     margin-left: 0.5vw;
+}
+div.addpostinfo div.names span ,div.profileinfo div.profileusername span,div.postdetail div.usernames span,div.postdetail div.date span
+{
+     color: #5065A8;
+     display: block;
+     text-align: left;
+     text-transform: capitalize;
+     font-size: 1vw;
+     font-family: QuiKSand,sans-serif;
+     font-weight: bold;
+}
+div.postdetail div.usernames a ,div.postdetail div.date a
+{
+     text-decoration: none;
+}
+div.postdetail div.usernames span
+{
+     font-size: .9vw;
+}
+div.postdetail div.usernames span:last-child
+{
+     font-family: lato,sans-serif,serif;
+}
+div.postdetail div.date
+{
+     margin-top: 0.5vw;
+}
+div.postdetail div.date span
+{
+     font-size: 0.8vw;
+     font-family: QuikSand,sans-serif,serif;
+}
+div.postdetail div.usernames span
+{
+     display: inline;
+}
+div.profileinfo div.profileusername span
+{
+     font-size: 1.5vw;
+     font-family: lato,sans-serif;
+}
+div.profileinfo div.profileusername span:last-of-type
+{
+     text-transform: none;
+}
+div.addpost form,div.posteditform form,div.postdeleteform form,div.div.profieldeleteform form
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     margin-top: 1vw;
+}
+div.addpost form div.forminput,div.posteditform form div.forminput
+{
+     width: 100%;
+     position: relative;
+     display: flex;
+}
+div.addpost form textarea,div.addcomment form textarea,div.posteditform form textarea,div.updatecomment form textarea
+{
+     position: relative;
+     display: inline-block;
+     width: 87%;
+     resize:none;
+     margin-left:1vw;
+     min-height: 2vw;
+     max-height: 5vw;
+     overflow-y:auto;
+     overflow-x:hidden;
+     outline: none;
+     border-radius:5px;
+     border: none;
+     background-color: #F2EEE4;
+     color: black;
+     cursor: pointer;
+     font-family: lato,sans-serif;
+     text-align: left;
+}
+div.addcomment form textarea,div.updatecomment form textarea
+{
+     width: 90%;
+     outline: none;
+     border:2px solid lightgray;
+     border-radius: 5px;
+     margin-left: 1vw;
+}
+div.updatecomment form textarea
+{
+     width:100%;
+}
+div.addpost form textarea:focus,div.addcomment form textarea:focus,div.posteditform form textarea:focus,div.updatecomment form textarea:focus
+{
+     border: 2px solid #5065A8;
+     resize: vertical;
+}
+div.addpost form #imageinput,div.posteditform form input[type=file],input[type=checkbox]
+{
+     display: none;
+}
+div.addpost form label,div.posteditform form label
+{
+     position: relative;
+     display: inline-block;
+     padding: 5px;
+     font-size: 2vw;
+     margin-left: 0.3vw;
+     color: grey;
+     cursor: pointer;
+}
+div.addpost form label:hover,div.posteditform form label:hover
+{
+    color: #5065A8;
+}
+div.formbuttons,div.commentbuttons
+{
+     position: relative;
+     display: flex;
+     width: 100%;
+}
+div.commentbuttons
+{
+     width: 23%;
+     margin-left: 1vw;
+}
+div.addpost form button,div.formbuttons button
+{
+     position: relative;
+     display: block;
+     margin: auto;
+     margin-top: 1vw;
+     margin-bottom: 1vw;
+     outline: none;
+     border: 2px solid #5065A8;
+     background-color: #F2EEE4;
+     color: #5065A8;
+     font-family: QuikSand,sans-serif;
+     font-weight: bold;
+     cursor: pointer;
+     padding: 5px;
+     border-radius:10px;
+     font-size: 1.4vw;
+     
+}
+div.addpost form button
+{
+     width: 85%;
+}
+div.formbuttons button
+{
+     width:30%;
+     padding: 2px;
+     font-size: 1.1vw;
+}
+div.addpost form button:hover,div.formbuttons button:hover
+{
+     border: 2px solid #5065A8;
+     background-color: #5065A8;
+     color: #F2EEE4;
+     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+div.postdeleteform form p ,div.deletecomment p,div.profieldeleteform form p
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     font-family: QuikSand,sans-serif;
+     text-align: center;
+     color:#c93a3a;
+     font-size: 1.2vw;
+     text-transform: capitalize;
+}
+div.deletecomment p
+{
+     font-size: 1vw;
+}
+div.addpost form div.imagepreview,div.updateform div.profileimagepreview,div.posteditform div.updateimagepreview
+{
+     position: relative;
+     display: none;
+     width: 40%;
+     border-radius: 10px;
+     margin: auto;
+     margin-top: 2vw;
+     border: none;
+}
+div.updateform div.profileimagepreview
+{
+     display: block;
+     width:50%;
+     margin-top:4vw;
+
+}
+div.addpost form div.imagepreview img,div.updateform div.profileimagepreview img,div.posteditform div.updateimagepreview img
+{
+     object-fit: cover;
+     width: 100%;
+     border-radius:10px;
+     border: 1px solid lightgray;
+
+}
+span.imgdelete,span.profileimgdelete,span.updateimgdelete
+{
+     background-color: #5065A8;
+     color: #F2EEE4;
+     border: 1px solid #F2EEE4;
+     border-radius:100% ;
+}
+span.profileimgdelete
+{
+     display: none;
+}
+span.imgdelete:hover,span.profileimgdelete:hover,span.updateimgdelete:hover
+{
+     background-color: #F2EEE4;
+     color: #5065A8;
+     border: 1px solid #5065A8;
+}
+div.noposts
+{
+     position: relative;
+     display: block;
+     padding: 10px;
+     margin: auto;
+     margin-top: 15vw;
+     color: #5065A8;
+     font-family: lato,sans-serif;
+     text-align: center;
+     font-size: .9vw;
+}
+div.profile
+{
+     position: relative;
+     display: block;
+     width:60%;
+     background-color: inherit;
+     border-radius:10px 10px 0px 0px;
+     border: 1px solid lightgray;
+     margin: auto;
+     top: 7vw;
+}
+div.profile div.profilesetting ,div.postdetail div.postsetting ,div.comments div.commentsetting
+{
+     position:absolute;
+     float: right;
+     z-index: 1;
+     width: 35%;
+     display: block;
+     float: right;
+     right: 2vw;
+}
+div.profile div.profilesetting
+{
+     top:1vw;
+}
+div.comments div.commentsetting,div.postdetail div.postsetting
+{
+     top: 0vw;
+     right: 1vw;
+}
+div.postdetail div.postsetting
+{
+     top: 1vw;
+}
+div.profilesetting span.settingicon,div.postdetail div.postsetting span.postsettingicon,div.comments div.commentsetting span.commentsettingicon
+{
+     position: relative;
+     color: #5065A8;
+     opacity: .7;
+     font-size: 1.5vw;
+     cursor: pointer;
+     text-align: right;
+     float: right;
+}
+div.comments div.commentsetting span.commentsettingicon
+{
+     margin-top: 2vw;
+}
+div.profilesetting span.settingicon:hover,div.postdetail div.postsetting span.postsettingicon:hover,div.comments div.commentsetting span.commentsettingicon:hover
+{
+     opacity: 1;
+}
+div.profilesetting div.options,div.postdetail div.postsetting div.postoptions,div.comments div.commentoptions
+{
+     position: relative;
+     display: none;
+     padding: 5px;
+     margin-top:0.2vw;
+     background-color: lightgray;
+     border: 1px solid #5065A8;
+     border-radius: 10px;
+     width: 100%;
+     float: right;
+     right:-50%;
+}
+div.profilesetting div.options a ,div.postdetail div.postsetting div.postoptions a,div.comments div.commentoptions a
+{ 
+   text-decoration: none;
+   position: relative;
+   display: block; 
+   width: 100%;  
+   margin-top: 0.5vw;
+   margin-bottom: 0.5vw;
+}
+div.profilesetting div.options button,div.postdetail div.postsetting div.postoptions button,div.comments div.commentoptions button
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     outline: none;
+     border: 1px solid #5065A8;
+     color: whitesmoke;
+     background-color: #5065A8;
+     opacity: 0.7;
+     font-family: QiukSand,sans-serif;
+     font-size: 1vw;
+     font-weight: bold;
+     padding: 3px;
+     border-radius: 10px;
+     cursor: pointer;
+}
+div.profilesetting div.options button.deleteprofile i ,div.postsetting div.postoptions button.deletepost i,div.comments div.commentoptions button.deletecomment i
+{
+     margin-right: 0.5vw;
+}
+div.profilesetting div.options button:hover,div.profileaction button:hover,div.postdetail div.postsetting div.postoptions button:hover,div.comments div.commentoptions button:hover
+{
+     opacity: 1;
+}
+div.profiledata,div.profileaction
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     margin-top: 1vw;
+     padding: 3px;
+}
+div.profiledata
+{
+     padding-bottom: 2vw;
+}
+div.profileaction
+{
+     width: 50%;
+     margin: auto;
+     margin-top: 1.5vw;
+     padding-bottom:2vw;
+}
+div.profiledata span
+{
+     position: relative;
+     color: #5065A8;
+     font-family: lato,sans-serif;
+     font-weight: bold;
+     font-size: 1.1vw;
+     margin-left: 2vw;
+}
+div.profiledata span i
+{
+     margin-right:.5vw;
+}
+div.profileaction button
+{
+     position: relative;
+     width: 48%;
+     outline: none;
+     border: 1px solid #5065A8;
+     color: whitesmoke;
+     background-color: #5065A8;
+     opacity: 0.7;
+     font-family: QiukSand,sans-serif;
+     font-size: 1vw;
+     font-weight: bold;
+     padding: 5px;
+     border-radius: 5px;
+     cursor: pointer;
+}
+div.profilenotexists
+{
+     position: relative;
+     display: block;
+     width: 40%;
+     margin: auto;
+     top:20vw;
+}
+div.profilenotexists h3
+{
+     display: block;
+     width: 100%;
+     text-align: center;
+     font-family: QiukSand,sans-serif,serif;
+     color: #5065A8;
+}
+div.profilenotexists h3 span
+{
+     color: #c93a3a;
+}
+div.postdetail
+{
+     position: relative;
+     display: block;
+     width: 100%;
+}
+div.postdetail div.usernames ,div.postdetail div.date
+{
+     display: block;
+}
+div.postdetail div.postcontent
+{
+     position: relative;
+     display: block;
+     width: 100%;
+}
+div.postdetail div.postcontent p
+{
+     position: relative;
+     display: block;
+     font-family: QuiKSand,sans-serif,serif;
+     font-size: 1.1vw;
+     word-wrap: break-word;
+     padding: 3px;
+     margin-left: .6vw;
+}
+div.postdetail div.postcontent div.postimage
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     margin-top: .5vw;
+}
+div.postdetail div.postcontent div.postimage img
+{
+     position: relative;
+     object-fit: cover;
+     width: 100%;
+}
+div.postdetail div.postreach
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     margin-top: 0vw;
+     padding-top: 4px;
+     padding-bottom: 4px;
+     border-top: 2px solid lightgray;
+     border-bottom: 2px solid lightgray;
+}
+div.postdetail div.postreach div.left,div.postdetail div.postreach div.right
+{
+     position: relative;
+     display: block;
+}
+div.postreach div.left
+{
+     margin-left:1vw;
+}
+div.postdetail div.postreach div.right
+{
+     float: right;
+     margin-right: 1vw;
+     top: -1.5vw;
+}
+div.postdetail div.postreach span.likecount,div.postdetail div.postreach span.commentcount,div.postdetail div.postreach span.sharecount
+{
+     position: relative;
+     display: inline-block;
+     font-size: 1.2vw;
+     color: #5065A8;
+     font-family: Lato,sans-serif,serif;
+     text-align: left;
+     margin-left: .5vw;
+}
+div.postreach span
+{
+     cursor: pointer;
+}
+div.postreach span:hover
+{
+     text-decoration: underline;
+}
+div.postdetail div.postaction
+{
+     position: relative;
+     display: block;
+     padding: 0%;
+     width: 100%;
+     border-bottom: 2px solid lightgray;
+}
+div.postdetail div.postaction table
+{
+     position: relative;
+     width: 100%;
+     top: -.5vw;
+     margin-bottom: -.5vw;
+}
+div.postaction tr button
+{
+     position: relative;
+     display: block;
+     margin: auto;
+     outline: none;
+     border:none;
+     background-color: #F2EEE4;
+     opacity: 0.7;
+     color:grey;
+     width: 100%;
+     padding: 3px;
+     font-size: 1.5vw;
+     cursor: pointer;
+}
+div.postaction button.removelike,div.postaction button.removeshare
+{
+     color:#5065A8;
+     display: none;
+}
+
+div.postdetail div.comments
+{
+     position: relative;
+     display: block;
+     width: 100%;
+}
+div.commentdetail
+{
+     padding-bottom: 1vw;
+}
+div.commentdetail:first-of-type
+{
+     padding-top: .5vw;
+}
+
+div.commentdetail div.commentcontent
+{
+     position: relative;
+     background-color: lightgray;
+     margin-top: .5vw;
+     margin-left: .5vw;
+     border-radius: 10px;
+     max-width: 75%;
+}
+div.commentdetail div.commentcontent a
+{
+     text-decoration: none;
+     position: relative;
+     display: block; 
+     margin-top: .5vw;
+     padding: 5px 5px 0px 5px;
+}
+div.commentdetail div.commentcontent a:hover
+{
+     text-decoration: underline;
+}
+div.commentdetail div.commentcontent span
+{
+     color: #5065A8;
+     font-family: Lato,sans-serif;
+     font-size: 1vw;
+}
+div.commentdetail div.commentcontent p
+{
+     position: relative;
+     display: block;
+     text-align: left;
+     margin-left: .5vw;
+     margin-right: .5vw;
+     font-size:1vw;
+     word-wrap: break-word;
+     font-family: QiukSand,sans-serif;
+     color:black;
+}
+div.comments div.showmore
+{
+     position: relative;
+     display: block;
+     margin-top: 1vw;
+     margin-bottom: 1vw;
+     width: 100%;
+     text-align: center;
+}
+div.comments div.showmore a
+{
+     text-decoration: none;
+     color: #5065A8;
+     font-family: Lato,sans-serif;
+     font-size: 1vw;
+}
+div.comments div.showmore a:hover
+{
+     text-decoration: underline;
+}
+div.comments div.addcomment,div.updatecomment,div.deletecomment
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     margin-bottom: 0.5vw;
+}
+div.comments div.addcomment
+{
+     margin-top: 0.5vw;
+}
+div.updatecomment,div.deletecomment
+{
+     display: none;
+}
+div.updatecomment div.form,div.deletecomment div.form
+{
+     position: relative;
+     display: flex;
+     width: 100%;
+}
+div.comments div.addcomment form,div.updatecomment form,div.deletecomment form
+{
+     position: relative;
+     display: flex;
+     width: 100%;
+}
+div.updatecomment form,div.deletecomment form
+{
+     width: 75%;
+}
+div.addcomment form button,div.commentbuttons button,div.deletecomment button
+{
+     position: relative;
+     width: 10%;
+     outline: none;
+     background-color: inherit;
+     border: none;
+     opacity: 0.7;
+     color: #5065A8;
+     font-size: 2vw;
+     cursor: pointer;
+
+}
+div.commentbuttons button,div.deletecomment button
+{
+     width: 50%;
+}
+div.addcomment form button:hover,div.commentbuttons button:hover,div.deletecomment button:hover
+{
+     opacity: 1;
+}
+
+
+
+
+
+
+
