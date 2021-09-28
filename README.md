@@ -5,7 +5,7 @@
 
 **MrScoial** it's a web app where users can write what is on their mind by writing a **post** and be friends with each other and see each other posts and interact with their posts by like or comment or share each other posts, and users can be members in a **group**.
 
-![MrSocial](https://github.com/mostafamahmoud8/MrSocial/blob/main/static/images/logo/Opera%20Snapshot_2021-09-01_175631_127.0.0.1.png)
+![MrSocial](https://github.com/mostafamahmoud8/MrSocial/blob/main/static/images/logo/mrsocialloginpage.png)
 
 ## Techniques
 
@@ -43,7 +43,7 @@ and for Frontend used  HTML,CSS,Jquery and AJAX technique.
    - for password hasher 
    - pip install django\[argon2\]
 
-## Runing
+## Running
     - to run the project make sure you are in the parent directory
     - then in the command line:
       - python manage.py runsever
