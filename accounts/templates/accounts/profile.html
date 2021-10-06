@@ -55,11 +55,16 @@
       {% endif %}
     </div>
 </div>
- {% if profile.userposts.count == 0 %}
+ {% if posts.count == 0 %}
    <div class='noposts'>
        <p> This profile have no created posts yet.</p>
    </div>
   {% else %}
+   {% for post in posts %}
+       {% include 'posts/post.html' with post=post.post profile=True share=post.share%}
+   {%endfor%}
+   <div class='makespace'>
+   </div>
   {% endif%}
 {% else %}
 <div class='profilenotexists'>

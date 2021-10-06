@@ -3,7 +3,15 @@
 {% if detail %}
 <div id='showpostdatail'>
 {% endif %}
+{% if profile %}
+<div id='showprofilepost'>
+{% endif %}
 <div class='postdetail' id='postdetail_{{post.id}}'>
+    {% if share %}
+    <div class='sharedpost'>
+      <p>{{post.owner.username}} you have shared this post</p>
+    </div>
+    {%endif%}
     <div class='ownerinfo'>
         <div class="containuserimag">
             <div class="userimage">
@@ -26,7 +34,7 @@
                 </a>
             </div>
             <div class='date'>
-                <a href="#"><span>{{post.created_at|naturaltime}}</span></a>
+                <a href="{% url 'posts:post_detail' pk=post.id  %}"><span>{{post.created_at|naturaltime}}</span></a>
             </div>
         </div>
        <div class='postsetting'>
@@ -159,14 +167,20 @@
   <div class='comments'>
          <div class='comment'>
             {% if post.comments.count > 0 %}
-            {% for comment in post.getComments %}
-            {% include 'posts/comment.html' with comment=comment %} 
-            {% endfor %}
+                {% for comment in post.getComments %}
+                    {% if detail %}
+                          {% include 'posts/comment.html' with comment=comment %}                        
+                    {% else %}
+                         {% if forloop.counter <= 2 %}
+                             {% include 'posts/comment.html' with comment=comment %} 
+                         {%endif%}
+                    {%endif%}     
+                {% endfor %}
             {% endif %}
          </div>
-        {% if post.comments.count > 2 %}
+        {% if post.comments.count > 2 and detail != True%}
         <div class='showmore'>
-            <a href="#">show more comments</a>
+            <a href="{% url 'posts:post_detail' pk=post.id  %}">show more comments</a>
         </div>
         {% endif %}
         <div class='addcomment' id='addcomment_{{post.id}}'>
@@ -182,6 +196,6 @@
         </div>
     </div>
 </div>
-{% if detail %}
+{% if detail or profile %}
 </div>
 {% endif %}

@@ -717,7 +717,7 @@ button.logout a
      text-decoration: none;
      color:#bf1f1f;
 }
-div.addpost,#createdpost,#showpostdatail
+div.addpost,#createdpost,#showpostdatail,#showprofilepost
 {
      position: relative;
      display: block;
@@ -731,6 +731,20 @@ div.addpost,#createdpost,#showpostdatail
 {
      display: block;
      margin-top: 2vw;
+}
+#showprofilepost
+{
+     width: 45%;
+     margin-top: 1vw;
+}
+div.makespace
+{
+     position: relative;
+     display: block;
+     margin: auto;
+     top: 15%;
+     height: 2%;
+     margin-top: 3vw;
 }
 div.addpost #PostForm div.posterrors,div.addpost #PostForm div.postdone,div.posteditform form div.posterrors,div.commenterror
 {
@@ -817,6 +831,23 @@ div.comments div.comment,div.comments div.commentdetail
 div.postdetail div.ownerinfo
 {
      display: block;
+}
+div.postdetail div.sharedpost
+{
+     position: relative;
+     display: block;
+     width:100%;
+     border-radius: 5px 10px 0px 0px;
+     background-color: lightgray;
+     padding: 1px;
+}
+div.postdetail div.sharedpost p
+{
+     display: block;
+     font-family: lato,sans-serif,serif;
+     color: grey;
+     font-size: 1.2vw;
+     margin-left: .5vw;
 }
 div.postdetail div.ownerinfo div.info,div.postdetail div.showlikes div.info
 {

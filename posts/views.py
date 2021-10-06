@@ -2,10 +2,17 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import PostForm ,CommentForm
 from activity.models import Activity
 from .models import Post,Comment,Like,Share
 # Create your views here.
+
+class PostDetailView(LoginRequiredMixin,DetailView):
+    model = Post
+    template_name = 'posts/post_detail.html'
+    context_object_name = 'post'
 
 @login_required(login_url='accounts:login')
 def CreatePostView(request):

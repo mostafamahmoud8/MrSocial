@@ -5,6 +5,7 @@ app_name = 'posts'
 
 urlpatterns = [
     path('create/',views.CreatePostView,name='create_post'),
+    path('<int:pk>/detail/',views.PostDetailView.as_view(),name='post_detail'),
     path('update/<int:postid>/',views.UpdatePostView,name='update_post'),
     path('delete/<int:postid>/',views.DeletePostView,name='delete_post'),
     path('add/comment/',views.CreateCommentView,name='add-comment'),

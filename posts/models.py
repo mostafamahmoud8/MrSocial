@@ -53,7 +53,7 @@ class Like(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user   
+        return self.user.username  
 
 class Share(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE)
@@ -61,7 +61,7 @@ class Share(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
 class Comment(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE)
