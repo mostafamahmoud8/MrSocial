@@ -42,10 +42,10 @@
       </div>  
       {% endif %}
       <div class='profiledata'>
-          <span><i class="fas fa-envelope"></i>{{ profile.email }}</span>
+          <span><i class="fas fa-envelope"></i><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></span>
           <span><i class="fas fa-birthday-cake"></i>{{ profile.birth_date }}</span>
-          <span> {{ profile.friendship.count }} friends</span>
-          <span> {{ profile.userposts.count }} posts</span>
+          <span class='numfriends'> {{ profile.friendship.count }} friends</span>
+          <span class='numposts'> {{ profile.userposts.count }} posts</span>
       </div>
       {% if profile.id != user.id %}
       <div class='profileaction' style="margin-top: 0.5vw;">
@@ -61,7 +61,7 @@
    </div>
   {% else %}
    {% for post in posts %}
-       {% include 'posts/post.html' with post=post.post profile=True share=post.share%}
+       {% include 'posts/post.html' with post=post.post profile=True share=post.share sharedpost=post.posttype %}
    {%endfor%}
    <div class='makespace'>
    </div>

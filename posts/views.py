@@ -27,7 +27,7 @@ def CreatePostView(request):
             activity = Activity(user=request.user,content_object=post)
             activity.save()
  
-            return render(request,'posts/post.html',context={'post':post,'max_length':0,'detail':False})
+            return render(request,'posts/post.html',context={'post':post,'detail':False})
         else:
             return JsonResponse({'status':False,'errors':str(postform.non_field_errors())})
     else:

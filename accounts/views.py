@@ -41,9 +41,9 @@ class ProfileView(LoginRequiredMixin,DetailView):
         sharedposts = Share.objects.select_related('post').filter(user__id=self.request.user.id).order_by('-created_at')
 
         for post in posts:
-            userposts.append({'post':post,'share':False,'created_at':post.created_at})
+            userposts.append({'post':post,'share':False,'posttype':"original",'created_at':post.created_at})
         for share in sharedposts:
-            userposts.append({'post':share.post,'share':True,'created_at':share.created_at})
+            userposts.append({'post':share.post,'share':True,'posttype':"share",'created_at':share.created_at})
         
         userposts.sort(key=lambda posts: posts['created_at'])
         context['posts'] = userposts[::-1]

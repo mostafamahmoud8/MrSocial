@@ -6,7 +6,7 @@
 {% if profile %}
 <div id='showprofilepost'>
 {% endif %}
-<div class='postdetail' id='postdetail_{{post.id}}'>
+<div class='postdetail' id='{{sharedpost}}postdetail_{{post.id}}'>
     {% if share %}
     <div class='sharedpost'>
       <p>{{post.owner.username}} you have shared this post</p>
@@ -38,33 +38,33 @@
             </div>
         </div>
        <div class='postsetting'>
-            <span class="postsettingicon" onclick="showpostoptions('postoptions_{{post.id}}')">
+            <span class="postsettingicon" onclick="showpostoptions('{{sharedpost}}postoptions_{{post.id}}')">
                 <i class="fas fa-cog"></i>
             </span>
-            <div class='postoptions' id="postoptions_{{post.id}}">
-                <a></a><button class='updatepost' onclick="showpostaction('posteditform_{{post.id}}','postoptions_{{post.id}}','postdetail_{{post.id}}')"><i class="fas fa-edit"></i> Update Post</button></a>
-                <a><button class='deletepost' onclick="showpostaction('postdeleteform_{{post.id}}','postoptions_{{post.id}}','postdetail_{{post.id}}')"><i class="fas fa-trash-alt"></i> Delete Post</button></a>
+            <div class='postoptions' id="{{sharedpost}}postoptions_{{post.id}}">
+                <a></a><button class='updatepost' onclick="showpostaction('{{sharedpost}}posteditform_{{post.id}}','{{sharedpost}}postoptions_{{post.id}}','{{sharedpost}}postdetail_{{post.id}}')"><i class="fas fa-edit"></i> Update Post</button></a>
+                <a><button class='deletepost' onclick="showpostaction('{{sharedpost}}postdeleteform_{{post.id}}','{{sharedpost}}postoptions_{{post.id}}','{{sharedpost}}postdetail_{{post.id}}')"><i class="fas fa-trash-alt"></i> Delete Post</button></a>
             </div>
        </div>
     </div>
-    <div class='posteditform' id='posteditform_{{post.id}}'>
-        <form method="POST"  enctype="multipart/form-data" id='EditPostForm_{{post.id}}'>
+    <div class='posteditform' id='{{sharedpost}}posteditform_{{post.id}}'>
+        <form method="POST"  enctype="multipart/form-data" id='{{sharedpost}}EditPostForm_{{post.id}}'>
             {% csrf_token %}
             <div class='forminput'>
                 <textarea name='content' placeholder="What's on your mind,{{ post.owner.username }}?" autofocus>{{post.content}}</textarea>
-                <input type='file' name='image' id="editimageinput_{{post.id}}" onchange="readPostURL(this,'updateimagepreview_{{post.id}}')" accept=".png, .jpg, .jpeg"/>
+                <input type='file' name='image' id="editimageinput_{{post.id}}" onchange="readimageURL(this,'{{sharedpost}}updateimagepreview_{{post.id}}')" accept=".png, .jpg, .jpeg"/>
                 <label for="editimageinput_{{post.id}}"><i class="far fa-file-image"></i></label>
                 <input type="checkbox" id='clearcheckbox_{{post.id}}' name="clear">
             </div> 
             {% if post.image %}
-            <div class="updateimagepreview" id="updateimagepreview_{{post.id}}" style="display: block;">
+            <div class="updateimagepreview" id="{{sharedpost}}updateimagepreview_{{post.id}}" style="display: block;">
                 <img src='{{post.image.url}}' alt='post image'>
 
             {%else%}
-            <div class="updateimagepreview" id="updateimagepreview_{{post.id}}" style="display: none;">
+            <div class="updateimagepreview" id="{{sharedpost}}updateimagepreview_{{post.id}}" style="display: none;">
                 <img src='' alt='post image'>
             {%endif%}
-                <span class='updateimgdelete' onclick="deleteimage('updateimagepreview_{{post.id}}','editimageinput_{{post.id}}','clearcheckbox_{{post.id}}')">
+                <span class='updateimgdelete' onclick="deleteimage('{{sharedpost}}updateimagepreview_{{post.id}}','{{sharedpost}}editimageinput_{{post.id}}','clearcheckbox_{{post.id}}')">
                     <i class="fas fa-times"></i>
                 </span>
             </div>
@@ -73,19 +73,19 @@
         </form>
         <div class='formbuttons'>
             {% url 'posts:update_post' postid=post.id  as url %}
-            <button type='submit' form='EditPostForm_{{post.id}}' onclick="UpdatePost(event,'{{url}}','EditPostForm_{{post.id}}','postdetail_{{post.id}}')"> Update </button>
-            <button onclick="showpostaction('posteditform_{{post.id}}',null,'postdetail_{{post.id}}')"> Cancel </button>
+            <button type='submit' form='{{sharedpost}}EditPostForm_{{post.id}}' onclick="UpdatePost(event,'{{url}}','{{sharedpost}}EditPostForm_{{post.id}}','{{sharedpost}}postdetail_{{post.id}}')"> Update </button>
+            <button onclick="showpostaction('{{sharedpost}}posteditform_{{post.id}}',null,'{{sharedpost}}postdetail_{{post.id}}')"> Cancel </button>
         </div>
     </div>
-    <div class='postdeleteform' id='postdeleteform_{{post.id}}'>
-        <form method="POST" enctype="multipart/form-data" id='deletePostForm_{{post.id}}'>
+    <div class='postdeleteform' id='{{sharedpost}}postdeleteform_{{post.id}}'>
+        <form method="POST" enctype="multipart/form-data" id='{{sharedpost}}deletePostForm_{{post.id}}'>
             {% csrf_token %}
             <p>are you sure you want to delete this post ?</p>
         </form>
         <div class='formbuttons'>
             {% url 'posts:delete_post' postid=post.id  as url %}
-            <button type='submit' form='deletePostForm_{{post.id}}' onclick="DeletePost(event,'{{url}}','deletePostForm_{{post.id}}','postdetail_{{post.id}}')"> Delete </button>
-            <button onclick="showpostaction('postdeleteform_{{post.id}}',null,'postdetail_{{post.id}}')"> Cancel </button>
+            <button type='submit' form='{{sharedpost}}deletePostForm_{{post.id}}' onclick="DeletePost(event,'{{url}}','{{sharedpost}}deletePostForm_{{post.id}}','{{sharedpost}}postdetail_{{post.id}}')"> Delete </button>
+            <button onclick="showpostaction('{{sharedpost}}postdeleteform_{{post.id}}',null,'{{sharedpost}}postdetail_{{post.id}}')"> Cancel </button>
         </div>
     </div>
     <div class='postcontent'>
@@ -102,11 +102,11 @@
     </div>
     <div class="postreach">
         <div class='left'>
-            <a><span class="likecount" onclick="showpostlikes('postlikes_{{post.id}}')"> {{post.likes.count}} like</span></a>
+            <a><span class="likecount" onclick="showpostlikes('{{sharedpost}}postlikes_{{post.id}}')"> {{post.likes.count}} like</span></a>
         </div>
         <div class='right'>
             <a><span class="commentcount"> {{post.comments.count}} comment</span></a>
-            <a><span class="sharecount" onclick="showpostshares('postshares_{{post.id}}')"> {{post.shares.count}} share</span></a>
+            <a><span class="sharecount" onclick="showpostshares('{{sharedpost}}postshares_{{post.id}}')"> {{post.shares.count}} share</span></a>
         </div>
     </div>
     {%if post.shares.count > 0%}
@@ -125,37 +125,37 @@
         <table>
             <tr>
                 <td>
-                    <form id="likesform_{{post.id}}"> 
+                    <form id="{{sharedpost}}likesform_{{post.id}}"> 
                         {% csrf_token %} 
 
                         {% if user in post.likes.all %}
                         {% url 'posts:add-like' postid=post.id as url %}
-                        <button class='addlike' style="display: none;" onclick="AddLike(event,'{{url}}','likesform_{{post.id}}','postdetail_{{post.id}}')"><i class="far fa-thumbs-up"></i></button>
+                        <button class='addlike' style="display: none;" onclick="AddLike(event,'{{url}}','{{sharedpost}}likesform_{{post.id}}','{{sharedpost}}postdetail_{{post.id}}')"><i class="far fa-thumbs-up"></i></button>
                         {% url 'posts:remove-like' postid=post.id as url %}
-                         <button class='removelike' style="display: block;" onclick="RemoveLike(event,'{{url}}','likesform_{{post.id}}','postdetail_{{post.id}}')"><i class="fas fa-thumbs-up"></i></button>
+                         <button class='removelike' style="display: block;" onclick="RemoveLike(event,'{{url}}','{{sharedpost}}likesform_{{post.id}}','{{sharedpost}}postdetail_{{post.id}}')"><i class="fas fa-thumbs-up"></i></button>
                         {% else %}
                         {% url 'posts:add-like' postid=post.id as url %}
-                        <button class='addlike' style="display: block;" onclick="AddLike(event,'{{url}}','likesform_{{post.id}}','postdetail_{{post.id}}')"><i class="far fa-thumbs-up"></i></button>
+                        <button class='addlike' style="display: block;" onclick="AddLike(event,'{{url}}','{{sharedpost}}likesform_{{post.id}}','{{sharedpost}}postdetail_{{post.id}}')"><i class="far fa-thumbs-up"></i></button>
                         {% url 'posts:remove-like' postid=post.id as url %}
-                         <button class='removelike' style="display: none;" onclick="RemoveLike(event,'{{url}}','likesform_{{post.id}}','postdetail_{{post.id}}')"><i class="fas fa-thumbs-up"></i></button>
+                         <button class='removelike' style="display: none;" onclick="RemoveLike(event,'{{url}}','{{sharedpost}}likesform_{{post.id}}','{{sharedpost}}postdetail_{{post.id}}')"><i class="fas fa-thumbs-up"></i></button>
                         {% endif %}                        
                     </form>
                 </td>
                 <td>
-                    <button class='addcomment' onclick="commentfocus('formtextarea_{{post.id}}')"><i class="far fa-comment"></i></button>
+                    <button class='addcomment' onclick="commentfocus('{{sharedpost}}formtextarea_{{post.id}}')"><i class="far fa-comment"></i></button>
                 </td>
                 <td>
-                    <form id="sharesform_{{post.id}}"> 
+                    <form id="{{sharedpost}}sharesform_{{post.id}}"> 
                     {% csrf_token %} 
 
                     {% if user in post.shares.all %}
                     {% url 'posts:share' postid=post.id as url %}
-                    <button class='addshare' style="display: none;" onclick="Share(event,'{{url}}','sharesform_{{post.id}}','postdetail_{{post.id}}','postshares_{{post.id}}')"><i class="fas fa-share"></i></button>
+                    <button class='addshare' style="display: none;" onclick="Share(event,'{{url}}','{{sharedpost}}sharesform_{{post.id}}','{{sharedpost}}postdetail_{{post.id}}','postshares_{{post.id}}')"><i class="fas fa-share"></i></button>
                     {% url 'posts:remove-share' postid=post.id as url %}
-                    <button class='removeshare' style="display: block;" onclick="RemoveShare(event,'{{url}}','sharesform_{{post.id}}','postdetail_{{post.id}}','postshares_{{post.id}}')"><i class="fas fa-share"></i></button>
+                    <button class='removeshare' style="display: block;" onclick="RemoveShare(event,'{{url}}','{{sharedpost}}sharesform_{{post.id}}','{{sharedpost}}postdetail_{{post.id}}','postshares_{{post.id}}')"><i class="fas fa-share"></i></button>
                     {% else %}
                     {% url 'posts:share' postid=post.id as url %}
-                    <button class='addshare'  style="display: block;" onclick="Share(event,'{{url}}','sharesform_{{post.id}}','postdetail_{{post.id}}','postshares_{{post.id}}')"><i class="fas fa-share"></i></button>
+                    <button class='addshare'  style="display: block;" onclick="Share(event,'{{url}}','{{sharedpost}}sharesform_{{post.id}}','{{sharedpost}}postdetail_{{post.id}}','postshares_{{post.id}}')"><i class="fas fa-share"></i></button>
                     {% url 'posts:remove-share' postid=post.id as url %}
                     <button class='removeshare' style="display: none;" onclick="RemoveShare(event,'{{url}}','sharesform_{{post.id}}','postdetail_{{post.id}}','postshares_{{post.id}}')"><i class="fas fa-share"></i></button>
                     {% endif %}                        
@@ -169,10 +169,10 @@
             {% if post.comments.count > 0 %}
                 {% for comment in post.getComments %}
                     {% if detail %}
-                          {% include 'posts/comment.html' with comment=comment %}                        
+                          {% include 'posts/comment.html' with comment=comment sharedpost=sharedpost %}                        
                     {% else %}
                          {% if forloop.counter <= 2 %}
-                             {% include 'posts/comment.html' with comment=comment %} 
+                             {% include 'posts/comment.html' with comment=comment sharedpost=sharedpost %} 
                          {%endif%}
                     {%endif%}     
                 {% endfor %}
@@ -183,13 +183,13 @@
             <a href="{% url 'posts:post_detail' pk=post.id  %}">show more comments</a>
         </div>
         {% endif %}
-        <div class='addcomment' id='addcomment_{{post.id}}'>
-           <form id='formaddcomment_{{post.id}}'>
+        <div class='addcomment' id='{{sharedpost}}addcomment_{{post.id}}'>
+           <form id='{{sharedpost}}formaddcomment_{{post.id}}'>
                {% csrf_token %}
-               <textarea placeholder="Write a comment ...." name="message" required id='formtextarea_{{post.id}}'></textarea>
+               <textarea placeholder="Write a comment ...." name="message" required id='{{sharedpost}}formtextarea_{{post.id}}'></textarea>
                <input type="hidden" name="post" value='{{post.id}}'>
                {% url 'posts:add-comment' as url %}
-               <button type="submit"  onclick="AddComment(event,'{{url}}','formaddcomment_{{post.id}}','postdetail_{{post.id}}')"><i class="fas fa-comment-medical"></i></button>
+               <button type="submit"  onclick="AddComment(event,'{{url}}','{{sharedpost}}formaddcomment_{{post.id}}','{{sharedpost}}postdetail_{{post.id}}')"><i class="fas fa-comment-medical"></i></button>
            </form>
            <div class='commenterror'>
            </div>

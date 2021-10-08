@@ -50,11 +50,9 @@ $(document).ready(function(){
        $('span.profileimgdelete').css({'display':'none'});
        $("#profileimageinput").val(null);
    });
-
    $("#imageinput").change(function() {
        readURL(this,"#imageinput");
     });
-
     $("#profileimageinput").change(function() {
 
         $('span.profileimgdelete').css({'display':'block'});
@@ -183,10 +181,11 @@ function DeletePost(event,action,formid,postid)
              {
                  if(response.status)
                  {
-                    $('#'+postid).remove();
+                    $('#'+postid).parent().slideUp();
                     var numberofposts = $('#sidemenu div.userinfo button.myposts').html()
                     var number = changenumbers(numberofposts,'-');
                     $('#sidemenu div.userinfo button.myposts').html(" "+number +' posts');
+                    $('div.profile div.profiledata span.numposts').html(" "+number +' posts');
                  }
              }            
          },
@@ -423,6 +422,53 @@ function RemoveShare(event,url,formid,postdetailid,postshares)
              contentType: false,
     });
 }
+function getgroupcreateform(url)
+{
+  console.log(url);
+  $.get(url, function(data, statustext){
+      if(statustext == 'success')
+      {
+          $('div.optionsresult').html(data);
+          $('div.optionsresult').slideDown();
+      }
+  });
+}
+function CreateGroup(event,form,url)
+{
+    event.preventDefault();
+    var form = $('#'+form)[0];
+    var formdata = new FormData(form);
+    console.log(url);
+    $.ajax({
+        url:url,
+        data:formdata,
+        async:true,
+        type:'POST',
+        success:function(response,st,xml){
+            if(st == 'success' && xml.status == 200)
+            {
+                if(typeof response == 'string')
+                {
+                   console.log(response);
+                    $('#groupform div.groupdone').fadeIn();
+                    $('#groupform div.groupdone').fadeOut(); 
+                    $('div.optionsresult').slideUp(2000);
+                   
+                }else
+                {
+                    if(! response.status)
+                    {
+                       console.log(response.errors);
+                       $('#groupform div.grouperrors').fadeIn(1000);
+                       $('#groupform div.grouperrors').html(response.errors);
+                    }
+                }
+           }            
+        },
+        processData: false,
+        contentType: false,
+   });
+}
 function showprofileaction(proid,options=null,prodetail)
 {
     if(options)
@@ -483,6 +529,11 @@ function deleteimage(id,fileinputid,checkbox)
     $('#'+fileinputid).val(null);
     $('#'+checkbox).attr('checked',true)
 }
+function clearfileinput(id,fileinputid)
+{
+    $('#'+id).css('display','none');
+    $('#'+fileinputid).val(null);
+}
 function readURL(input,id) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -500,13 +551,20 @@ function readURL(input,id) {
         reader.readAsDataURL(input.files[0]);
    }
 }
-function readPostURL(input,id)
+function readimageURL(input,id)
 {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
-            $('#'+id).css('display','block');
-            $('#'+id+' img').attr({'src':e.target.result});
+            if(id == "#groupimageinput")
+            {
+                $('div.groupimagepreview').css('display','block');
+                $('div.groupimagepreview img').attr({'src':e.target.result}); 
+            }else
+            {
+                $('#'+id).css('display','block');
+                $('#'+id+' img').attr({'src':e.target.result});
+            }
         }
         reader.readAsDataURL(input.files[0]);
    }

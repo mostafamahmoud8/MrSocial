@@ -19,7 +19,7 @@
     <div class='navbarlist'>
          <a href="{% url 'home'  %}"><button class='home'><i class="fas fa-house-user"></i> Home</button></a>
          <a href="{% url 'accounts:profile' slug=user.slug %}"><button class='profile'><i class="fa fa-user"></i> Profile</button></a>
-         <button class='groups'><i class="fa fa-users"></i> groups </button>
+         <a href="{% url 'groups:groups'%}"><button class='groups'><i class="fa fa-users"></i> groups </button></a>
          <button class='activity'><i class="fas fa-file-medical-alt"></i> activity </button>
          <button class='network'><i class="fas fa-user-friends"></i> network </button>
     </div>

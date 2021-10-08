@@ -1,0 +1,25 @@
+{% load static %}
+ <div class="creategroup">
+   <form method="POST" enctype="multipart/form-data" id='groupform'>
+        {% csrf_token %}
+        <div class='inputscontainer'>
+            <input type="text" name="name" placeholder="group name" required>
+            <textarea name='description' placeholder="write description for the group"></textarea>
+            <input type="file" name='image' id="groupimageinput" accept="image/*" onchange="readimageURL(this,'#groupimageinput')">
+            <label for="groupimageinput"><i class="far fa-file-image"></i> Group Photo</label>
+        </div>
+        <div class="groupimagepreview" id='groupimagepreview'>
+            <img src='' alt='post image'>
+            <span class='groupimgdelete' onclick="clearfileinput('groupimagepreview','groupimageinput')">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div class='grouperrors'>
+        </div>
+        <div class='groupdone'>
+            <ul><li>Post has been added successfully</li></ul>
+        </div>
+        {% url 'groups:create-group' as url%}
+        <button type="submit" onclick="CreateGroup(event,'groupform','{{url}}')"><i class="fas fa-plus"></i> Create</button>
+    </form>
+</div>

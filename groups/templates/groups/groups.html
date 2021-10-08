@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{%block title%}
+  groups | MrSocial
+{% endblock%}
+
+{% block content %}
+  <div class="groupoptions"> 
+    <div class="groupsearch">
+      <form>
+          <input type="search" placeholder="groups search"/> 
+      </form>
+    </div>
+    <div class="createbutton">
+      {% url 'groups:create-group' as url%}
+      <button onclick="getgroupcreateform('{{url}}')"><i class="fas fa-plus"></i> Create</button>
+    </div>
+  </div>
+  <div class="optionsresult">
+  </div>  
+  <div class="groups">
+  </div>
+{% endblock %}
