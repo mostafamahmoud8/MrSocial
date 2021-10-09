@@ -428,10 +428,18 @@ function getgroupcreateform(url)
   $.get(url, function(data, statustext){
       if(statustext == 'success')
       {
+          $('div.createbutton button.create').css({'display':'none'});
+          $('div.createbutton button.cancel').css({'display':'block'});
           $('div.optionsresult').html(data);
           $('div.optionsresult').slideDown();
       }
   });
+}
+function closegroupform()
+{
+    $('div.createbutton button.create').css({'display':'block'});
+    $('div.createbutton button.cancel').css({'display':'none'});
+    $('div.optionsresult').slideUp();
 }
 function CreateGroup(event,form,url)
 {
@@ -453,6 +461,8 @@ function CreateGroup(event,form,url)
                     $('#groupform div.groupdone').fadeIn();
                     $('#groupform div.groupdone').fadeOut(); 
                     $('div.optionsresult').slideUp(2000);
+                    var groups = $('div.grouplist div.groupitems').html();
+                    $('div.grouplist div.groupitems').html(response+groups);
                    
                 }else
                 {
@@ -468,6 +478,80 @@ function CreateGroup(event,form,url)
         processData: false,
         contentType: false,
    });
+}
+function LeaveGroup(event,url,formid)
+{
+    event.preventDefault();
+    var form =  $('#'+formid)[0];
+    var formdata =  new FormData(form);
+    console.log(url);   
+    $.ajax({
+             url:url,
+             data:formdata,
+             async:true,
+             type:'POST',
+             success:function(response,st,xml){
+                 if(st == 'success' && xml.status == 200)
+                 {
+                     if(response.status)
+                     {
+                        console.log(response);
+                        $('#'+formid+' button.leave').css({'display':'none'});
+                        $('#'+formid+' button.join').css({'display':'block'});
+                     }
+                }            
+             },
+             processData: false,
+             contentType: false,
+    });
+}
+function JoinGroup(event,url,formid)
+{
+    event.preventDefault();
+    var form =  $('#'+formid)[0];
+    var formdata =  new FormData(form);
+    console.log(formdata); 
+    console.log(url);   
+    $.ajax({
+             url:url,
+             data:formdata,
+             async:true,
+             type:'POST',
+             success:function(response,st,xml){
+                 if(st == 'success' && xml.status == 200)
+                 {
+                     if(response.status)
+                     {
+                        console.log(response);
+                        $('#'+formid+' button.leave').css({'display':'block'})
+                        $('#'+formid+' button.join').css({'display':'none'})
+                     }
+                }            
+             },
+             processData: false,
+             contentType: false,
+    });
+
+}
+function GroupSearch(event,input,url)
+{
+    event.preventDefault();
+    var value = $(input).val();
+    if(value !== '')
+    {
+      console.log(url+'?'+'search'+'='+value);
+      $.get(url+'?'+'search'+'='+value, function(data, statustext){
+        if(statustext == 'success')
+        {
+          console.log(data)
+          $('div.optionsresult').html(data);
+          $('div.optionsresult').slideDown();
+        }
+      });
+    }else
+    {
+        $('div.optionsresult').slideUp();
+    }  
 }
 function showprofileaction(proid,options=null,prodetail)
 {

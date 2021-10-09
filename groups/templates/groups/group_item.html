@@ -1,0 +1,45 @@
+{% load static %}
+<div class='groupitem'>
+    <div class="containgroupimag">
+        <div class="groupimage">
+            {% if group.image %}
+            <a href="#">
+                <img src="{{group.image.url}}" alt="Group Picture">
+            </a>
+            {% else %}
+            <a href="#">
+                <img src="{% static 'default/default-group.png' %}" alt="Group Picture">
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class='groupiteminfo'>
+        <ul>
+            <li>{{group.name|title}}</li>
+            <li>{{group.description|truncatechars:50}}</li>
+        </ul>
+    </div>
+   <div class='groupitemoption'>
+        {% if user == group.owner %}
+            <span> admin </span>
+        {% elif user in group.members.all %}
+            <form method="POST" id='formgroup_{{group.id}}'>
+                {% csrf_token%}
+                 <input type="hidden" name="groupid" value={{group.id}}>
+                 {% url 'groups:leave' as url%}
+                 <button type="submit" class='leave' style="display: block;" onclick="LeaveGroup(event,'{{url}}','formgroup_{{group.id}}')"> Leave </button>
+                 {% url 'groups:join' as url%}
+                 <button type="submit" class='join'  style="display: none;" onclick="JoinGroup(event,'{{url}}','formgroup_{{group.id}}')"> Join </button>
+            </form>
+        {%else%}
+        <form method="POST" id='formgroup_{{group.id}}'>
+            {% csrf_token%}
+             <input type="hidden" name="groupid" value={{group.id}}>
+             {% url 'groups:leave' as url%}
+             <button type="submit" class="leave" style="display: none;"   onclick="LeaveGroup(event,'{{url}}','formgroup_{{group.id}}')"> Leave </button>
+             {% url 'groups:join' as url%}
+             <button type="submit" class="join"  style="display: block;"  onclick="JoinGroup(event,'{{url}}','formgroup_{{group.id}}')"> Join </button>
+        </form>
+        {% endif %}
+   </div>
+</div>

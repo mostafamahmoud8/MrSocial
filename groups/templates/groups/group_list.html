@@ -1,0 +1,9 @@
+<div class="groupitems">
+       {% if groups.count > 0 %}
+          {%for group in groups%}
+             {%include 'groups/group_item.html' with group=group %}
+          {% endfor %}
+      {% else %}
+          <p>there is no group with that name <span>{{text|title}}</span> </p>
+      {% endif%} 
+</div> 
