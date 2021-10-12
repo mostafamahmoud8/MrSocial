@@ -37,7 +37,7 @@ class ProfileView(LoginRequiredMixin,DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         userposts = []
-        posts = self.request.user.userposts.all().order_by('-created_at')
+        posts = self.request.user.userposts.filter(belong_to=None).order_by('-created_at')
         sharedposts = Share.objects.select_related('post').filter(user__id=self.request.user.id).order_by('-created_at')
 
         for post in posts:

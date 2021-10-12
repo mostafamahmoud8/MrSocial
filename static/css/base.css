@@ -11,20 +11,20 @@ body
     overflow-x: hidden;
     overflow-y: auto;
 }
-body::-webkit-scrollbar,textarea::-webkit-scrollbar
+body::-webkit-scrollbar,textarea::-webkit-scrollbar,div.groupmembers::-webkit-scrollbar
 {
      width: 10px;
 }
-body::-webkit-scrollbar-track,textarea::-webkit-scrollbar-track
+body::-webkit-scrollbar-track,textarea::-webkit-scrollbar-track,div.groupmembers::-webkit-scrollbar-track
 {
      background: #F2EEE4;
 }
-body::-webkit-scrollbar-thumb,textarea::-webkit-scrollbar-thumb
+body::-webkit-scrollbar-thumb,textarea::-webkit-scrollbar-thumb,div.groupmembers::-webkit-scrollbar-thumb
 {
      background: lightgray;
      border-radius: 5px;
 }
-body::-webkit-scrollbar-thumb:hover,textarea::-webkit-scrollbar-thumb:hover
+body::-webkit-scrollbar-thumb:hover,textarea::-webkit-scrollbar-thumb:hover,div.groupmembers::-webkit-scrollbar-thumb:hover
 {
      background: grey;
 }
@@ -280,7 +280,7 @@ div.updateform form input[type=file]
 {
      display: none;
 }
-div.updateform form div.file label,div.creategroup form label
+div.updateform form div.file label,div.creategroup form label,div.updategroup form label
 {
      width: 80%;
      border-radius: 10px;
@@ -293,16 +293,16 @@ div.updateform form div.file label,div.creategroup form label
      color: #F2EEE4;
      cursor: pointer;
 }
-div.creategroup form label
+div.creategroup form label,div.updategroup form label
 {
      font-size: 1.2;
      border-radius: 5px;
 }
-div.updateform form div.file label:hover,div.creategroup form label:hover
+div.updateform form div.file label:hover,div.creategroup form label:hover,div.updategroup form label:hover
 {
      opacity: 1;
 }
-div.updateform div.file label i,div.creategroup form label i
+div.updateform div.file label i,div.creategroup form label i,div.updategroup form label i
 {
   margin-right: 1vw; 
 } 
@@ -735,7 +735,7 @@ button.logout a
      text-decoration: none;
      color:#bf1f1f;
 }
-div.addpost,#createdpost,#showpostdatail,#showprofilepost,div.groupoptions,div.optionsresult,div.grouplist
+div.addpost,div.groupleft,#createdpost,#showpostdatail,#showprofilepost,div.groupoptions,div.optionsresult,div.grouplist,div.createpostgroup,div.groupposts,div.groupmembers
 {
      position: relative;
      display: block;
@@ -749,6 +749,57 @@ div.addpost,#createdpost,#showpostdatail,#showprofilepost,div.groupoptions,div.o
 {
      display: none;
      margin-top: 2vw;
+}
+div.groupleft,div.createpostgroup,div.groupposts
+{
+     border: none;
+     width: 60%;
+     top: auto;
+     margin-left: 0vw;
+     margin-top: 1vw;
+}
+div.createpostgroup,div.groupposts{
+     width: 100%;
+}
+div.groupleft
+{
+     float: left;
+     margin-top: 0vw;
+}
+div.groupmembers
+{
+     width:38%;
+     float: right;
+     margin-top: 1vw;
+     margin-left: 0vw;
+     max-height:20vw;
+     overflow-y: auto;
+     overflow-x: hidden;
+}
+div.groupposts
+{
+     background-color: inherit;
+}
+div.postlist
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     background-color: inherit;
+}
+div.createpostgroup div.addpost
+{
+     width: 100%;
+     top: auto;
+}
+#showgrouppost
+{
+    position: relative;
+    display: block;
+    width: 100%;
+    border-radius: 10px;
+    border: 2px solid lightgray;
+    margin-bottom: 1vw;
 }
 #showprofilepost
 {
@@ -778,7 +829,7 @@ div.grouplist
     background-color: whitesmoke;
     margin-top: 2vw;
 }
-div.grouplist h2
+div.grouplist h2,div.groupmembers h3
 {
      position: relative;
      display: block;
@@ -787,6 +838,10 @@ div.grouplist h2
      color:#5065A8;
      font-family:Lato,sans-serif;
      border-bottom: 1px solid lightgray;
+}
+div.groupmembers h3
+{
+     text-indent: 0.5vw;
 }
 div.groupitems
 {
@@ -842,7 +897,7 @@ div.groupoptions div.createbutton button:hover
 {
      opacity: 1;
 }
-div.creategroup
+div.creategroup,div.updategroup
 {
      position: relative;
      display: block;
@@ -850,7 +905,11 @@ div.creategroup
      border-radius: inherit;
      background-color: inherit;
 }
-div.creategroup form
+div.updategroup
+{
+   display: none;  
+}
+div.creategroup form,div.updategroup form
 {
      position: relative;
      display: block;
@@ -858,7 +917,11 @@ div.creategroup form
      background-color: whitesmoke;
      border-radius: 5px;
 }
-div.creategroup form div.inputscontainer
+div.updategroup form
+{
+     border-radius: inherit;
+}
+div.creategroup form div.inputscontainer,div.updategroup form div.inputscontainer
 {
      position: relative;
      display: block;
@@ -866,7 +929,7 @@ div.creategroup form div.inputscontainer
      padding: 5px;
      margin: auto;
 }
-div.creategroup form div.inputscontainer input,div.creategroup form div.inputscontainer label,div.creategroup form div.inputscontainer textarea
+div.creategroup form div.inputscontainer input,div.creategroup form div.inputscontainer label,div.creategroup form div.inputscontainer textarea,div.updategroup form div.inputscontainer input,div.updategroup form div.inputscontainer label,div.updategroup form div.inputscontainer textarea
 {
      position: relative;
      display: block;
@@ -874,7 +937,7 @@ div.creategroup form div.inputscontainer input,div.creategroup form div.inputsco
      margin-top: 1vw;
      outline: none;
 }
-div.creategroup form div.inputscontainer input[type=text]
+div.creategroup form div.inputscontainer input[type=text],div.updategroup form div.inputscontainer input[type=text]
 {
     padding: 10px;
     border: 1px solid lightgray;
@@ -882,11 +945,11 @@ div.creategroup form div.inputscontainer input[type=text]
     font-family: QuikSand,sans-serif;
     border-radius: 5px;
 }
-div.creategroup form div.inputscontainer input:focus
+div.creategroup form div.inputscontainer input:focus,div.updategroup form div.inputscontainer input:focus
 {
      border: 1px solid #5065A8;
 }
-div.creategroup form div.inputscontainer input[type=file]
+div.creategroup form div.inputscontainer input[type=file],div.updategroup form div.inputscontainer input[type=file]
 {
      display: none;
 }
@@ -899,7 +962,7 @@ div.makespace
      height: 2%;
      margin-top: 3vw;
 }
-div.addpost #PostForm div.posterrors,div.addpost #PostForm div.postdone,div.posteditform form div.posterrors,div.commenterror,div.creategroup form div.groupdone,div.creategroup form div.grouperrors
+div.addpost #PostForm div.posterrors,div.addpost #PostForm div.postdone,div.posteditform form div.posterrors,div.commenterror,div.creategroup form div.groupdone,div.creategroup form div.grouperrors,div.updategroup form div.groupdone,div.updategroup form div.grouperrors
 {
      position: relative;
      display: none;
@@ -912,12 +975,12 @@ div.addpost #PostForm div.posterrors,div.addpost #PostForm div.postdone,div.post
      margin: auto;
      margin-top:1vw;
 }
-div.addpost #PostForm div.postdone,div.creategroup form div.groupdone
+div.addpost #PostForm div.postdone,div.creategroup form div.groupdone,div.updategroup form div.groupdone
 {
      background-color: lightgreen;
      border: 1px solid green;
 }
-#PostForm div.posterrors ul,div.addpost #PostForm div.postdone ul,div.posteditform form div.div.posterrors ul,div.commenterror ul,div.creategroup form div.groupdone ul,div.creategroup form div.grouperrors ul
+#PostForm div.posterrors ul,div.addpost #PostForm div.postdone ul,div.posteditform form div.div.posterrors ul,div.commenterror ul,div.creategroup form div.groupdone ul,div.creategroup form div.grouperrors ul,div.updategroup form div.groupdone ul,div.updategroup form div.grouperrors ul
 {
      position: relative;
      list-style-type:none;
@@ -926,7 +989,7 @@ div.addpost #PostForm div.postdone,div.creategroup form div.groupdone
      text-align: center;
      font-family: QiukSand,sans-serif,serif;
 }
-div.addpost div.addpostinfo ,div.profile div.profileinfo,div.postdetail div.ownerinfo,div.postdetail div.comments div.commentdetail div.content,div.groupitem
+div.addpost div.addpostinfo ,div.profile div.profileinfo,div.group div.groupinfo,div.postdetail div.ownerinfo,div.postdetail div.comments div.commentdetail div.content,div.groupitem
 {
      position: relative;
      display: flex;
@@ -948,13 +1011,12 @@ div.postdetail div.shares
      right: 0%;
      left: auto;
 }
-div.postdetail div.showlikes div.like
+div.postdetail div.showlikes div.like,div.groupmembers div.member
 {
      position: relative;
      display: block;
      width: 100%;
      margin-bottom: 0.5vw;
-
 }
 div.postdetail div.showlikes button
 {
@@ -975,6 +1037,12 @@ div.postdetail div.showlikes button
 div.postdetail div.showlikes div.usernames span
 {
      color: #F2EEE4;
+}
+div.member div.usernames span
+{
+    color: #5065A8;
+    font-family: lato,sans-serif;
+    text-transform: capitalize;
 }
 div.comments div.comment,div.comments div.commentdetail
 {
@@ -1008,7 +1076,7 @@ div.postdetail div.sharedpost p
      font-size: 1.2vw;
      margin-left: .5vw;
 }
-div.postdetail div.ownerinfo div.info,div.postdetail div.showlikes div.info,div.groupitem div.groupiteminfo
+div.postdetail div.ownerinfo div.info,div.postdetail div.showlikes div.info,div.member div.info,div.groupitem div.groupiteminfo
 {
      position: relative;
      display: inline-block;
@@ -1043,7 +1111,7 @@ div.groupitem div.groupiteminfo li:last-child
    font-size: 1vw;
    word-wrap:break-word;
 }
-div.postdetail div.showlikes div.info
+div.postdetail div.showlikes div.info,div.member div.info
 {
      top: -1vw;
 }
@@ -1082,7 +1150,7 @@ div.groupitemoption button:hover
 {
      opacity: 1;
 }
-div.posteditform,div.postdeleteform,div.profieldeleteform
+div.posteditform,div.postdeleteform,div.profieldeleteform,div.groupdeleteform
 {
      position: relative;
      display: none;
@@ -1093,12 +1161,12 @@ div.posteditform,div.postdeleteform,div.profieldeleteform
      margin-top:1vw;
      margin-bottom:0.5vw;
 }
-div.profieldeleteform
+div.profieldeleteform,div.groupdeleteform
 {
      width:100%;
      border: none;
 }
-div.postdetail div.showlikes a
+div.postdetail div.showlikes a,div.member a
 {
      text-decoration: none;
 }
@@ -1106,11 +1174,11 @@ div.postdetail div.ownerinfo div.info a:hover
 {
    text-decoration: underline;
 }
-div.postdetail div.ownerinfo div.containuserimag,div.postdetail  div.commentdetail div.containuserimag,div.postdetail div.showlikes div.containuserimag,div.groupitem div.containgroupimag
+div.postdetail div.ownerinfo div.containuserimag,div.postdetail  div.commentdetail div.containuserimag,div.postdetail div.showlikes div.containuserimag,div.member div.containuserimag,div.groupitem div.containgroupimag
 {
      display: inline-block;
 }
-div.addpostinfo div.userimage,div.profile div.profileinfo div.profileimage,div.postdetail div.ownerinfo div.userimage,div.commentdetail div.containuserimag div.userimage,div.postdetail div.showlikes div.userimage,div.groupitem div.containgroupimag div.groupimage
+div.addpostinfo div.userimage,div.profile div.profileinfo div.profileimage,div.group div.groupinfo div.groupimage,div.postdetail div.ownerinfo div.userimage,div.commentdetail div.containuserimag div.userimage,div.postdetail div.showlikes div.userimage,div.member div.userimage,div.groupitem div.containgroupimag div.groupimage
 {
      position: relative;
      display: block;
@@ -1129,14 +1197,14 @@ div.commentdetail div.containuserimag div.userimage
      height: 40px;
 
 }
-div.postdetail div.showlikes div.userimage
+div.postdetail div.showlikes div.userimage,div.member div.userimage
 {
      width: 35px;
      height: 35px;
      padding: 0px;
      border: 2px solid #F2EEE4;
 }
-div.profile div.profileinfo div.profileimage
+div.profile div.profileinfo div.profileimage,div.group div.groupinfo div.groupimage
 {
      width: 150px;
      height: 150px;
@@ -1149,26 +1217,26 @@ div.postdetail div.ownerinfo div.userimage,div.groupitem div.containgroupimag di
      width: 60px;
      height: 60px;
 }
-div.addpostinfo div.userimage img , div.profile div.profileimage img ,div.postdetail div.ownerinfo div.userimage img,div.postdetail div.commentdetail div.userimage img,div.postdetail div.showlikes div.userimage img,div.groupitem div.containgroupimag div.groupimage img
+div.addpostinfo div.userimage img , div.profile div.profileimage img ,div.group div.groupimage img,div.postdetail div.ownerinfo div.userimage img,div.postdetail div.commentdetail div.userimage img,div.postdetail div.showlikes div.userimage img,div.member div.userimage img,div.groupitem div.containgroupimag div.groupimage img
 {
      object-fit: cover;
      width: 100%;
      height:100%;
      border-radius:100%;
 }
-div.addpostinfo div.names ,div.profile div.profileinfo div.profileusername
+div.addpostinfo div.names ,div.profile div.profileinfo div.profileusername,div.group div.groupinfo div.groupname
 {
      position: relative;
      display: inline;
      margin-top: 2.2vw;
      margin-left: 0.5vw;
 }
-div.profile div.profileinfo div.profileusername
+div.profile div.profileinfo div.profileusername,div.group div.groupinfo div.groupname
 {
      margin-top: 6vw;
      margin-left: 0.5vw;
 }
-div.addpostinfo div.names span ,div.profileinfo div.profileusername span,div.postdetail div.usernames span,div.postdetail div.date span
+div.addpostinfo div.names span ,div.profileinfo div.profileusername span,div.group div.groupinfo div.groupname span,div.postdetail div.usernames span,div.postdetail div.date span
 {
      color: #5065A8;
      display: block;
@@ -1203,7 +1271,7 @@ div.postdetail div.usernames span
 {
      display: inline;
 }
-div.profileinfo div.profileusername span
+div.profileinfo div.profileusername span,div.group div.groupinfo div.groupname span
 {
      font-size: 1.5vw;
      font-family: lato,sans-serif;
@@ -1212,7 +1280,7 @@ div.profileinfo div.profileusername span:last-of-type
 {
      text-transform: none;
 }
-div.addpost form,div.posteditform form,div.postdeleteform form,div.div.profieldeleteform form
+div.addpost form,div.posteditform form,div.postdeleteform form,div.profieldeleteform form,div.groupdeleteform form
 {
      position: relative;
      display: block;
@@ -1225,7 +1293,7 @@ div.addpost form div.forminput,div.posteditform form div.forminput
      position: relative;
      display: flex;
 }
-div.addpost form textarea,div.addcomment form textarea,div.posteditform form textarea,div.updatecomment form textarea,div.creategroup form textarea
+div.addpost form textarea,div.addcomment form textarea,div.posteditform form textarea,div.updatecomment form textarea,div.creategroup form textarea,div.updategroup form textarea
 {
      position: relative;
      display: inline-block;
@@ -1257,7 +1325,7 @@ div.updatecomment form textarea
 {
      width:100%;
 }
-div.creategroup form textarea
+div.creategroup form textarea,div.updategroup form textarea
 {
      display: block;
      width: 80%;
@@ -1267,12 +1335,12 @@ div.creategroup form textarea
      margin: auto;
      border:1px solid lightgray;
 }
-div.addpost form textarea:focus,div.addcomment form textarea:focus,div.posteditform form textarea:focus,div.updatecomment form textarea:focus,div.creategroup form textarea:focus
+div.addpost form textarea:focus,div.addcomment form textarea:focus,div.posteditform form textarea:focus,div.updatecomment form textarea:focus,div.creategroup form textarea:focus,div.updategroup form textarea:focus
 {
      border: 2px solid #5065A8;
      resize: vertical;
 }
-div.creategroup form textarea:focus
+div.creategroup form textarea:focus,div.updategroup form textarea:focus
 {
      border: 1px solid #5065A8;
 }
@@ -1346,7 +1414,7 @@ div.addpost form button:hover,div.formbuttons button:hover,div.creategroup form 
      color: #F2EEE4;
      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
-div.postdeleteform form p ,div.deletecomment p,div.profieldeleteform form p
+div.postdeleteform form p ,div.deletecomment p,div.profieldeleteform form p, div.groupdeleteform form p
 {
      position: relative;
      display: block;
@@ -1361,7 +1429,7 @@ div.deletecomment p
 {
      font-size: 1vw;
 }
-div.addpost form div.imagepreview,div.updateform div.profileimagepreview,div.posteditform div.updateimagepreview,div.creategroup form div.groupimagepreview
+div.addpost form div.imagepreview,div.updateform div.profileimagepreview,div.updategroup div.groupimagepreview,div.posteditform div.updateimagepreview,div.creategroup form div.groupimagepreview
 {
      position: relative;
      display: none;
@@ -1371,18 +1439,21 @@ div.addpost form div.imagepreview,div.updateform div.profileimagepreview,div.pos
      margin-top: 2vw;
      border: none;
 }
-div.updateform div.profileimagepreview
+div.updateform div.profileimagepreview,div.updategroup div.groupimagepreview
 {
      display: block;
      width:50%;
      margin-top:4vw;
-
+}
+div.updategroup div.groupimagepreview
+{
+     margin-top: 1vw;
 }
 div.creategroup form div.groupimagepreview
 {
      width:70%
 }
-div.addpost form div.imagepreview img,div.updateform div.profileimagepreview img,div.posteditform div.updateimagepreview img,div.creategroup form div.groupimagepreview img
+div.addpost form div.imagepreview img,div.updateform div.profileimagepreview img,div.updategroup div.groupimagepreview img,div.posteditform div.updateimagepreview img,div.creategroup form div.groupimagepreview img
 {
      object-fit: cover;
      width: 100%;
@@ -1397,7 +1468,7 @@ span.imgdelete,span.profileimgdelete,span.updateimgdelete,span.groupimgdelete
      border: 1px solid #F2EEE4;
      border-radius:100%;
 }
-span.profileimgdelete
+span.profileimgdelete,div.updategroup span.groupimgdelete
 {
      display: none;
 }
@@ -1407,7 +1478,7 @@ span.imgdelete:hover,span.profileimgdelete:hover,span.updateimgdelete:hover,span
      color: #5065A8;
      border: 1px solid #5065A8;
 }
-div.noposts
+div.noposts,div.nogroups
 {
      position: relative;
      display: block;
@@ -1419,7 +1490,20 @@ div.noposts
      text-align: center;
      font-size: .9vw;
 }
-div.profile
+div.nogroups
+{
+     margin: auto;
+}
+div.groupdetail
+{
+     position: relative;
+     display: block;
+     width: 60%;
+     background-color: inherit;
+     margin: auto;
+     top: 7vw;
+}
+div.profile,div.group
 {
      position: relative;
      display: block;
@@ -1430,7 +1514,12 @@ div.profile
      margin: auto;
      top: 7vw;
 }
-div.profile div.profilesetting ,div.postdetail div.postsetting ,div.comments div.commentsetting
+div.group
+{
+     width: 100%;
+     top: auto;
+}
+div.profile div.profilesetting ,div.group div.groupsetting,div.postdetail div.postsetting ,div.comments div.commentsetting
 {
      position:absolute;
      float: right;
@@ -1440,7 +1529,7 @@ div.profile div.profilesetting ,div.postdetail div.postsetting ,div.comments div
      float: right;
      right: 2vw;
 }
-div.profile div.profilesetting
+div.profile div.profilesetting,div.group div.groupsetting
 {
      top:1vw;
 }
@@ -1453,7 +1542,7 @@ div.postdetail div.postsetting
 {
      top: 1vw;
 }
-div.profilesetting span.settingicon,div.postdetail div.postsetting span.postsettingicon,div.comments div.commentsetting span.commentsettingicon
+div.profilesetting span.settingicon,div.groupsetting span.settingicon,div.postdetail div.postsetting span.postsettingicon,div.comments div.commentsetting span.commentsettingicon
 {
      position: relative;
      color: #5065A8;
@@ -1467,11 +1556,11 @@ div.comments div.commentsetting span.commentsettingicon
 {
      margin-top: 2vw;
 }
-div.profilesetting span.settingicon:hover,div.postdetail div.postsetting span.postsettingicon:hover,div.comments div.commentsetting span.commentsettingicon:hover
+div.profilesetting span.settingicon:hover,div.groupsetting span.settingicon:hover,div.postdetail div.postsetting span.postsettingicon:hover,div.comments div.commentsetting span.commentsettingicon:hover
 {
      opacity: 1;
 }
-div.profilesetting div.options,div.postdetail div.postsetting div.postoptions,div.comments div.commentoptions
+div.profilesetting div.options,div.groupsetting div.options,div.postdetail div.postsetting div.postoptions,div.comments div.commentoptions
 {
      position: relative;
      display: none;
@@ -1484,7 +1573,7 @@ div.profilesetting div.options,div.postdetail div.postsetting div.postoptions,di
      float: right;
      right:-50%;
 }
-div.profilesetting div.options a ,div.postdetail div.postsetting div.postoptions a,div.comments div.commentoptions a
+div.profilesetting div.options a,div.groupsetting div.options a,div.postdetail div.postsetting div.postoptions a,div.comments div.commentoptions a
 { 
    text-decoration: none;
    position: relative;
@@ -1493,7 +1582,7 @@ div.profilesetting div.options a ,div.postdetail div.postsetting div.postoptions
    margin-top: 0.5vw;
    margin-bottom: 0.5vw;
 }
-div.profilesetting div.options button,div.postdetail div.postsetting div.postoptions button,div.comments div.commentoptions button
+div.profilesetting div.options button,div.groupsetting div.options button,div.postdetail div.postsetting div.postoptions button,div.comments div.commentoptions button
 {
      position: relative;
      display: block;
@@ -1510,15 +1599,15 @@ div.profilesetting div.options button,div.postdetail div.postsetting div.postopt
      border-radius: 10px;
      cursor: pointer;
 }
-div.profilesetting div.options button.deleteprofile i ,div.postsetting div.postoptions button.deletepost i,div.comments div.commentoptions button.deletecomment i
+div.profilesetting div.options button.deleteprofile i,div.groupsetting div.options button.deletegroup i,div.postsetting div.postoptions button.deletepost i,div.comments div.commentoptions button.deletecomment i
 {
      margin-right: 0.5vw;
 }
-div.profilesetting div.options button:hover,div.profileaction button:hover,div.postdetail div.postsetting div.postoptions button:hover,div.comments div.commentoptions button:hover
+div.profilesetting div.options button:hover,div.groupsetting div.options button:hover,div.profileaction button:hover,div.groupaction button:hover,div.postdetail div.postsetting div.postoptions button:hover,div.comments div.commentoptions button:hover
 {
      opacity: 1;
 }
-div.profiledata,div.profileaction
+div.profiledata,div.profileaction,div.groupdata,div.groupaction
 {
      position: relative;
      display: block;
@@ -1526,18 +1615,18 @@ div.profiledata,div.profileaction
      margin-top: 1vw;
      padding: 3px;
 }
-div.profiledata
+div.profiledata,div.groupdata
 {
      padding-bottom: 2vw;
 }
-div.profileaction
+div.profileaction,div.groupaction
 {
      width: 50%;
      margin: auto;
      margin-top: 1.5vw;
      padding-bottom:2vw;
 }
-div.profiledata span
+div.profiledata span,div.groupdata span
 {
      position: relative;
      color: #5065A8;
@@ -1546,16 +1635,16 @@ div.profiledata span
      font-size: 1.1vw;
      margin-left: 2vw;
 }
-div.profiledata span i
+div.profiledata span i,div.groupdata span i
 {
      margin-right:.5vw;
 }
-div.profiledata span a
+div.profiledata span a,div.groupdata span a
 {
      text-decoration: none;
      color: #5065A8;
 }
-div.profileaction button
+div.profileaction button,div.groupaction button
 {
      position: relative;
      width: 48%;
@@ -1571,6 +1660,13 @@ div.profileaction button
      border-radius: 5px;
      cursor: pointer;
 }
+div.groupaction button
+{
+     width:60%;
+     display: block;
+     margin: auto;
+}
+
 div.profilenotexists
 {
      position: relative;
@@ -1601,13 +1697,19 @@ div.postdetail div.usernames ,div.postdetail div.date
 {
      display: block;
 }
-div.postdetail div.postcontent
+div.postdetail div.postcontent,div.groupdescription
 {
      position: relative;
      display: block;
      width: 100%;
 }
-div.postdetail div.postcontent p
+div.groupdescription
+{
+     border-width: 1px 0px;
+     border-style:solid; 
+     border-color:lightgrey;
+}
+div.postdetail div.postcontent p,div.groupdescription p
 {
      position: relative;
      display: block;
@@ -1616,6 +1718,10 @@ div.postdetail div.postcontent p
      word-wrap: break-word;
      padding: 3px;
      margin-left: .6vw;
+}
+div.groupdescription p
+{
+     margin-left: 2vw;
 }
 div.postdetail div.postcontent div.postimage
 {

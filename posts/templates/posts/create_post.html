@@ -17,6 +17,7 @@
         <div class='forminput'>
             <textarea name='content' placeholder="What's on your mind,{{ user.username }}?"></textarea>
             <input type="file" name='image' id="imageinput" accept="image/*">
+            <input type="hidden" name='belong_to' value='{{group}}' />
             <label for="imageinput"><i class="far fa-file-image"></i></label>
         </div>
         
@@ -31,7 +32,8 @@
         <div class='postdone'>
             <ul><li>Post has been added successfully</li></ul>
         </div>
-        <button type='submit'> Post </button>
+        {%url 'posts:create_post' as url%}
+        <button type='submit' onclick="CreatPost(event,'{{url}}','PostForm','{{belong}}')"> Post </button>
     </form>
 </div>
 

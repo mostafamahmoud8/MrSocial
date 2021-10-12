@@ -25,12 +25,18 @@
   <div class="grouplist">
      <h2>Groups List</h2>
      <div class="groupitems">
+      {%if user.mygroups.count > 0 or user.usergroups.count > 0%}
       {%for group in user.mygroups.all%}
          {%include 'groups/group_item.html' with group=group %}
       {% endfor %}
       {%for group in user.usergroups.all%}
          {%include 'groups/group_item.html' with group=group %}
       {% endfor %}
+      {%else%}
+      <div class='nogroups'>
+        <p> you have no groups try to join or create groups.</p>
+      </div>
+      {%endif%}
      </div> 
   </div>
   <div class='makespace'>

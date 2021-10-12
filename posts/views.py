@@ -4,6 +4,8 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from groups.models import Group
 from .forms import PostForm ,CommentForm
 from activity.models import Activity
 from .models import Post,Comment,Like,Share
@@ -18,10 +20,13 @@ class PostDetailView(LoginRequiredMixin,DetailView):
 def CreatePostView(request):
     if request.method =='POST' and request.is_ajax():
         postform = PostForm(data=request.POST,files=request.FILES)
-
+        groupid = request.POST['belong_to']
         if postform.is_valid():
             post = postform.save(commit=False)
             post.owner = request.user
+            if groupid != None:
+                group = Group.objects.get(id=int(groupid))
+                post.belong_to=group 
             post.save()
 
             activity = Activity(user=request.user,content_object=post)

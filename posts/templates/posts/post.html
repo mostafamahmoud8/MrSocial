@@ -6,6 +6,9 @@
 {% if profile %}
 <div id='showprofilepost'>
 {% endif %}
+{% if post.belong_to != None %}
+<div id='showgrouppost'>
+{% endif %}
 <div class='postdetail' id='{{sharedpost}}postdetail_{{post.id}}'>
     {% if share %}
     <div class='sharedpost'>
@@ -37,6 +40,7 @@
                 <a href="{% url 'posts:post_detail' pk=post.id  %}"><span>{{post.created_at|naturaltime}}</span></a>
             </div>
         </div>
+       {% if user.id == post.owner.id %}
        <div class='postsetting'>
             <span class="postsettingicon" onclick="showpostoptions('{{sharedpost}}postoptions_{{post.id}}')">
                 <i class="fas fa-cog"></i>
@@ -46,7 +50,9 @@
                 <a><button class='deletepost' onclick="showpostaction('{{sharedpost}}postdeleteform_{{post.id}}','{{sharedpost}}postoptions_{{post.id}}','{{sharedpost}}postdetail_{{post.id}}')"><i class="fas fa-trash-alt"></i> Delete Post</button></a>
             </div>
        </div>
+       {%endif%}
     </div>
+    {% if user.id == post.owner.id %}
     <div class='posteditform' id='{{sharedpost}}posteditform_{{post.id}}'>
         <form method="POST"  enctype="multipart/form-data" id='{{sharedpost}}EditPostForm_{{post.id}}'>
             {% csrf_token %}
@@ -84,10 +90,11 @@
         </form>
         <div class='formbuttons'>
             {% url 'posts:delete_post' postid=post.id  as url %}
-            <button type='submit' form='{{sharedpost}}deletePostForm_{{post.id}}' onclick="DeletePost(event,'{{url}}','{{sharedpost}}deletePostForm_{{post.id}}','{{sharedpost}}postdetail_{{post.id}}')"> Delete </button>
+            <button type='submit' form='{{sharedpost}}deletePostForm_{{post.id}}' onclick="DeletePost(event,'{{url}}','{{sharedpost}}deletePostForm_{{post.id}}','{{sharedpost}}postdetail_{{post.id}}','{{group}}')"> Delete </button>
             <button onclick="showpostaction('{{sharedpost}}postdeleteform_{{post.id}}',null,'{{sharedpost}}postdetail_{{post.id}}')"> Cancel </button>
         </div>
     </div>
+    {%endif%}
     <div class='postcontent'>
          <p>
             {% if post.content %} 
@@ -106,19 +113,19 @@
         </div>
         <div class='right'>
             <a><span class="commentcount"> {{post.comments.count}} comment</span></a>
+            {%if post.belong_to == None %}
             <a><span class="sharecount" onclick="showpostshares('{{sharedpost}}postshares_{{post.id}}')"> {{post.shares.count}} share</span></a>
+            {%endif%}
         </div>
     </div>
-    {%if post.shares.count > 0%}
-    <div class="showlikes shares" id='postshares_{{post.id}}'>
-        {% if post.shares.count > 0%}
-        {% include 'posts/share_post_list.html' with shares=post.getShares postid=post.id %}
+    <div class="showlikes shares" id='{{sharedpost}}postshares_{{post.id}}'>
+        {% if post.shares.count > 0 and post.belong_to == None%}
+        {% include 'posts/share_post_list.html' with shares=post.getShares postid=post.id posttype=sharedpost %}
         {% endif %}
     </div>
-    {% endif %}
-    <div class="showlikes" id='postlikes_{{post.id}}'>
+    <div class="showlikes" id='{{sharedpost}}postlikes_{{post.id}}'>
         {% if post.likes.count > 0%}
-        {% include 'posts/like_post_list.html' with likes=post.getLikes postid=post.id %}
+        {% include 'posts/like_post_list.html' with likes=post.getLikes postid=post.id posttype=sharedpost %}
         {% endif %}
     </div>
     <div class='postaction'>
@@ -144,6 +151,7 @@
                 <td>
                     <button class='addcomment' onclick="commentfocus('{{sharedpost}}formtextarea_{{post.id}}')"><i class="far fa-comment"></i></button>
                 </td>
+                {% if post.belong_to == None%}
                 <td>
                     <form id="{{sharedpost}}sharesform_{{post.id}}"> 
                     {% csrf_token %} 
@@ -161,6 +169,7 @@
                     {% endif %}                        
                     </form>
                 </td>
+                {%endif%}
             </tr>
         </table>
     </div>
@@ -196,6 +205,6 @@
         </div>
     </div>
 </div>
-{% if detail or profile %}
+{% if detail or profile or post.belong_to != None %}
 </div>
 {% endif %}

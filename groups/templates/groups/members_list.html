@@ -1,0 +1,28 @@
+{% load static %}
+<h3> Group Members :</h3>
+{% if members.count > 0 %}
+{%for member in members %}
+<div class="member">
+    <a href="{% url 'accounts:profile' slug=member.slug %}"> 
+    <div class="containuserimag">
+        <div class="userimage">
+            {% if member.image %}
+                <img src="{{member.image.url}}" alt="Profile Picture">
+            {% else %}
+                <img src="{% static 'default/default.png' %}" alt="Profile Picture">
+            {% endif %}
+        </div>
+    </div>
+    <div class='info'>
+        <div class='usernames'>
+            <span>{{member.first_name}} {{member.last_name}}</span>                    
+        </div>
+    </div>
+    </a>
+</div> 
+{%endfor%}
+{%else%} 
+  <div class='nogroups'>
+    <p> This group have no members yet.</p>
+  </div>
+{%endif%}

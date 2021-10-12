@@ -5,7 +5,7 @@
         <div class='inputscontainer'>
             <input type="text" name="name" placeholder="group name" required>
             <textarea name='description' placeholder="write description for the group"></textarea>
-            <input type="file" name='image' id="groupimageinput" accept="image/*" onchange="readimageURL(this,'#groupimageinput')">
+            <input type="file" name='image' id="groupimageinput" accept="image/*" onchange="readimageURL(this,'groupimageinput')">
             <label for="groupimageinput"><i class="far fa-file-image"></i> Group Photo</label>
         </div>
         <div class="groupimagepreview" id='groupimagepreview'>
@@ -17,7 +17,7 @@
         <div class='grouperrors'>
         </div>
         <div class='groupdone'>
-            <ul><li>Post has been added successfully</li></ul>
+            <ul><li>Group has been Created successfully</li></ul>
         </div>
         {% url 'groups:create-group' as url%}
         <button type="submit" onclick="CreateGroup(event,'groupform','{{url}}')"><i class="fas fa-plus"></i> Create</button>

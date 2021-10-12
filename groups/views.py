@@ -3,7 +3,7 @@ from django.urls import reverse,reverse_lazy
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,DetailView,DeleteView,ListView
 from .forms import GroupForm
 from .models import Group,Membership
 
@@ -12,6 +12,21 @@ from .models import Group,Membership
 class BaseGroupView(LoginRequiredMixin,TemplateView):
     template_name='groups/group_base_page.html'
 
+class GroupDetailView(LoginRequiredMixin,DetailView):
+    model = Group
+    template_name='groups/group_detail.html'
+
+    def get_object(self):
+        try:
+            object = Group.objects.get(slug=self.kwargs['slug'])
+        except Group.DoesNotExist :
+            return None
+        else:
+            return object
+
+class DeletegroupView(LoginRequiredMixin,DeleteView):
+    model = Group
+    success_url = reverse_lazy('groups:group-base')
 
 @login_required
 def CreateGroupView(request):
@@ -27,6 +42,19 @@ def CreateGroupView(request):
             return JsonResponse({'status':False,'errors':str(groupform.non_field_errors())+str(groupform.errors['name'])})
     else:
         return render(request,'groups/create_group.html')
+
+@login_required
+def UpdateGroupView(request,slug):
+    if request.method == 'POST' and request.is_ajax():
+        group = Group.objects.get(slug=slug)
+        groupform = GroupForm(data=request.POST,instance=group,files=request.FILES)
+        if groupform.is_valid():
+            group = groupform.save()
+            return JsonResponse({'status':True,'group':group.serialize()})
+        else:
+            return JsonResponse({'status':False,'errors':str(groupform.errors)+str(groupform.non_field_errors())+str(groupform.errors['name'])})
+    else:
+        return render(request,'groups/group-base.html')
 
 @login_required
 def SearchGroupsView(request):
@@ -72,3 +100,15 @@ def LeaveGroupView(request):
             return JsonResponse({'status':False})
     else:
         return redirect(reverse_lazy('groups:group-base'))
+
+
+class GroupMemberListView(LoginRequiredMixin,ListView):
+    model = Group
+    context_object_name = 'members'
+    template_name = "groups/members_list.html"
+
+    def get_queryset(self):
+        group = Group.objects.get(slug=self.kwargs['slug'])
+        members = group.members.all()
+
+        return members

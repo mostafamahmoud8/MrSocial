@@ -63,48 +63,11 @@ $(document).ready(function(){
    {
        $('div.profilesetting  div.options').slideToggle();
    });
-/********************************Ajax calls goes here*******************/ 
-
-    $('#PostForm').submit(function(e){
-        e.preventDefault();
-        var formdata =  new FormData(this);
-        console.log(formdata);        
-        $.ajax({
-             url:'posts/create/',
-             data:formdata,
-             async:true,
-             type:'POST',
-             success:function(response,st,xml){
-                 if(st == 'success' && xml.status == 200)
-                 {
-                     if(typeof response == 'string')
-                     {
-                        console.log(response);
-                        var numberofposts = $('#sidemenu div.userinfo button.myposts').html()
-                        var number = changenumbers(numberofposts,'+');
-                        $('#sidemenu div.userinfo button.myposts').html(" "+number +' posts');
-                        $('#PostForm div.postdone').fadeIn(1000);
-                        $('#PostForm div.postdone').fadeOut(2000); 
-                        $('#createdpost').html(response);
-                        $('#createdpost').css({'display':'block'});
-                        $('div.imagepreview').css('display','none');
-                        $('#PostForm')[0].reset();
-                     }else
-                     {
-                         if(! response.status)
-                         {
-                            console.log(response.errors);
-                            $('#PostForm div.posterrors').fadeIn(1000);
-                            $('#PostForm div.posterrors').html(response.errors);
-                            $('#PostForm div.posterrors').fadeOut(2000); 
-                         }
-                     }
-                }            
-             },
-             processData: false,
-             contentType: false,
-        });
-    });
+   $(' div.groupsetting span.settingicon').click(function()
+   {
+       $('div.groupsetting  div.options').slideToggle();
+   });
+/********************************Ajax calls goes here*******************/     
 });
 function changenumbers(word,action)
 {
@@ -118,6 +81,64 @@ function changenumbers(word,action)
     }
 
     return number;
+}
+function CreatPost(e,url,formid,group=null)
+{
+    e.preventDefault();
+    var form = $('#'+formid)[0]
+    var formdata =  new FormData(form);
+    console.log(url);        
+    $.ajax({
+         url:url,
+         data:formdata,
+         async:true,
+         type:'POST',
+         success:function(response,st,xml){
+             if(st == 'success' && xml.status == 200)
+             {
+                 if(typeof response == 'string')
+                 {
+                    
+                    console.log(group);
+                    if(group)
+                    {
+                        var numberofposts = $('div.groupdetail div.groupdata span.numposts').html()
+                        var number = changenumbers(numberofposts,'+');
+                        $('div.groupdetail div.groupdata span.numposts').html(" "+number +' posts');
+                        $('#PostForm div.postdone').fadeIn(1000);
+                        $('#PostForm div.postdone').fadeOut(2000); 
+                        var posts = $('div.groupdetail div.postlist').html()
+                        $('div.groupdetail div.postlist').html(response+posts);
+                        $('div.imagepreview').css('display','none');
+                        $('#PostForm')[0].reset();
+
+                    }else
+                    {
+                        var numberofposts = $('#sidemenu div.userinfo button.myposts').html()
+                        var number = changenumbers(numberofposts,'+');
+                        $('#sidemenu div.userinfo button.myposts').html(" "+number +' posts');
+                        $('#PostForm div.postdone').fadeIn(1000);
+                        $('#PostForm div.postdone').fadeOut(2000); 
+                        $('#createdpost').html(response);
+                        $('#createdpost').css({'display':'block'});
+                        $('div.imagepreview').css('display','none');
+                        $('#PostForm')[0].reset();
+                    }
+                 }else
+                 {
+                     if(! response.status)
+                     {
+                        console.log(response.errors);
+                        $('#PostForm div.posterrors').fadeIn(1000);
+                        $('#PostForm div.posterrors').html(response.errors);
+                        $('#PostForm div.posterrors').fadeOut(2000); 
+                     }
+                 }
+            }            
+         },
+         processData: false,
+         contentType: false,
+    });
 }
 function UpdatePost(e,action,formid,postid)
 {
@@ -165,7 +186,7 @@ function UpdatePost(e,action,formid,postid)
          contentType: false,
     });
 }
-function DeletePost(event,action,formid,postid)
+function DeletePost(event,action,formid,postid,group=false)
 {
     console.log(action);
     event.preventDefault();
@@ -182,10 +203,19 @@ function DeletePost(event,action,formid,postid)
                  if(response.status)
                  {
                     $('#'+postid).parent().slideUp();
-                    var numberofposts = $('#sidemenu div.userinfo button.myposts').html()
-                    var number = changenumbers(numberofposts,'-');
-                    $('#sidemenu div.userinfo button.myposts').html(" "+number +' posts');
-                    $('div.profile div.profiledata span.numposts').html(" "+number +' posts');
+                     if(group)
+                     {
+                        var numberofposts = $('div.groupdetail div.groupdata span.numposts').html()
+                        var number = changenumbers(numberofposts,'-');
+                        $('div.groupdetail div.groupdata span.numposts').html(" "+number +' posts');
+                     }
+                     else
+                     {
+                        var numberofposts = $('#sidemenu div.userinfo button.myposts').html()
+                        var number = changenumbers(numberofposts,'-');
+                        $('#sidemenu div.userinfo button.myposts').html(" "+number +' posts');
+                        $('div.profile div.profiledata span.numposts').html(" "+number +' posts');
+                     }
                  }
              }            
          },
@@ -461,6 +491,7 @@ function CreateGroup(event,form,url)
                     $('#groupform div.groupdone').fadeIn();
                     $('#groupform div.groupdone').fadeOut(); 
                     $('div.optionsresult').slideUp(2000);
+                    $('div.grouplist div.nogroups').remove();
                     var groups = $('div.grouplist div.groupitems').html();
                     $('div.grouplist div.groupitems').html(response+groups);
                    
@@ -479,7 +510,45 @@ function CreateGroup(event,form,url)
         contentType: false,
    });
 }
-function LeaveGroup(event,url,formid)
+function UpdateGroup(event,formid,url,content)
+{
+    event.preventDefault();
+    var form = $('#'+formid)[0];
+    var formdata = new FormData(form);
+    console.log(url);
+    $.ajax({
+        url:url,
+        data:formdata,
+        async:true,
+        type:'POST',
+        success:function(response,st,xml){
+            if(st == 'success' && xml.status == 200)
+            {
+                if(response.status)
+                {
+                    console.log(response);
+                    $('div.'+content).slideToggle();
+                    $('#'+formid).parent().slideToggle();
+                    $('div.groupcontent img').attr({'src':response.group.image});
+                    $('div.groupcontent div.groupname span').html(response.group.name);
+                    if(response.group.description != '')
+                    {
+                        $('div.groupcontent div.groupdescription').html('<p>'+response.group.description+'</p>');
+                    }
+                }else
+                {
+                    console.log(response.errors);
+                    $('#'+formid+' div.grouperrors').fadeIn(1000);
+                    $('#'+formid+'  div.grouperrors').html(response.errors);
+                }
+           }            
+        },
+        processData: false,
+        contentType: false,
+   });
+
+}
+function LeaveGroup(event,url,formid,groupdetail=false,memebersurl=null)
 {
     event.preventDefault();
     var form =  $('#'+formid)[0];
@@ -494,10 +563,24 @@ function LeaveGroup(event,url,formid)
                  if(st == 'success' && xml.status == 200)
                  {
                      if(response.status)
-                     {
+                     { 
                         console.log(response);
                         $('#'+formid+' button.leave').css({'display':'none'});
                         $('#'+formid+' button.join').css({'display':'block'});
+                        if(groupdetail)
+                        {
+                            var numberofmembers = $('div.groupdetail div.groupdata span.nummembers').html()
+                            var number = changenumbers(numberofmembers,'-');
+                            $('div.groupdetail div.groupdata span.nummembers').html(" "+number +' members');
+                            $('div.createpostgroup').css({'display':'none'});
+                            if(memebersurl != null)
+                            {
+                                getGroupMembers(memebersurl);
+                            }
+                        }
+                     }else
+                     {
+                         console.log('error');
                      }
                 }            
              },
@@ -505,7 +588,7 @@ function LeaveGroup(event,url,formid)
              contentType: false,
     });
 }
-function JoinGroup(event,url,formid)
+function JoinGroup(event,url,formid,groupdetail=false,memebersurl=null)
 {
     event.preventDefault();
     var form =  $('#'+formid)[0];
@@ -523,8 +606,19 @@ function JoinGroup(event,url,formid)
                      if(response.status)
                      {
                         console.log(response);
-                        $('#'+formid+' button.leave').css({'display':'block'})
-                        $('#'+formid+' button.join').css({'display':'none'})
+                        $('#'+formid+' button.leave').css({'display':'block'});
+                        $('#'+formid+' button.join').css({'display':'none'});
+                        if(groupdetail)
+                        {
+                            var numberofmembers = $('div.groupdetail div.groupdata span.nummembers').html()
+                            var number = changenumbers(numberofmembers,'+');
+                            $('div.groupdetail div.groupdata span.nummembers').html(" "+number +' members');
+                            $('div.createpostgroup').css({'display':'block'});
+                            if(memebersurl != null)
+                            {
+                                getGroupMembers(memebersurl);
+                            }
+                        }
                      }
                 }            
              },
@@ -552,6 +646,16 @@ function GroupSearch(event,input,url)
     {
         $('div.optionsresult').slideUp();
     }  
+}
+function getGroupMembers(url)
+{
+    $.get(url, function(data, statustext){
+        if(statustext == 'success')
+        {
+          console.log(data)
+          $('div.groupmembers').html(data);
+        }
+    });
 }
 function showprofileaction(proid,options=null,prodetail)
 {
@@ -584,7 +688,6 @@ function showpostaction(id,option=null,postid=null)
     }
     $('#'+id).slideToggle();
 }
-
 function showcommentaction(updateid,options=null,content)
 {
    if(options)
@@ -613,10 +716,19 @@ function deleteimage(id,fileinputid,checkbox)
     $('#'+fileinputid).val(null);
     $('#'+checkbox).attr('checked',true)
 }
-function clearfileinput(id,fileinputid)
+function clearfileinput(id,fileinputid,tx=null)
 {
-    $('#'+id).css('display','none');
-    $('#'+fileinputid).val(null);
+    if(tx !== null)
+    {
+       var val = $('div.group div.groupimage img').attr('src')
+       $('div.groupimagepreview img').attr({'src':val});
+       $('div.groupimagepreview span.groupimgdelete').css({'display':'none'});
+       $("#groupimageinput").val(null);
+    }else
+    {
+        $('#'+id).css('display','none');
+        $('#'+fileinputid).val(null);
+    }
 }
 function readURL(input,id) {
     if (input.files && input.files[0]) {
@@ -640,7 +752,7 @@ function readimageURL(input,id)
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
-            if(id == "#groupimageinput")
+            if(id == "groupimageinput")
             {
                 $('div.groupimagepreview').css('display','block');
                 $('div.groupimagepreview img').attr({'src':e.target.result}); 
@@ -649,6 +761,18 @@ function readimageURL(input,id)
                 $('#'+id).css('display','block');
                 $('#'+id+' img').attr({'src':e.target.result});
             }
+        }
+        reader.readAsDataURL(input.files[0]);
+   }
+}
+function udpateimageURL(input)
+{
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            
+            $('div.updategroup span.groupimgdelete').css('display','block');
+            $('div.groupimagepreview img').attr({'src':e.target.result}); 
         }
         reader.readAsDataURL(input.files[0]);
    }

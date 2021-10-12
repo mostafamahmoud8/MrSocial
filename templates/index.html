@@ -3,7 +3,7 @@
 {% load humanize %}
 {% block content %}
 
-{% include 'posts/create_post.html' %} 
+{% include 'posts/create_post.html' with group=None %} 
 <div id='createdpost'>
 </div>
 {% if user.friendship.count == 0 %}

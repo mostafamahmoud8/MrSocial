@@ -3,11 +3,11 @@
     <div class="containgroupimag">
         <div class="groupimage">
             {% if group.image %}
-            <a href="#">
+            <a href="{% url 'groups:group-detail' slug=group.slug %}">
                 <img src="{{group.image.url}}" alt="Group Picture">
             </a>
             {% else %}
-            <a href="#">
+            <a href="{% url 'groups:group-detail' slug=group.slug %}">
                 <img src="{% static 'default/default-group.png' %}" alt="Group Picture">
             </a>
             {% endif %}
@@ -27,18 +27,18 @@
                 {% csrf_token%}
                  <input type="hidden" name="groupid" value={{group.id}}>
                  {% url 'groups:leave' as url%}
-                 <button type="submit" class='leave' style="display: block;" onclick="LeaveGroup(event,'{{url}}','formgroup_{{group.id}}')"> Leave </button>
+                 <button type="submit" class='leave' style="display: block;" onclick="LeaveGroup(event,'{{url}}','formgroup_{{group.id}}',false)"> Leave </button>
                  {% url 'groups:join' as url%}
-                 <button type="submit" class='join'  style="display: none;" onclick="JoinGroup(event,'{{url}}','formgroup_{{group.id}}')"> Join </button>
+                 <button type="submit" class='join'  style="display: none;" onclick="JoinGroup(event,'{{url}}','formgroup_{{group.id}}',false)"> Join </button>
             </form>
         {%else%}
         <form method="POST" id='formgroup_{{group.id}}'>
             {% csrf_token%}
              <input type="hidden" name="groupid" value={{group.id}}>
              {% url 'groups:leave' as url%}
-             <button type="submit" class="leave" style="display: none;"   onclick="LeaveGroup(event,'{{url}}','formgroup_{{group.id}}')"> Leave </button>
+             <button type="submit" class="leave" style="display: none;"   onclick="LeaveGroup(event,'{{url}}','formgroup_{{group.id}}',false)"> Leave </button>
              {% url 'groups:join' as url%}
-             <button type="submit" class="join"  style="display: block;"  onclick="JoinGroup(event,'{{url}}','formgroup_{{group.id}}')"> Join </button>
+             <button type="submit" class="join"  style="display: block;"  onclick="JoinGroup(event,'{{url}}','formgroup_{{group.id}}',false)"> Join </button>
         </form>
         {% endif %}
    </div>
