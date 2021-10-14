@@ -24,12 +24,12 @@ def CreatePostView(request):
         if postform.is_valid():
             post = postform.save(commit=False)
             post.owner = request.user
-            if groupid != None:
+            if groupid != 'None':
                 group = Group.objects.get(id=int(groupid))
                 post.belong_to=group 
             post.save()
 
-            activity = Activity(user=request.user,content_object=post)
+            activity = Activity(user=request.user,content_object=post,action='created')
             activity.save()
  
             return render(request,'posts/post.html',context={'post':post,'detail':False})
@@ -51,6 +51,9 @@ def UpdatePostView(request,postid):
 
             post = postform.save()
 
+            activity = Activity(user=request.user,content_object=post,action='updated')
+            activity.save()
+
             return JsonResponse({'status':True,'post':post.serialize()})         
         else:
             return JsonResponse({'status':False,'errors':str(postform.non_field_errors())})
@@ -63,6 +66,8 @@ def DeletePostView(request,postid):
         try:
             post = Post.objects.get(id=postid)
             post.delete()
+            activity = Activity.objects.filter(user__id=request.user.id,object_id=postid)
+            activity.delete()
             return JsonResponse({'status':True}) 
         except Post.DoesNotExist:
             return redirect('home')
@@ -81,7 +86,7 @@ def CreateCommentView(request):
             comment.post = post
             comment.save()
 
-            activity = Activity(user=request.user,content_object=comment)
+            activity = Activity(user=request.user,content_object=comment,action='created')
             activity.save()
  
             return render(request,'posts/comment.html',context={'comment':comment})
@@ -97,6 +102,10 @@ def UpdateCommentView(request,commentid):
         commentform = CommentForm(data=request.POST,instance=comment)
         if commentform.is_valid():
             comment = commentform.save()
+           
+            activity = Activity(user=request.user,content_object=comment,action='updated')
+            activity.save()
+            
             return JsonResponse({'status':True,'message':comment.message})
         else:
             return JsonResponse({'status':False,'errors':str(commentform.non_field_errors())})
@@ -106,9 +115,11 @@ def UpdateCommentView(request,commentid):
 @login_required(login_url='accounts:login')
 def DeleteCommentView(request,commentid):
     if request.method =='POST' and request.is_ajax():
-        comment = Comment.objects.get(id=commentid)
         try:
+            comment = Comment.objects.get(id=commentid)
             comment.delete()
+            activity = Activity.objects.filter(user__id=request.user.id,object_id=commentid)
+            activity.delete()
             return JsonResponse({'status':True})
         except Comment.DoesNotExist:
             return JsonResponse({'status':False})
@@ -122,6 +133,10 @@ def AddLikeView(request,postid):
         try:
             like = Like(post=post,user=request.user)
             like.save()
+
+            activity = Activity(user=request.user,content_object=like,action='like')
+            activity.save()
+
             likes = post.getLikes()
             return render(request,'posts/like_post_list.html',context={'likes':likes,'postid':postid})
         except Comment.DoesNotExist:
@@ -134,8 +149,15 @@ def RemoveLikeView(request,postid):
     if request.method =='POST' and request.is_ajax():
         post = Post.objects.get(id=postid)
         try:
+
             like = Like.objects.get(post__id=post.id,user__id=request.user.id)
+
+            activity = Activity.objects.get(user__id=request.user.id,object_id=like.id)
+            activity.delete()
+
             like.delete()
+
+
             likes = post.getLikes()
             return render(request,'posts/like_post_list.html',context={'likes':likes,'postid':postid})
         except Comment.DoesNotExist:
@@ -151,6 +173,10 @@ def ShareView(request,postid):
         try:
             share = Share(post=post,user=request.user)
             share.save()
+
+            activity = Activity(user=request.user,content_object=share,action='share')
+            activity.save()
+
             shares = post.getShares()
             return render(request,'posts/share_post_list.html',context={'shares':shares,'postid':postid})
         except Comment.DoesNotExist:
@@ -164,6 +190,10 @@ def RemoveShareView(request,postid):
         post = Post.objects.get(id=postid)
         try:
             share = Share.objects.get(post__id=post.id,user__id=request.user.id)
+
+            activity = Activity.objects.get(user__id=request.user.id,object_id=share.id)
+            activity.delete()
+
             share.delete()
             shares = post.getShares()
             return render(request,'posts/share_post_list.html',context={'shares':shares,'postid':postid})

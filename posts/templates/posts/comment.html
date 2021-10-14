@@ -43,7 +43,7 @@
                 {% endif %}
             </div>
         </div>
-       <div class='commentcontent'>
+       <div class='commentcontent' id='commentcontent{{comment.id}}'>
             <a href="{% url 'accounts:profile' slug=comment.user.slug %}">
                 <span>{{comment.user.first_name}} {{comment.user.last_name}}</span>
             </a>

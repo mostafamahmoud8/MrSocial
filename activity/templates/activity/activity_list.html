@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div class='activitylist'>
+<h3> Activity Log:</h3>
+{% if activities.count > 0 %}
+{%for activity in activities %}
+<div class='activityitem'>
+    <div class="containuserimag">
+        <div class="userimage">
+            {% if user.image %}
+                <img src="{{user.image.url}}" alt="Group Picture">
+            {% else %}
+               <img src="{% static 'default/default-group.png' %}" alt="Group Picture">
+            {% endif %}
+        </div>
+    </div>
+    <div class='activitymessage'>
+         {% if activity.content_type.model == 'like' or activity.content_type.model == 'share' or activity.content_type.model == 'post' %}
+           <p> you have <span class="action">{{activity.action|title}}</span> this post since <span>{{activity.created_at|naturaltime}}</span></p>
+         {% elif activity.content_type.model == 'group' %}
+           <p> you have <span class="action">{{activity.action|title}}</span> this group since <span>{{activity.created_at|naturaltime}}</span></p>
+        {% elif activity.content_type.model == 'comment' %}
+           <p> you have <span class="action">{{activity.action|title}}</span> this comment since <span>{{activity.created_at|naturaltime}}</span></p>
+         {%endif%}
+    </div>
+   <div class='viewactivity'>
+       {% if activity.content_type.model == 'like' or activity.content_type.model == 'share' %}
+            <a href="{% url 'posts:post_detail' pk=activity.content_object.post.id %}"><button>view</button></a>
+       {% elif activty.content_type.model == 'group' %}
+           <a href="{% url 'groups:group-detail' slug=activity.content_object.slug as url %}"><button>view</button></a>
+       {% elif activity.content_type.model == 'comment' %}
+           {% url 'posts:post_detail' pk=activity.content_object.post.id as url %}
+           <a href="{{url}}?#commentcontent{{activity.content_object.id}}"><button>view</button></a>
+       {% elif activity.content_type.model == 'post' %}
+           <a href="{% url 'posts:post_detail' pk=activity.content_object.id as url%}"><button>view</button></a>
+       {%endif%}
+   </div>
+</div>
+{%endfor%}
+{%else%} 
+  <div class='nogroups'>
+    <p> you have no activity yet.</p>
+  </div>
+{%endif%}
+</div>
+{% endblock %}
