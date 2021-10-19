@@ -35,6 +35,17 @@ urlpatterns = [
         name='password_reset_confirm'
     ),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='accounts/passwordresetcomplete.html'), name='password_reset_complete'),
+    
+    #network urls
 
+    path('networks/',views.NetworkBaseView,name='network_base'),
+    path('networks/add/',views.SendFriendRequestView,name='add_friend'),
+    path('networks/remove/',views.RemoveFriendView,name='remove_friend'),
+    path('networks/accept/',views.AcceptFriendRequestView,name='accept_friend'),
+    path('networks/refuse/',views.RefuseFriendRequestView,name='refuse_friend'),
+    path('networks/cancel/',views.CancelFriendRequestView,name='cancel_friend'),
+    path('networks/block/',views.BlockFriendView,name='block_friend'),
+    path('networks/unblock/',views.UnBlockFriendView,name='unblock_friend'),
+    path('networks/search/',views.SearchFriendsView,name='search_friend'),
 ]
 

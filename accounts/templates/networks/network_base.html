@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+  Networks | MrSocial
+{% endblock %}
+{% block content %}
+<div class='friendrequests'>
+    <h2> Requests </h2>
+    <div class="buttons">
+        <button class='sent' autofocus>sent</button>
+        <button class='recieved'>recieved</button>
+    </div>
+    <div class="slider">
+        <div class="sentrequests">
+            <h4> Sent Requests : <span id='sentrequestcount'>{{sentrequests.count}}</span> </h4>
+            <div class="sentlist showscroll">
+                {%if sentrequests.count > 0%}
+                {% for request in sentrequests%}
+                <div class='useritem' id="request_{{request.id}}">
+                    <div class="containuserimag">
+                        <div class="userimage">
+                            {% if request.target.image %}
+                            <a href="{% url 'accounts:profile' slug=request.target.slug %}">
+                                <img src="{{request.target.image.url}}" alt="Profile Picture">
+                            </a>
+                            {% else %}
+                            <a href="{% url 'accounts:profile' slug=request.target.slug %}">
+                                <img src="{% static 'default/default.png' %}" alt="Profile Picture">
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class='useriteminfo'>
+                        <span>{{request.target.first_name|title}}  {{request.target.last_name|title}}</span>
+                        <span class='date'> Sent  {{request.created_at|naturaltime}}</span>
+                    </div>
+                   <div class='useritemaction'>
+                        <form method="POST" id='requestform_{{request.id}}'>
+                             {% csrf_token%}
+                             <input type="hidden" name="friend" value={{request.target.id}}>
+                             {% url 'accounts:cancel_friend' as url %}
+                             <button type="submit" class="cancel"
+                             onclick="CancelFriendRequest(event,'requestform_{{request.id}}','{{url}}',useritem='request_{{request.id}}',profile=false)"> 
+                             Cancel 
+                             </button>
+                        </form>
+                   </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                  <div class='norequest'>
+                      <p> no sent requests </p>
+                  </div>
+                {%endif%}
+            </div>
+        </div>
+        <div class="recivedrequests">
+            <h4> Recieved Requests : <span id='recieverequestcount'>{{recieverequests.count}}</span> </h4>
+            <div class="recievedlist showscroll">
+                {%if recieverequests.count > 0%}
+                {% for request in recieverequests%}
+                <div class='useritem' id="request_{{request.id}}">
+                    <div class="containuserimag">
+                        <div class="userimage">
+                            {% if request.source.image %}
+                            <a href="{% url 'accounts:profile' slug=request.source.slug %}">
+                                <img src="{{request.source.image.url}}" alt="Profile Picture">
+                            </a>
+                            {% else %}
+                            <a href="{% url 'accounts:profile' slug=request.source.slug %}">
+                                <img src="{% static 'default/default.png' %}" alt="Profile Picture">
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class='useriteminfo'>
+                        <span>{{request.source.first_name|title}}  {{request.source.last_name|title}}</span>
+                        <span class='date'> Sent  {{request.created_at|naturaltime}}</span>
+                    </div>
+                   <div class='useritemaction'>
+                        <form method="POST" id='requestform_{{request.id}}'>
+                             {% csrf_token%}
+                             <input type="hidden" name="friend" value={{request.source.id}}>
+                             {% url 'accounts:accept_friend' as accepturl %}
+                             {% url 'accounts:refuse_friend' as refuseurl %}
+
+                             <button type="submit" class="accept"
+                             onclick="AcceptOrRefuseFriendRequest(event,'requestform_{{request.id}}','{{accepturl}}',accept=true,useritem='request_{{request.id}}',profile=false)"> 
+                              Accept </button>
+                             <button type="submit" class="Refuse"
+                             onclick="AcceptOrRefuseFriendRequest(event,'requestform_{{request.id}}','{{refuseurl}}',accept=false,useritem='request_{{request.id}}',profile=false)"> 
+                              Refuse </button>
+                        </form>
+                   </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                  <div class='norequest'>
+                      <p> no new requests </p>
+                  </div>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</div>
+<div class='friends'>
+    <div class='topbar'>
+         <h2>Friends : <span id="friendscount">{{friends|length}}</span></h2>
+         <div class="searchfriends">
+             {% url 'accounts:search_friend' as url %}
+             <input type="text" placeholder="Search Friends" onkeyup="FriendsSearch(event,this,'{{url}}')"/>
+         </div>
+    </div>
+    <div class="searchresultlist showscroll">
+    </div>
+    <div class="friendslist showscroll">
+        {%if friends|length > 0%}
+        {% for friend in friends %}
+        <div class='useritem' id='useritem_{{friend.user.id}}'>
+            <div class="containuserimag">
+                <div class="userimage">
+                    {% if friend.user.image %}
+                    <a href="{% url 'accounts:profile' slug=friend.user.slug %}">
+                        <img src="{{friend.user.image.url}}" alt="Profile Picture">
+                    </a>
+                    {% else %}
+                    <a href="{% url 'accounts:profile' slug=friend.user.slug %}">
+                        <img src="{% static 'default/default.png' %}" alt="Profile Picture">
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class='useriteminfo'>
+                <span>{{friend.user.first_name|title}}  {{friend.user.last_name|title}}</span>
+                <span class='date'> Friend {{friend.date|naturaltime}}</span>
+            </div>
+           <div class='useritemaction'>
+                <form method="POST" id='requestform_{{friend.user.id}}'>
+                    {% csrf_token%}
+                    <input type="hidden" name="friend" value={{friend.user.id}}>
+                    {% url 'accounts:remove_friend' as url %}
+                    <button class='remove'
+                      onclick="RemoveFriendRequest(event,'requestform_{{friend.user.id}}','{{url}}',useritem='useritem_{{friend.user.id}}',profile=false)"> 
+                    <i class="fas fa-user-times"></i> Remove </button>
+               </form>
+           </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class='norequest'>
+              <p> you have no friends yet.</p>
+        </div>
+        {%endif%}
+    </div>        
+</div>
+<div class='blocks'>
+    <h2>Blocked User : <span id='blockscount' >{{blocks.count}}</span></h2>
+    <div class="blocklist showscroll">
+        {%if blocks.count > 0%}
+        {% for block in blocks %}
+        <div class='useritem' id='useritem_{{block.id}}'>
+            <div class="containuserimag">
+                <div class="userimage">
+                    {% if block.target.image %}
+                    <a href="{% url 'accounts:profile' slug=block.target.slug %}">
+                        <img src="{{block.target.image.url}}" alt="Profile Picture">
+                    </a>
+                    {% else %}
+                    <a href="{% url 'accounts:profile' slug=block.target.slug %}">
+                        <img src="{% static 'default/default.png' %}" alt="Profile Picture">
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class='useriteminfo'>
+                <span>{{block.target.first_name|title}}  {{block.target.last_name|title}}</span>
+                <span class='date'> Blocked {{block.created_at|naturaltime}}</span>
+            </div>
+           <div class='useritemaction'>
+                <form method="POST" id='block_{{block.id}}'>
+                     {% csrf_token%}
+                     <input type="hidden" name="friend" value={{block.target.id}}>
+                     {% url 'accounts:unblock_friend' as url %}
+
+                     <button type="submit" class="unblock"
+                      onclick="UnBlockFriend(event,'block_{{block.id}}','{{url}}',useritem='useritem_{{block.id}}')"> 
+                      UnBlock </button>
+                </form>
+           </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class='norequest'>
+            <p> you have not block any one.</p>
+        </div>
+        {%endif%}
+    </div>        
+</div>
+<div class='makespace'>
+</div>
+{%endblock%}

@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-  {{user.first_name}} {{user.last_name}} | MrSocial
+  {{profile.first_name}} {{profile.last_name}} | MrSocial
 {% endblock %}
 {% block content %}
+{% if not user in profile.block.all and not profile in user.block.all %}
 {% if profile %}
  <div class='profile'>
    <div class='profieldeleteform' id='profiledeleteform_{{profile.id}}'>
@@ -44,28 +45,71 @@
       <div class='profiledata'>
           <span><i class="fas fa-envelope"></i><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></span>
           <span><i class="fas fa-birthday-cake"></i>{{ profile.birth_date }}</span>
-          <span class='numfriends'> {{ profile.friendship.count }} friends</span>
+          <span class='numfriends'> {{ profile.get_friends|length }} friends</span>
           <span class='numposts'> {{ profile.userposts.count }} posts</span>
       </div>
       {% if profile.id != user.id %}
       <div class='profileaction' style="margin-top: 0.5vw;">
-        <button class='addfriend'><i class="fas fa-user-plus"></i> add friend</button>
-        <button class='Block'><i class="fas fa-user-times"></i> Block</button>
+        <form method="POST" id='requestform_{{profile.id}}'>
+           {% csrf_token %}
+           <input type="hidden" value="{{profile.id}}" name='friend'>
+           {% if user in profile.get_friends %}
+              <script>
+                remove = true
+              </script>
+           {% elif  user in profile.get_requests %}
+             <script>
+                accept = true
+                refuse = true
+             </script>
+           {% elif profile in user.get_requests %}
+             <script>
+                cancel = true
+             </script>
+           {%else%}
+            <script>
+                add = true
+            </script>
+           {% endif %}
+           {% url 'accounts:remove_friend' as url %}
+           <button class='remove'
+           onclick="RemoveFriendRequest(event,'requestform_{{profile.id}}','{{url}}',useritem=null,profile=true)"> 
+           <i class="fas fa-user-times"></i> Remove Friend</button>
+           {% url 'accounts:accept_friend' as url %}
+           <button class="accept"
+              onclick="AcceptOrRefuseFriendRequest(event,'requestform_{{profile.id}}','{{url}}',accept=true,useritem=null,profile=true)"> 
+               Accept Request </button>
+            {% url 'accounts:refuse_friend' as url %}
+            <button class="refuse"
+              onclick="AcceptOrRefuseFriendRequest(event,'requestform_{{profile.id}}','{{url}}',accept=false,useritem=null,profile=true)"> 
+               Refuse Request </button>
+           {% url 'accounts:cancel_friend' as url %}
+           <button class='cancel' 
+              onclick="CancelFriendRequest(event,'requestform_{{profile.id}}','{{url}}',useritem=null,profile=true)"
+            >Cancel Request</button>
+            {% url 'accounts:add_friend' as url %}
+           <button class='add'
+           onclick="AddFriendRequest(event,'requestform_{{profile.id}}','{{url}}')">
+           <i class="fas fa-user-plus"></i> Add Friend</button>
+           {% url 'accounts:block_friend' as url %}
+          <button class='Block' type="submit" formaction="{{url}}">
+          <i class="fas fa-user-lock"></i> Block</button>
+        </form>
       </div>
       {% endif %}
     </div>
 </div>
- {% if posts.count == 0 %}
+{% if posts|length == 0 %}
    <div class='noposts'>
-       <p> This profile have no created posts yet.</p>
+       <p> This profile has no posts yet.</p>
    </div>
-  {% else %}
+{% else %}
    {% for post in posts %}
        {% include 'posts/post.html' with post=post.post profile=True share=post.share sharedpost=post.posttype %}
    {%endfor%}
    <div class='makespace'>
    </div>
-  {% endif%}
+{% endif%}
 {% else %}
 <div class='profilenotexists'>
     <div>
@@ -73,4 +117,11 @@
     </div>
 </div>
 {% endif %}
+{%else%}
+<div class='profilenotexists'>
+  <div>
+      <h3>this page is <span>unknown</span>. Try searching for something else.</h3>
+  </div>
+</div>
+{%endif%}
 {% endblock %}

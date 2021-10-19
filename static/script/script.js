@@ -27,7 +27,6 @@ $(document).ready(function(){
          $('#content').css({'margin-left':'20%'});
          $('#navbar').css({'width':'80%'});
     });
-
     $('button.close').click(function(){
         
         $(this).css({'display':'none'});
@@ -36,7 +35,18 @@ $(document).ready(function(){
         $('#content').css({'margin-left':'0%'});
         $('#navbar').css({'width':'100%'});   
    });
-
+   $('button.sent').click(function(){
+        $(this).css({'opacity':'1'})
+        $('button.recieved').css({'opacity':'0.7'})
+        $('div.recivedrequests').hide();   
+        $('div.sentrequests').show();
+    });
+   $('button.recieved').click(function(){
+        $(this).css({'opacity':'1'})
+        $('button.sent').css({'opacity':'0.7'})
+        $('div.sentrequests').hide();
+        $('div.recivedrequests').show();   
+    });
    $('span.imgdelete').click(function()
    { 
        $('div.imagepreview').css('display','none');
@@ -69,6 +79,8 @@ $(document).ready(function(){
    });
 /********************************Ajax calls goes here*******************/     
 });
+var remove = refuse = accept = add = cancel = false;
+
 function changenumbers(word,action)
 {
     var numbers = word.match(/(\d+)/);
@@ -81,6 +93,45 @@ function changenumbers(word,action)
     }
 
     return number;
+}
+function reasginvalue()
+{
+    remove = refuse = accept = add = cancel = false; 
+} 
+function showprofilebuttons()
+{
+    if(add){
+        $('div.profileaction form button.add').css({"display":'inline-block'})
+    }else
+    {
+        $('div.profileaction form button.add').css({"display":'none'})
+    }
+    if(remove){
+        $('div.profileaction form button.remove').css({"display":'inline-block'})
+    }else
+    {
+        $('div.profileaction form button.remove').css({"display":'none'})
+    }
+    if(refuse){
+        $('div.profileaction form button.refuse').css({"display":'inline-block'})
+    }else
+    {
+        $('div.profileaction form button.refuse').css({"display":'none'})
+    }
+    if(accept){
+        $('div.profileaction form button.accept').css({"display":'inline-block'})
+    }
+    else
+    {
+        $('div.profileaction form button.accept').css({"display":'none'})
+    }
+    if(cancel){
+        $('div.profileaction form button.cancel').css({"display":'inline-block'})
+    }
+    else
+    {
+        $('div.profileaction form button.cancel').css({"display":'none'})
+    }
 }
 function CreatPost(e,url,formid,group=null)
 {
@@ -625,8 +676,8 @@ function JoinGroup(event,url,formid,groupdetail=false,memebersurl=null)
              processData: false,
              contentType: false,
     });
-
 }
+
 function GroupSearch(event,input,url)
 {
     event.preventDefault();
@@ -647,6 +698,7 @@ function GroupSearch(event,input,url)
         $('div.optionsresult').slideUp();
     }  
 }
+
 function getGroupMembers(url)
 {
     $.get(url, function(data, statustext){
@@ -657,6 +709,230 @@ function getGroupMembers(url)
         }
     });
 }
+function AddFriendRequest(event,formid,url)
+{
+    event.preventDefault();
+    var form =  $('#'+formid)[0];
+    var formdata =  new FormData(form);
+    console.log(url);   
+    $.ajax({
+             url:url,
+             data:formdata,
+             async:true,
+             type:'POST',
+             success:function(response,st,xml){
+                 if(st == 'success' && xml.status == 200)
+                 {
+                     if(response.status)
+                     {
+                        console.log(response);
+                        reasginvalue();
+                        cancel = true
+                        showprofilebuttons();
+                     }
+                }            
+             },
+             processData: false,
+             contentType: false,
+    });
+}
+function UnBlockFriend(event,formid,url,useritem)
+{
+    event.preventDefault();
+    var form =  $('#'+formid)[0];
+    var formdata =  new FormData(form);
+    console.log(url);   
+    $.ajax({
+             url:url,
+             data:formdata,
+             async:true,
+             type:'POST',
+             success:function(response,st,xml){
+                 if(st == 'success' && xml.status == 200)
+                 {
+                     if(response.status)
+                     {
+                        console.log(response);
+                        
+                        var count = $('#blockscount').html()
+                        var blockcount = changenumbers(count,'-');
+                        $('#blockscount').html(blockcount);
+                        if(blockcount == 0){
+                        $('#'+useritem).parent().html("<div class='norequest'><p> you have not block any one. </p> </div>");   
+                        }
+                        $('#'+useritem).remove();
+                     }
+                }            
+             },
+             processData: false,
+             contentType: false,
+    });
+
+}
+function CancelFriendRequest(event,formid,url,useritem=null,profile=false)
+{
+    event.preventDefault();
+    var form =  $('#'+formid)[0];
+    var formdata =  new FormData(form);
+    console.log(url);   
+    $.ajax({
+             url:url,
+             data:formdata,
+             async:true,
+             type:'POST',
+             success:function(response,st,xml){
+                 if(st == 'success' && xml.status == 200)
+                 {
+                     if(response.status)
+                     {
+                        console.log(response);
+                        if(profile){
+                            reasginvalue();
+                            add = true
+                            showprofilebuttons();
+                        }else{
+                           var count = $('#sentrequestcount').html()
+                           var requestcount = changenumbers(count,'-');
+                           $('#sentrequestcount').html(requestcount);
+                           if(requestcount == 0){
+                            $('#'+useritem).parent().html("<div class='norequest'><p> no sent requests </p> </div>");   
+                           }
+                            $('#'+useritem).remove();
+                        } 
+                        
+                     }
+                }            
+             },
+             processData: false,
+             contentType: false,
+    });
+
+}
+function AcceptOrRefuseFriendRequest(event,formid,url,accept=false,useritem=null,profile=false)
+{
+    event.preventDefault();
+    var form =  $('#'+formid)[0];
+    var formdata =  new FormData(form);
+    console.log(url);   
+    $.ajax({
+             url:url,
+             data:formdata,
+             async:true,
+             type:'POST',
+             success:function(response,st,xml){
+                 if(st == 'success' && xml.status == 200)
+                 {
+                     if(accept)
+                     {
+                        if(typeof response == 'string'){
+                            console.log(response);
+                            if(profile){
+                                 reasginvalue();
+                                 remove = true
+                                 showprofilebuttons();
+                            }else{
+                                 var count = $('#recieverequestcount').html()
+                                 var requestcount = changenumbers(count,'-');
+                                $('#recieverequestcount').html(requestcount);
+                                 if(requestcount == 0){
+                                 $('#'+useritem).parent().html("<div class='norequest'><p> no new requests </p> </div>");   
+                                 }
+                                $('#'+useritem).remove();
+
+                                var fcount = $('#friendscount').html()
+                                var friendscount = changenumbers(fcount,'+');
+                                $('#friendscount').html(friendscount);
+                                $('div.friendslist div.norequest').remove()
+                                var friendslist = $('div.friendslist').html()
+                                $('div.friendslist').html(friendslist+response);
+                            }  
+                        }
+                     }else{
+                        if(response.status)
+                        {
+                          console.log(response);
+                          if(profile){
+                              reasginvalue();                            
+                              add = true
+                              showprofilebuttons();
+                          }else{
+                             var count = $('#recieverequestcount').html()
+                             var requestcount = changenumbers(count,'-');
+                             $('#recieverequestcount').html(requestcount);
+                             
+                             if(requestcount == 0){
+                              $('#'+useritem).parent().html("<div class='norequest'><p> no new requests </p> </div>");   
+                             }
+                             $('#'+useritem).remove();
+                          }  
+                       }
+
+                     } 
+                }            
+             },
+             processData: false,
+             contentType: false,
+    });
+}
+function RemoveFriendRequest(event,formid,url,useritem=null,profile=false)
+{
+    event.preventDefault();
+    var form =  $('#'+formid)[0];
+    var formdata =  new FormData(form);
+    console.log(url);   
+    $.ajax({
+             url:url,
+             data:formdata,
+             async:true,
+             type:'POST',
+             success:function(response,st,xml){
+                 if(st == 'success' && xml.status == 200)
+                 {
+                     if(response.status)
+                     {
+                        console.log(response);
+
+                        if(profile){
+                            reasginvalue();
+                            add = true
+                            showprofilebuttons();
+                        }else{
+                           var count = $('#friendscount').html()
+                           var requestcount = changenumbers(count,'-');
+                           $('#friendscount').html(requestcount);
+                           if(requestcount == 0){
+                            $('#'+useritem).parent().html("<div class='norequest'><p> you have no friends yet. </p> </div>");   
+                           }
+                           $('#'+useritem).remove();
+                        } 
+                        
+                     }
+                }            
+             },
+             processData: false,
+             contentType: false,
+     });
+}
+function FriendsSearch(event,input,url){
+    event.preventDefault();
+    var value = $(input).val();
+    if(value !== '')
+    {
+      console.log(url+'?'+'search'+'='+value);
+      $.get(url+'?'+'search'+'='+value, function(data, statustext){
+        if(statustext == 'success')
+        {
+          console.log(data)
+          $('div.searchresultlist').html(data);
+          $('div.searchresultlist').slideDown();
+        }
+      });
+    }else
+    {
+        $('div.searchresultlist').slideUp();
+    } 
+}
+
 function showprofileaction(proid,options=null,prodetail)
 {
     if(options)

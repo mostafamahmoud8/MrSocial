@@ -1,0 +1,34 @@
+{% load static %}
+{% load humanize %}
+{%if users|length > 0%}
+        {% for friend in users %}
+        <div class='useritem'>
+            <div class="containuserimag">
+                <div class="userimage">
+                    {% if friend.image %}
+                    <a href="{% url 'accounts:profile' slug=friend.slug %}">
+                        <img src="{{friend.user.image.url}}" alt="Profile Picture">
+                    </a>
+                    {% else %}
+                    <a href="{% url 'accounts:profile' slug=friend.slug %}">
+                        <img src="{% static 'default/default.png' %}" alt="Profile Picture">
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class='useriteminfo'>
+                <span>{{friend.first_name|title}}  {{friend.last_name|title}}</span>
+                <span class='date'> Joined at {{friend.date_joined|naturaltime}}</span>
+            </div>
+           <div class='useritemaction'>
+            <a href="{% url 'accounts:profile' slug=friend.slug %}">
+                <button> View </button>
+            </a>
+           </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class='norequest'>
+              <p> you have no friends with this name.</p>
+        </div>
+{%endif%}

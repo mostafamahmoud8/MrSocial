@@ -1,8 +1,11 @@
+from typing import List
 from django.db import models
 from django.contrib.auth.models import AbstractUser,BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from django.urls import reverse
+from django.db.models import Q
+
 # Create your models here.
 def Uplaod_user_image(instance,filename):
      return 'Profile/picture/{username}/{filename}'.format(username=instance.username,filename=filename)
@@ -67,6 +70,24 @@ class CustomUser(AbstractUser):
     
     def get_absolute_url(self):
         return reverse('accounts:profile',kwargs={'slug':self.slug})
+
+    def get_friends(self):
+        users = []
+        friends = FriendShip.objects.filter((Q(source__id = self.id)|Q(target__id = self.id)) & Q(accepted=True)).select_related('source','target')
+        for friend in friends:
+            if self.id == friend.source.id:
+                users.append(friend.target)
+            else:
+                users.append(friend.source)
+
+        return users
+    
+    def get_requests(self):
+        users = []
+        friends = FriendShip.objects.filter(Q(source__id = self.id) & Q(accepted=False)).select_related('source','target')
+        for friend in friends:
+            users.append(friend.target)
+        return users
 
     def save(self, *args,**kwargs):
         self.slug = slugify(self.username)

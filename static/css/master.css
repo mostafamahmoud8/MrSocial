@@ -11,15 +11,15 @@ body
     overflow-x: hidden;
     overflow-y: auto;
 }
-body::-webkit-scrollbar,textarea::-webkit-scrollbar,div.groupmembers::-webkit-scrollbar
+body::-webkit-scrollbar,textarea::-webkit-scrollbar,div.groupmembers::-webkit-scrollbar,div.showscroll::-webkit-scrollbar
 {
      width: 10px;
 }
-body::-webkit-scrollbar-track,textarea::-webkit-scrollbar-track,div.groupmembers::-webkit-scrollbar-track
+body::-webkit-scrollbar-track,textarea::-webkit-scrollbar-track,div.groupmembers::-webkit-scrollbar-track,div.showscroll::-webkit-scrollbar-track
 {
      background: #F2EEE4;
 }
-body::-webkit-scrollbar-thumb,textarea::-webkit-scrollbar-thumb,div.groupmembers::-webkit-scrollbar-thumb
+body::-webkit-scrollbar-thumb,textarea::-webkit-scrollbar-thumb,div.groupmembers::-webkit-scrollbar-thumb,div.showscroll::-webkit-scrollbar-thumb
 {
      background: lightgray;
      border-radius: 5px;
@@ -529,7 +529,6 @@ div.search #search,div.groupoptions div.groupsearch input
 div.groupoptions div.groupsearch input
 {
      border: 1px solid lightgray;
-     border: 1px solid lightgray;
      width: 45%;
      font-size: 1vw;
      border-radius: 5px 5px 0px 0px;
@@ -735,7 +734,10 @@ button.logout a
      text-decoration: none;
      color:#bf1f1f;
 }
-div.addpost,div.groupleft,#createdpost,#showpostdatail,#showprofilepost,div.groupoptions,div.optionsresult,div.grouplist,div.createpostgroup,div.groupposts,div.groupmembers,div.activitylist
+div.addpost,div.groupleft,#createdpost,#showpostdatail
+,#showprofilepost,div.groupoptions,div.optionsresult
+,div.grouplist,div.createpostgroup,div.groupposts
+,div.groupmembers,div.activitylist,div.friendrequests,div.friends,div.blocks
 {
      position: relative;
      display: block;
@@ -757,6 +759,16 @@ div.activitylist
      width:50%;
      padding: 5px;
      padding-right: 7px;
+}
+div.friendrequests,div.friends,div.blocks
+{
+     background-color: whitesmoke;
+     width: 45%;
+     border-radius: 5px;
+}
+div.friends,div.blocks
+{
+     margin-top: 1vw;
 }
 div.groupleft,div.createpostgroup,div.groupposts
 {
@@ -808,6 +820,139 @@ div.createpostgroup div.addpost
     border-radius: 10px;
     border: 2px solid lightgray;
     margin-bottom: 1vw;
+}
+div.friends div.topbar
+{
+     position: relative;
+     display: flex;
+     width: 100%;
+     border-bottom: 1px solid lightgrey;
+     padding:3px 0px;
+}
+div.friendrequests h2,div.friendrequests div.slider h4,div.blocks h2
+{
+     position: relative;
+     display: block;
+     color: #5065A8;
+     font-family: Lato,sans-serif;
+     width: 100%;
+     text-align: center;
+     margin-top: 0vw;
+     margin-bottom: 0vw;
+     padding: 5px 0px;
+     border-bottom: 1px solid lightgray;
+}
+div.friends div.topbar h2
+{
+     position: relative;
+     text-align: left;
+     width: 40%;
+     text-indent: .5vw;
+     color:#5065A8;
+     font-family: Lato,sans-serif;
+     margin-top: 0vw;
+     margin-bottom: 0vw;
+}
+div.friends div.topbar div.searchfriends
+{
+     position: relative;
+     width: 60%;
+}
+div.topbar div.searchfriends input
+{
+     position: relative;
+     display: block;
+     width: 60%;
+     float: right;
+     margin-right:0.2vw;
+     padding: 5px;
+     outline: none;
+     border:2px solid lightgrey;
+     border-radius: 5px;
+     font-family: Lato,sans-serif;
+}
+div.topbar div.searchfriends input:focus
+{
+     border: 2px solid #5065A8;
+}
+div.friendrequests div.slider h4,div.blocks h2
+{
+    text-align: left;
+    text-indent: .5vw;
+    margin-bottom: 0.5vw;
+    padding-bottom:7px;
+}
+div.friendrequests div.slider h4 span,div.friends h2 span,div.blocks h2 span
+{
+    background-color: #5065A8;
+    color: whitesmoke;
+    border: 2px solid #5065A8;
+    border-radius: 5px;
+    padding: 2px 10px;
+    font-family: QuiKSand,sans-serif;
+    font-size: 1vw;
+}
+div.friendrequests div.buttons
+{
+     position: relative;
+     display: flex;
+     width: 100%;
+     padding-top:5px;
+     padding-bottom: 5px;
+     border-bottom: 1px solid lightgrey;
+}
+div.buttons button
+{
+    width: 35%;
+    margin: auto;
+    background-color: #5065A8;
+    outline:none;
+    color:#F2EEE4;
+    font-family:Lato,sans-serif;
+    font-size: 1.2vw;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid #5065A8;
+    border-radius: 5px;
+    text-transform:capitalize;
+    opacity: 0.7;
+}
+div.buttons button:focus
+{
+    opacity: 1;
+}
+div.friendrequests div.slider
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     background-color: whitesmoke;
+}
+div.slider div.sentrequests,div.slider div.recivedrequests,div.recievedlist,div.sentlist
+,div.friends div.friendslist,div.friends div.searchresultlist,div.blocks div.blocklist
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     background-color: whitesmoke;
+     margin: auto;
+     margin-top: .5vw;
+}
+div.friends div.searchresultlist
+{
+     display: none;
+     margin-top: 0vw;
+     background-color:#F2EEE4;
+}
+div.showscroll
+{
+     max-height: 20vw;
+     overflow-x: hidden;
+     overflow-y: auto;
+}
+div.slider div.recivedrequests
+{
+     display: none;
 }
 #showprofilepost
 {
@@ -997,7 +1142,9 @@ div.addpost #PostForm div.postdone,div.creategroup form div.groupdone,div.update
      text-align: center;
      font-family: QiukSand,sans-serif,serif;
 }
-div.addpost div.addpostinfo ,div.profile div.profileinfo,div.group div.groupinfo,div.postdetail div.ownerinfo,div.postdetail div.comments div.commentdetail div.content,div.groupitem,div.activityitem
+div.addpost div.addpostinfo ,div.profile div.profileinfo,div.group div.groupinfo
+,div.postdetail div.ownerinfo,div.postdetail div.comments div.commentdetail div.content
+,div.groupitem,div.activityitem,div.useritem
 {
      position: relative;
      display: flex;
@@ -1057,17 +1204,23 @@ div.comments div.comment,div.comments div.commentdetail
      display: block;
      width:100%;
 }
-div.postdetail div.ownerinfo,div.groupitem,div.activityitem
+div.postdetail div.ownerinfo,div.groupitem,div.activityitem,div.useritem
 {
      display: block;
 }
-div.groupitem,div.activityitem
+div.groupitem,div.activityitem,div.useritem
 {
      border:1px solid lightgray;
      border-radius: 5px;
      margin-bottom: .5vw;
 }
-
+div.useritem
+{
+     width: 98%;
+     margin: auto;
+     margin-bottom: 0.5vw;
+     background-color: whitesmoke;
+}
 div.postdetail div.sharedpost
 {
      position: relative;
@@ -1085,14 +1238,15 @@ div.postdetail div.sharedpost p
      font-size: 1.2vw;
      margin-left: .5vw;
 }
-div.postdetail div.ownerinfo div.info,div.postdetail div.showlikes div.info,div.member div.info,div.groupitem div.groupiteminfo,div.activityitem div.activitymessage
+div.postdetail div.ownerinfo div.info,div.postdetail div.showlikes div.info,div.member div.info
+,div.groupitem div.groupiteminfo,div.activityitem div.activitymessage,div.useritem div.useriteminfo
 {
      position: relative;
      display: inline-block;
      top: -1.5vw;
      margin-left: 0.3vw;
 }
-div.groupitem div.groupiteminfo
+div.groupitem div.groupiteminfo,div.useritem div.useriteminfo
 {
      padding: 0px;
 }
@@ -1120,6 +1274,18 @@ div.groupitem div.groupiteminfo li:last-child
    font-size: 1vw;
    word-wrap:break-word;
 }
+div.useritem div.useriteminfo span
+{
+     position: relative;
+     display: block;
+     color: #5065A8;
+     font-family: Lato,sans-serif;
+     font-size: 1.2;
+}
+div.useritem div.useriteminfo span.date
+{
+     font-size: .8vw;
+}
 div.activityitem div.activitymessage p 
 {
      position: relative;
@@ -1145,7 +1311,7 @@ div.postdetail div.showlikes div.info,div.member div.info
 {
      top: -1vw;
 }
-div.groupitem div.groupitemoption,div.activityitem div.viewactivity
+div.groupitem div.groupitemoption,div.activityitem div.viewactivity,div.useritem div.useritemaction
 {
      position: relative;
      display: block;
@@ -1154,11 +1320,16 @@ div.groupitem div.groupitemoption,div.activityitem div.viewactivity
      top:1.5vw;
      width: 10%;
 }
+div.useritem div.useritemaction
+{
+     top: 1vw;
+     width: 15%;
+}
 div.viewactivity a
 {
      text-decoration: none;
 }
-div.groupitemoption button,div.viewactivity button,div.groupitemoption span
+div.groupitemoption button,div.viewactivity button,div.groupitemoption span,div.useritem div.useritemaction button
 {
      position: relative;
      display: block;
@@ -1175,14 +1346,24 @@ div.groupitemoption span
      padding: 3px;
      width:85%;
 }
-div.groupitemoption button, div.viewactivity button
+div.groupitemoption button, div.viewactivity button,div.useritem div.useritemaction button
 {
      cursor: pointer;
      width: 100%;
 }
-div.groupitemoption button:hover,div.viewactivity button:hover
+div.useritem div.useritemaction button
+{
+     margin-bottom: 0.2vw;
+     text-align: center;
+     font-size: .9vw;
+}
+div.groupitemoption button:hover,div.viewactivity button:hover,div.useritem div.useritemaction button:hover
 {
      opacity: 1;
+}
+div.useritem div.useritemaction a
+{
+     text-decoration: none;
 }
 div.posteditform,div.postdeleteform,div.profieldeleteform,div.groupdeleteform
 {
@@ -1208,11 +1389,16 @@ div.postdetail div.ownerinfo div.info a:hover
 {
    text-decoration: underline;
 }
-div.postdetail div.ownerinfo div.containuserimag,div.postdetail  div.commentdetail div.containuserimag,div.postdetail div.showlikes div.containuserimag,div.member div.containuserimag,div.groupitem div.containgroupimag,div.activityitem div.containuserimag
+div.postdetail div.ownerinfo div.containuserimag,div.postdetail  div.commentdetail div.containuserimag
+,div.postdetail div.showlikes div.containuserimag,div.member div.containuserimag
+,div.groupitem div.containgroupimag,div.activityitem div.containuserimag,div.useritem div.containuserimag
 {
      display: inline-block;
 }
-div.addpostinfo div.userimage,div.profile div.profileinfo div.profileimage,div.group div.groupinfo div.groupimage,div.postdetail div.ownerinfo div.userimage,div.commentdetail div.containuserimag div.userimage,div.postdetail div.showlikes div.userimage,div.member div.userimage,div.groupitem div.containgroupimag div.groupimage,div.activityitem div.containuserimag div.userimage
+div.addpostinfo div.userimage,div.profile div.profileinfo div.profileimage,div.group div.groupinfo div.groupimage,div.postdetail div.ownerinfo div.userimage,div.commentdetail div.containuserimag div.userimage
+,div.postdetail div.showlikes div.userimage,div.member div.userimage
+,div.groupitem div.containgroupimag div.groupimage
+,div.activityitem div.containuserimag div.userimage,div.useritem div.containuserimag div.userimage
 {
      position: relative;
      display: block;
@@ -1246,12 +1432,20 @@ div.profile div.profileinfo div.profileimage,div.group div.groupinfo div.groupim
      margin-left: 1vw;
      border: 2px solid lightgray;
 }
-div.postdetail div.ownerinfo div.userimage,div.groupitem div.containgroupimag div.groupimage,div.activityitem div.containuserimag div.userimage
+div.postdetail div.ownerinfo div.userimage
+,div.groupitem div.containgroupimag div.groupimage
+,div.activityitem div.containuserimag div.userimage
+,div.useritem div.containuserimag div.userimage
 {
      width: 60px;
      height: 60px;
 }
-div.addpostinfo div.userimage img , div.profile div.profileimage img ,div.group div.groupimage img,div.postdetail div.ownerinfo div.userimage img,div.postdetail div.commentdetail div.userimage img,div.postdetail div.showlikes div.userimage img,div.member div.userimage img,div.groupitem div.containgroupimag div.groupimage img,div.activityitem div.containuserimag div.userimage img
+div.addpostinfo div.userimage img , div.profile div.profileimage img 
+,div.group div.groupimage img,div.postdetail div.ownerinfo div.userimage img,
+div.postdetail div.commentdetail div.userimage img,div.postdetail div.showlikes div.userimage img
+,div.member div.userimage img,div.groupitem div.containgroupimag div.groupimage img
+,div.activityitem div.containuserimag div.userimage img
+,div.useritem div.containuserimag div.userimage img
 {
      object-fit: cover;
      width: 100%;
@@ -1531,21 +1725,20 @@ span.imgdelete:hover,span.profileimgdelete:hover,span.updateimgdelete:hover,span
      color: #5065A8;
      border: 1px solid #5065A8;
 }
-div.noposts,div.nogroups
+div.noposts,div.nogroups,div.norequest
 {
      position: relative;
      display: block;
      padding: 10px;
      margin: auto;
-     margin-top: 15vw;
      color: #5065A8;
      font-family: lato,sans-serif;
      text-align: center;
      font-size: .9vw;
 }
-div.nogroups
+div.noposts
 {
-     margin: auto;
+     margin-top: 15vw;
 }
 div.groupdetail
 {
@@ -1674,11 +1867,20 @@ div.profiledata,div.groupdata
 }
 div.profileaction,div.groupaction
 {
-     width: 50%;
-     margin: auto;
      margin-top: 1.5vw;
      padding-bottom:2vw;
 }
+div.groupaction
+{
+     width: 50%;
+     margin: auto;
+}
+div.profileaction form
+{
+     display: flex;
+     width: 100%;
+}
+
 div.profiledata span,div.groupdata span
 {
      position: relative;
@@ -1700,8 +1902,9 @@ div.profiledata span a,div.groupdata span a
 div.profileaction button,div.groupaction button
 {
      position: relative;
-     width: 48%;
+     width: 30%;
      outline: none;
+     margin: auto;
      border: 1px solid #5065A8;
      color: whitesmoke;
      background-color: #5065A8;
@@ -1717,9 +1920,15 @@ div.groupaction button
 {
      width:60%;
      display: block;
-     margin: auto;
 }
-
+div.profileaction form button
+{
+  display: none;
+}
+div.profileaction form button.Block
+{
+     display:inline-block;
+}
 div.profilenotexists
 {
      position: relative;
