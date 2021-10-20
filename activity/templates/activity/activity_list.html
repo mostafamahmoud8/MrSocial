@@ -3,7 +3,7 @@
 {% load humanize %}
 {% block content %}
 <div class='activitylist'>
-<h3> Activity Log:</h3>
+<h3> Activity Log :</h3>
 {% if activities.count > 0 %}
 {%for activity in activities %}
 <div class='activityitem'>
@@ -18,23 +18,23 @@
     </div>
     <div class='activitymessage'>
          {% if activity.content_type.model == 'like' or activity.content_type.model == 'share' or activity.content_type.model == 'post' %}
-           <p> you have <span class="action">{{activity.action|title}}</span> this post since <span>{{activity.created_at|naturaltime}}</span></p>
+           <p> you have <span class="action">{{activity.action|title}}</span> this post at,<span>{{activity.created_at|date:'j M Y f a'}}</span></p>
          {% elif activity.content_type.model == 'group' %}
-           <p> you have <span class="action">{{activity.action|title}}</span> this group since <span>{{activity.created_at|naturaltime}}</span></p>
+           <p> you have <span class="action">{{activity.action|title}}</span> this group at,<span>{{activity.created_at|date:'j M Y f a'}}</span></p>
         {% elif activity.content_type.model == 'comment' %}
-           <p> you have <span class="action">{{activity.action|title}}</span> this comment since <span>{{activity.created_at|naturaltime}}</span></p>
+           <p> you have <span class="action">{{activity.action|title}}</span> this comment at,<span>{{activity.created_at|date:'j M Y f a'}}</span></p>
          {%endif%}
     </div>
    <div class='viewactivity'>
        {% if activity.content_type.model == 'like' or activity.content_type.model == 'share' %}
             <a href="{% url 'posts:post_detail' pk=activity.content_object.post.id %}"><button>view</button></a>
        {% elif activty.content_type.model == 'group' %}
-           <a href="{% url 'groups:group-detail' slug=activity.content_object.slug as url %}"><button>view</button></a>
+           <a href="{% url 'groups:group-detail' slug=activity.content_object.slug %}"><button>view</button></a>
        {% elif activity.content_type.model == 'comment' %}
            {% url 'posts:post_detail' pk=activity.content_object.post.id as url %}
            <a href="{{url}}?#commentcontent{{activity.content_object.id}}"><button>view</button></a>
        {% elif activity.content_type.model == 'post' %}
-           <a href="{% url 'posts:post_detail' pk=activity.content_object.id as url%}"><button>view</button></a>
+           <a href="{% url 'posts:post_detail' pk=activity.object_id %}"><button>view</button></a>
        {%endif%}
    </div>
 </div>
@@ -44,5 +44,49 @@
     <p> you have no activity yet.</p>
   </div>
 {%endif%}
+</div>
+<div class='activitylist authactivity'>
+  <h3> Authentication Activity Log :</h3>
+  {% for activity in authactivities %}
+    <div class='activityitem'>
+      <h3>{{user.username}} <span>{{activity.action}}</span>  at  
+        <span class="date">{{activity.logtime|date:'j M Y f a'}}</span></h3>
+      <table>
+        <caption>{{activity.action}} Information</caption>
+        <thead>
+          <tr>
+            <th>IP address</th>
+            <th>browser</th>
+            <th>Operating system</th>
+            <th>Device</th>
+            <th>Device type</th>
+            <th>touch</th>
+            <th>Boot</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>{{activity.ipaddress}}</td>
+              <td>{{activity.browser}}</th>
+              <td>{{activity.os}}</td>
+              <td>
+                {% if activity.is_mobile %} 
+                   mobile 
+                {% elif activityis_tablet %} 
+                   tablet
+                {% elif activity.is_pc %}   
+                   Desktop 
+                {%endif%}
+              </td>
+              <td>{{activity.device}}</th>
+              <td>{% if activity.is_touch_capable %} Yes {% else %} No {%endif%}</td>
+              <td>{% if activity.is_bot %} Yes {% else %} No {%endif%}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  {%endfor%}
+</div>
+<div class='makespace'>
 </div>
 {% endblock %}

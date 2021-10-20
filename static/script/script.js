@@ -925,11 +925,13 @@ function FriendsSearch(event,input,url){
           console.log(data)
           $('div.searchresultlist').html(data);
           $('div.searchresultlist').slideDown();
+          $('div.friendslist').slideUp();
         }
       });
     }else
     {
         $('div.searchresultlist').slideUp();
+        $('div.friendslist').slideDown();
     } 
 }
 

@@ -11,20 +11,24 @@ body
     overflow-x: hidden;
     overflow-y: auto;
 }
-body::-webkit-scrollbar,textarea::-webkit-scrollbar,div.groupmembers::-webkit-scrollbar,div.showscroll::-webkit-scrollbar
+body::-webkit-scrollbar,textarea::-webkit-scrollbar,div.groupmembers::-webkit-scrollbar
+,div.showscroll::-webkit-scrollbar,div.activityitem::-webkit-scrollbar
 {
      width: 10px;
 }
-body::-webkit-scrollbar-track,textarea::-webkit-scrollbar-track,div.groupmembers::-webkit-scrollbar-track,div.showscroll::-webkit-scrollbar-track
+body::-webkit-scrollbar-track,textarea::-webkit-scrollbar-track,div.groupmembers::-webkit-scrollbar-track
+,div.showscroll::-webkit-scrollbar-track,div.activityitem::-webkit-scrollbar-track
 {
      background: #F2EEE4;
 }
-body::-webkit-scrollbar-thumb,textarea::-webkit-scrollbar-thumb,div.groupmembers::-webkit-scrollbar-thumb,div.showscroll::-webkit-scrollbar-thumb
+body::-webkit-scrollbar-thumb,textarea::-webkit-scrollbar-thumb,div.groupmembers::-webkit-scrollbar-thumb
+,div.showscroll::-webkit-scrollbar-thumb,div.activityitem::-webkit-scrollbar-thumb
 {
      background: lightgray;
      border-radius: 5px;
 }
-body::-webkit-scrollbar-thumb:hover,textarea::-webkit-scrollbar-thumb:hover,div.groupmembers::-webkit-scrollbar-thumb:hover
+body::-webkit-scrollbar-thumb:hover,textarea::-webkit-scrollbar-thumb:hover
+,div.groupmembers::-webkit-scrollbar-thumb:hover,div.activityitem::-webkit-scrollbar-thumb:hover
 {
      background: grey;
 }
@@ -760,6 +764,11 @@ div.activitylist
      padding: 5px;
      padding-right: 7px;
 }
+div.authactivity
+{
+     margin-top:1vw;
+}
+
 div.friendrequests,div.friends,div.blocks
 {
      background-color: whitesmoke;
@@ -995,6 +1004,69 @@ div.grouplist h2,div.groupmembers h3,div.activitylist h3
 div.groupmembers h3,div.activitylist h3
 {
      text-indent: 0.5vw;
+}
+div.activitylist h3
+{
+     padding-bottom:5px;
+}
+div.activityitem h3
+{
+     font-family: QuikSand,sans-serif; 
+     margin-bottom: 0vw;
+}
+div.activityitem h3 span
+{
+     color:rgb(63, 115, 133);
+     font-family: Lato,sans-serif;
+     text-transform: capitalize;
+}
+div.activityitem h3 span.date
+{
+     font-size: 1vw;
+}
+div.activityitem
+{
+     overflow-x: auto;
+}
+div.activityitem table
+{
+     position: relative;
+     border: 1px solid lightgray;
+     margin: auto;
+     margin-top: 0.5vw;
+     margin-bottom: 0.5vw;
+     width: 99%;
+     border-collapse:collapse;
+}
+table caption
+{
+   font-family: Lato,sans-serif;
+   background-color: #5065A8;
+   color: white;
+   margin: auto;
+   text-transform: capitalize;
+   border: 1px solid lightgray;
+   border-radius:5px 5px 0px 0px;
+   padding: 2px 0px;
+}
+
+table td,table th
+{
+   padding: 3px;
+   text-align: center;
+   border: 1px solid lightgray;
+   font-family: Lato,sans-serif;
+   text-transform: capitalize;
+   padding: 5px;
+}
+
+table th{
+     background-color: #5065A8;
+     color: white;
+     font-size: 1vw;
+}
+table td{
+     color:rgb(63, 115, 133);
 }
 div.groupitems
 {
@@ -1296,9 +1368,10 @@ div.activityitem div.activitymessage p
 }
 div.activityitem div.activitymessage span
 {
-     font-family: QuikSand,sans-serif;
      font-size: .9vw;
-     color: #5065A8;
+     color:rgb(63, 115, 133);
+     font-family: Lato,sans-serif;
+     text-transform: capitalize;
 }
 div.activityitem div.activitymessage span.action
 {

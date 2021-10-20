@@ -1,15 +1,13 @@
 from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
-from .models import Activity
+from .models import Activity,AuthActivityLog
 # Create your views here.
 
+@login_required
+def ActivityListView(request):
+    activities = Activity.objects.filter(user__id=request.user.id).order_by('-created_at')
+    authactivities = AuthActivityLog.objects.filter(user__id=request.user.id).order_by('-logtime')
 
-class ActivityListView(LoginRequiredMixin,ListView):
-    model = Activity
-    template_name = 'activity/activity_list.html'
-    context_object_name = 'activities'
+    return render(request,'activity/activity_list.html',context={'activities':activities,'authactivities':authactivities})
 
-    def get_queryset(self):
-        activities = Activity.objects.filter(user__id=self.request.user.id)
-        return activities
