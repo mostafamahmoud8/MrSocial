@@ -27,6 +27,7 @@ urlpatterns = [
     path('posts/',include('posts.urls')),
     path('groups/',include('groups.urls')),
     path('activity/',include('activity.urls')),
+    path('notification/',include('notifications.urls')),
     path('admin/', admin.site.urls),
 ]
 

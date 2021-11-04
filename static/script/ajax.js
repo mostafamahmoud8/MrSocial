@@ -1,6 +1,53 @@
 
 var remove = refuse = accept = add = cancel = false;
+var notificationnumber = 0;
+function SetNotificationNumber(url)
+{
+    console.log(url);
+    $.get(url, function(data, statustext){
+        if(statustext == 'success')
+        {
+            console.log(data);
+            if(data.number > 0)
+            {
+                $('#navbar div.notification span').css({'display':'inline'})
+                $('#navbar div.notification span').html(data.number);
+            }
+            notificationnumber = data.all ;
+        }
+    });
+}
+function ServerSentConnection(url)
+{
+    const evtSource = new EventSource(url);
 
+    evtSource.onopen = function(event){
+        console.log('connection open',event);
+    }
+    evtSource.onmessage = function(event){
+        data = JSON.parse(event.data)
+        number = $('#navbar div.notification span').html();
+        if(data.number > number)
+        {
+            var audio = new Audio(audiopath)
+            audio.muted = true;
+            audio.play()
+        }
+        if(data.number == 0)
+        {
+            $('#navbar div.notification span').css({'display':'none'})
+        }else
+        {
+            $('#navbar div.notification span').css({'display':'block'})
+        }
+        $('#navbar div.notification span').html(data.number);
+    }
+    evtSource.onerror = function(error){
+        evtSource.close();
+        console.log('conncetion closed',error);
+    }
+
+}
 function changenumbers(word,action)
 {
     var numbers = word.match(/(\d+)/);
@@ -856,7 +903,122 @@ function FriendsSearch(event,input,url){
         $('div.friendslist').slideDown();
     } 
 }
+function ChangeAllStatus(event,url,id)
+{
+    event.preventDefault();
+    event.stopPropagation();
+    console.log(url);   
+    $.ajax({
+             url:url,
+             async:true,
+             type:'GET',
+             success:function(response,st,xml){
+                 if(st == 'success' && xml.status == 200)
+                 {
+                    console.log(response.status) 
 
+                     if(response.status)
+                     {
+                       $('#'+id).slideToggle();  
+                       $('div.unread').css({"background-color":"whitesmoke"});
+                     }
+                }            
+             },
+             processData: false,
+             contentType: false,
+     });
+}
+function changeStatus(event,url,notid,optionsid)
+{
+    event.preventDefault();
+    event.stopPropagation();
+    console.log(url);   
+    $.ajax({
+             url:url,
+             async:true,
+             type:'GET',
+             success:function(response,st,xml){
+                 if(st == 'success' && xml.status == 200)
+                 {
+                    console.log(response.status) 
+
+                     if(response.status)
+                     {
+                       $('#'+optionsid).slideToggle();  
+                       $('#'+notid).css({"background-color":"whitesmoke"});
+                     }
+                }            
+             },
+             processData: false,
+             contentType: false,
+     });
+}
+function ClearAllNotifcation(event,url,id)
+{
+    event.preventDefault();
+    event.stopPropagation();
+    console.log(url);   
+    $.ajax({
+             url:url,
+             async:true,
+             type:'GET',
+             success:function(response,st,xml){
+                 if(st == 'success' && xml.status == 200)
+                 {
+                     if(response.status)
+                     {
+                        $('#'+id).slideToggle();    
+                        $('div.notificationlist').empty();
+                        $('div.norequest').css({'display':'block'});
+                         notificationnumber = 0
+                     }
+                }            
+             },
+             processData: false,
+             contentType: false,
+     });
+}
+function RemoveNotification(event,url,notid,optionsid)
+{
+    event.preventDefault();
+    event.stopPropagation();
+    console.log(url);   
+    $.ajax({
+             url:url,
+             async:true,
+             type:'GET',
+             success:function(response,st,xml){
+                 if(st == 'success' && xml.status == 200)
+                 {
+                    console.log(response.status) 
+
+                     if(response.status)
+                     {
+                       $('#'+optionsid).slideToggle();  
+                       $('#'+notid).remove();
+                       notificationnumber=notificationnumber-1;
+                       if(notificationnumber == 0)
+                       {
+                         $('div.norequest').css({'display':'block'});
+                       }
+                     }
+                }            
+             },
+             processData: false,
+             contentType: false,
+     });
+}
+function GoToUrl(event,notifurl,pageurl)
+{
+    event.preventDefault();
+    $.get(notifurl, function(data, statustext){
+        if(statustext == 'success')
+        {
+          console.log(data)
+          window.location.href = pageurl;
+        }
+      });
+}
 function showprofileaction(proid,options=null,prodetail)
 {
     if(options)

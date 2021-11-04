@@ -1,0 +1,55 @@
+{% load static %}
+{% load humanize %}
+{%for notification in notifications%}
+{% if notification.content_type.model == 'like' or notification.content_type.model == 'share' %}
+   {% url 'posts:post_detail' pk=notification.content_object.post.id as url %}
+{% elif notification.content_type.model == 'comment' %}
+   {% url 'posts:post_detail' pk=notification.content_object.post.id as url %}
+{% elif notification.content_type.model == 'friendship' %}
+   {% url 'accounts:profile' slug=notification.sender.slug as url %}
+{%endif%}
+{% url 'notifications:change_status' notid=notification.id as changeurl %}             
+{% if notification.status %} 
+    <div class="notificationitem" id='notification_{{notification.id}}' onclick="GoToUrl(event,'{{changeurl}}','{{url}}')"> 
+{%else%}
+    <div class="notificationitem unread" id='notification_{{notification.id}}' onclick="GoToUrl(event,'{{changeurl}}','{{url}}')"> 
+{%endif%}
+        <div class="containnotificationimag">
+            <div class="notificationimage">
+                {% if notification.sender.image %}
+                  <img src="{{notification.sender.image.url}}" alt="Profile Picture">
+                {% else %}
+                  <img src="{% static 'default/default.png' %}" alt="Profile Picture">
+                {% endif %}
+           </div>
+        </div>
+        <div class='notificationiteminfo'>
+            {% if notification.content_type.model == 'like' %}
+                <span><b>{{notification.sender.username}}</b> liked your Post <b>{{notification.content_object.post.content|truncatechars:30}}</b></span>
+            {% elif notification.content_type.model == 'share' %}
+                <span><b>{{notification.sender.username}}</b> share your Post <b>{{notification.content_object.post.content|truncatechars:30}}</b></span>
+            {% elif notification.content_type.model == 'comment' %}
+                <span><b>{{notification.sender.username}}</b> comment on your Post <b>{{notification.content_object.message|truncatechars:30}}</b></span>
+            {% elif notification.content_type.model  == 'friendship' %}
+                {% if notification.content_object.accepted == False %}
+                   <span><b>{{notification.sender.username}}</b> Send you a Friend Request</span>
+                {% else %}
+                   <span><b>{{notification.sender.username}}</b> is now a firend to you</span>
+                {%endif%}
+            {%endif%}
+
+            <span class="date">{{notification.created_at|naturaltime}}</span>
+        </div>
+        <div class='notificationsetting'>
+            <span class='settingicon' onclick="ToggleNotificationOptions(event,'notification_options_{{notification.id}}')">
+                <i class="fas fa-cog"></i>
+            </span>
+            <div class='options' id="notification_options_{{notification.id}}">
+                {% url 'notifications:change_status' notid=notification.id as url %}
+                <button class='change' onclick="changeStatus(event,'{{url}}','notification_{{notification.id}}','notification_options_{{notification.id}}')"><i class="fas fa-eye"></i>Mark as read</button>
+                {% url 'notifications:remove' notid=notification.id as url %}
+                <button class='clear'  onclick="RemoveNotification(event,'{{url}}','notification_{{notification.id}}','notification_options_{{notification.id}}')"><i class="fas fa-trash-alt"></i>Remove notification</button>
+            </div>
+        </div> 
+    </div>
+{%endfor%}

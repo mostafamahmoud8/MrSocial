@@ -12,23 +12,24 @@ body
     overflow-y: auto;
 }
 body::-webkit-scrollbar,textarea::-webkit-scrollbar,div.groupmembers::-webkit-scrollbar
-,div.showscroll::-webkit-scrollbar,div.activityitem::-webkit-scrollbar
+,div.showscroll::-webkit-scrollbar,div.activityitem::-webkit-scrollbar,div.notificationlist::-webkit-scrollbar
+
 {
      width: 10px;
 }
 body::-webkit-scrollbar-track,textarea::-webkit-scrollbar-track,div.groupmembers::-webkit-scrollbar-track
-,div.showscroll::-webkit-scrollbar-track,div.activityitem::-webkit-scrollbar-track
+,div.showscroll::-webkit-scrollbar-track,div.activityitem::-webkit-scrollbar-track,div.notificationlist::-webkit-scrollbar-track
 {
      background: #F2EEE4;
 }
 body::-webkit-scrollbar-thumb,textarea::-webkit-scrollbar-thumb,div.groupmembers::-webkit-scrollbar-thumb
-,div.showscroll::-webkit-scrollbar-thumb,div.activityitem::-webkit-scrollbar-thumb
+,div.showscroll::-webkit-scrollbar-thumb,div.activityitem::-webkit-scrollbar-thumb,div.notificationlist::-webkit-scrollbar-thumb
 {
      background: lightgray;
      border-radius: 5px;
 }
 body::-webkit-scrollbar-thumb:hover,textarea::-webkit-scrollbar-thumb:hover
-,div.groupmembers::-webkit-scrollbar-thumb:hover,div.activityitem::-webkit-scrollbar-thumb:hover
+,div.groupmembers::-webkit-scrollbar-thumb:hover,div.activityitem::-webkit-scrollbar-thumb:hover,div.notificationlist::-webkit-scrollbar-thumb:hover
 {
      background: grey;
 }
@@ -489,6 +490,46 @@ div.emailsent div h1 ,div.emailsent div p
      background-color: inherit;
      transition: width .5s;
      background-color: inherit;
+}
+#notification_sidemenu
+{
+     position:fixed;
+     display: block;
+     top:4vw;
+     right:0.2vw;
+     z-index: 2;
+     width:30%;
+     max-height: 35vw;
+     border-radius: 10px;
+     background-color: whitesmoke;
+     border: 2px solid lightgray;
+     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+div.notification_header
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     border-bottom: 1px solid lightgray;
+}
+div.notification_header h2
+{
+     font-family: Lato,sans-serif;
+     color: #5065A8;
+     text-indent: 3px;
+     margin-bottom:0.2vw;
+}
+div.notificationlist
+{
+     position: relative;
+     display: block;
+     margin-top: 0.5vw;
+     background-color: inherit;
+     width: 100%;
+     max-height: 35vw;
+     overflow-x: hidden;
+     overflow-y: auto;
+     border-radius: inherit;
 }
 div.togglemenu,div.notification,div.search
 {
@@ -1050,7 +1091,7 @@ table caption
    padding: 2px 0px;
 }
 
-table td,table th
+div.activityitem table td,div.activityitem table th
 {
    padding: 3px;
    text-align: center;
@@ -1060,12 +1101,12 @@ table td,table th
    padding: 5px;
 }
 
-table th{
+div.activityitem table th{
      background-color: #5065A8;
      color: white;
      font-size: 1vw;
 }
-table td{
+div.activityitem table td{
      color:rgb(63, 115, 133);
 }
 div.groupitems
@@ -1216,7 +1257,7 @@ div.addpost #PostForm div.postdone,div.creategroup form div.groupdone,div.update
 }
 div.addpost div.addpostinfo ,div.profile div.profileinfo,div.group div.groupinfo
 ,div.postdetail div.ownerinfo,div.postdetail div.comments div.commentdetail div.content
-,div.groupitem,div.activityitem,div.useritem
+,div.groupitem,div.activityitem,div.useritem,div.notificationitem
 {
      position: relative;
      display: flex;
@@ -1276,15 +1317,33 @@ div.comments div.comment,div.comments div.commentdetail
      display: block;
      width:100%;
 }
-div.postdetail div.ownerinfo,div.groupitem,div.activityitem,div.useritem
+div.postdetail div.ownerinfo,div.groupitem,div.activityitem,div.useritem,div.notificationitem
 {
      display: block;
 }
-div.groupitem,div.activityitem,div.useritem
+div.groupitem,div.activityitem,div.useritem,div.notificationitem
 {
      border:1px solid lightgray;
      border-radius: 5px;
      margin-bottom: .5vw;
+}
+div.notificationitem 
+{
+     background-color: whitesmoke;
+     width: 95%;
+     margin: auto;
+     margin-bottom: .5vw;
+     cursor: pointer;
+     opacity: 0.7;
+}
+div.unread
+{
+     background-color: lightgray;
+} 
+
+div.notificationitem:hover 
+{
+     opacity:1;
 }
 div.useritem
 {
@@ -1311,7 +1370,7 @@ div.postdetail div.sharedpost p
      margin-left: .5vw;
 }
 div.postdetail div.ownerinfo div.info,div.postdetail div.showlikes div.info,div.member div.info
-,div.groupitem div.groupiteminfo,div.activityitem div.activitymessage,div.useritem div.useriteminfo
+,div.groupitem div.groupiteminfo,div.notificationitem div.notificationiteminfo,div.activityitem div.activitymessage,div.useritem div.useriteminfo
 {
      position: relative;
      display: inline-block;
@@ -1464,13 +1523,14 @@ div.postdetail div.ownerinfo div.info a:hover
 }
 div.postdetail div.ownerinfo div.containuserimag,div.postdetail  div.commentdetail div.containuserimag
 ,div.postdetail div.showlikes div.containuserimag,div.member div.containuserimag
-,div.groupitem div.containgroupimag,div.activityitem div.containuserimag,div.useritem div.containuserimag
+,div.groupitem div.containgroupimag,div.notificationitem div.containnotificationimag
+,div.activityitem div.containuserimag,div.useritem div.containuserimag
 {
      display: inline-block;
 }
 div.addpostinfo div.userimage,div.profile div.profileinfo div.profileimage,div.group div.groupinfo div.groupimage,div.postdetail div.ownerinfo div.userimage,div.commentdetail div.containuserimag div.userimage
 ,div.postdetail div.showlikes div.userimage,div.member div.userimage
-,div.groupitem div.containgroupimag div.groupimage
+,div.groupitem div.containgroupimag div.groupimage,div.notificationitem div.containnotificationimag div.notificationimage
 ,div.activityitem div.containuserimag div.userimage,div.useritem div.containuserimag div.userimage
 {
      position: relative;
@@ -1506,7 +1566,7 @@ div.profile div.profileinfo div.profileimage,div.group div.groupinfo div.groupim
      border: 2px solid lightgray;
 }
 div.postdetail div.ownerinfo div.userimage
-,div.groupitem div.containgroupimag div.groupimage
+,div.groupitem div.containgroupimag div.groupimage,div.notificationitem div.containnotificationimag div.notificationimage
 ,div.activityitem div.containuserimag div.userimage
 ,div.useritem div.containuserimag div.userimage
 {
@@ -1516,7 +1576,7 @@ div.postdetail div.ownerinfo div.userimage
 div.addpostinfo div.userimage img , div.profile div.profileimage img 
 ,div.group div.groupimage img,div.postdetail div.ownerinfo div.userimage img,
 div.postdetail div.commentdetail div.userimage img,div.postdetail div.showlikes div.userimage img
-,div.member div.userimage img,div.groupitem div.containgroupimag div.groupimage img
+,div.member div.userimage img,div.groupitem div.containgroupimag div.groupimage img,div.containnotificationimag div.notificationimage img
 ,div.activityitem div.containuserimag div.userimage img
 ,div.useritem div.containuserimag div.userimage img
 {
@@ -1838,7 +1898,9 @@ div.group
      width: 100%;
      top: auto;
 }
-div.profile div.profilesetting ,div.group div.groupsetting,div.postdetail div.postsetting ,div.comments div.commentsetting
+div.profile div.profilesetting ,div.group div.groupsetting
+,div.postdetail div.postsetting ,div.comments div.commentsetting
+,div.notification_header div.notificationsetting,div.notificationitem div.notificationsetting
 {
      position:absolute;
      float: right;
@@ -1848,6 +1910,38 @@ div.profile div.profilesetting ,div.group div.groupsetting,div.postdetail div.po
      float: right;
      right: 2vw;
 }
+div.notification_header div.notificationsetting,div.notificationitem div.notificationsetting
+{
+     right: .5vw;
+     top:0.2vw;
+     width: 90%;
+}
+div.notificationitem div.notificationsetting
+{
+     top:1vw;
+}
+div.notificationitem div.notificationiteminfo
+{
+    max-width: 70%;
+}
+div.notificationitem div.notificationiteminfo span
+{
+     display: block;
+     position: relative;
+     font-family: Lato,sans-serif;
+     top: 0.5vw;
+}
+div.notificationitem div.notificationiteminfo span b
+{
+      color:#5065A8;
+}
+div.notificationiteminfo span.date
+{
+     position: relative;
+     color: #5065A8;
+     font-size: 1vw;
+}
+
 div.profile div.profilesetting,div.group div.groupsetting
 {
      top:1vw;
@@ -1861,7 +1955,9 @@ div.postdetail div.postsetting
 {
      top: 1vw;
 }
-div.profilesetting span.settingicon,div.groupsetting span.settingicon,div.postdetail div.postsetting span.postsettingicon,div.comments div.commentsetting span.commentsettingicon
+div.profilesetting span.settingicon,div.groupsetting span.settingicon,
+div.postdetail div.postsetting span.postsettingicon,
+div.comments div.commentsetting span.commentsettingicon,div.notificationsetting span.settingicon
 {
      position: relative;
      color: #5065A8;
@@ -1871,15 +1967,23 @@ div.profilesetting span.settingicon,div.groupsetting span.settingicon,div.postde
      text-align: right;
      float: right;
 }
+div.notificationsetting span.settingicon
+{
+     font-size: 1.3vw;
+}
 div.comments div.commentsetting span.commentsettingicon
 {
      margin-top: 2vw;
 }
-div.profilesetting span.settingicon:hover,div.groupsetting span.settingicon:hover,div.postdetail div.postsetting span.postsettingicon:hover,div.comments div.commentsetting span.commentsettingicon:hover
+div.profilesetting span.settingicon:hover,div.groupsetting span.settingicon:hover,
+div.postdetail div.postsetting span.postsettingicon:hover,
+div.comments div.commentsetting span.commentsettingicon:hover,div.notificationsetting span.settingicon:hover
 {
      opacity: 1;
 }
-div.profilesetting div.options,div.groupsetting div.options,div.postdetail div.postsetting div.postoptions,div.comments div.commentoptions
+div.profilesetting div.options,div.groupsetting div.options,
+div.postdetail div.postsetting div.postoptions,div.comments div.commentoptions
+,div.notificationsetting div.options
 {
      position: relative;
      display: none;
@@ -1892,7 +1996,20 @@ div.profilesetting div.options,div.groupsetting div.options,div.postdetail div.p
      float: right;
      right:-50%;
 }
-div.profilesetting div.options a,div.groupsetting div.options a,div.postdetail div.postsetting div.postoptions a,div.comments div.commentoptions a
+div.notificationsetting div.options
+{
+     display: none;
+     right: -1vw;
+     width: 90%;
+     background-color:whitesmoke;
+     border: 1px solid lightgray;
+     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+     border-radius: 5px;
+     top:1.2vw;
+}
+div.profilesetting div.options a,div.groupsetting div.options a
+,div.postdetail div.postsetting div.postoptions a
+,div.comments div.commentoptions a
 { 
    text-decoration: none;
    position: relative;
@@ -1901,7 +2018,9 @@ div.profilesetting div.options a,div.groupsetting div.options a,div.postdetail d
    margin-top: 0.5vw;
    margin-bottom: 0.5vw;
 }
-div.profilesetting div.options button,div.groupsetting div.options button,div.postdetail div.postsetting div.postoptions button,div.comments div.commentoptions button
+div.profilesetting div.options button,div.groupsetting div.options button
+,div.postdetail div.postsetting div.postoptions button
+,div.comments div.commentoptions button,div.notificationsetting div.options button
 {
      position: relative;
      display: block;
@@ -1918,11 +2037,27 @@ div.profilesetting div.options button,div.groupsetting div.options button,div.po
      border-radius: 10px;
      cursor: pointer;
 }
-div.profilesetting div.options button.deleteprofile i,div.groupsetting div.options button.deletegroup i,div.postsetting div.postoptions button.deletepost i,div.comments div.commentoptions button.deletecomment i
+div.notificationsetting div.options button
+{
+     margin-bottom:0.2vw;
+     border-radius: 5px;
+     padding: 5px;
+     text-align: left;
+     background-color: inherit;
+     color: #5065A8;
+     border-color: lightgray;
+}
+div.profilesetting div.options button.deleteprofile i,div.groupsetting div.options button.deletegroup i
+,div.postsetting div.postoptions button.deletepost i
+,div.comments div.commentoptions button.deletecomment i
+,div.notificationsetting div.options  button i
 {
      margin-right: 0.5vw;
 }
-div.profilesetting div.options button:hover,div.groupsetting div.options button:hover,div.profileaction button:hover,div.groupaction button:hover,div.postdetail div.postsetting div.postoptions button:hover,div.comments div.commentoptions button:hover
+div.profilesetting div.options button:hover,div.groupsetting div.options button:hover,
+div.profileaction button:hover,div.groupaction button:hover,
+div.postdetail div.postsetting div.postoptions button:hover
+,div.comments div.commentoptions button:hover,div.notificationsetting div.options button:hover
 {
      opacity: 1;
 }

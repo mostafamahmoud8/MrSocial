@@ -1,4 +1,5 @@
 $(document).ready(function(){ 
+    
     $('button.login , button.signup').hover(function(){
 
           $(this).css({'border-color':'#66ff33','background-color':'whitesmoke'});
@@ -78,7 +79,12 @@ $(document).ready(function(){
        $('div.groupsetting  div.options').slideToggle();
    }); 
 });
-
+function ToggleNotificationOptions(event,id)
+{
+    event.stopPropagation();
+    console.log(id);
+    $('#'+id).slideToggle();
+}
 function deleteimage(id,fileinputid,checkbox)
 {
     $('#'+id).css('display','none');
