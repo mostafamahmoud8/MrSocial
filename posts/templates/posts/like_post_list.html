@@ -6,7 +6,7 @@
  <a href="{% url 'accounts:profile' slug=like.user.slug %}"> 
  <div class="containuserimag">
      <div class="userimage">
-         {% if user.image %}
+         {% if like.user.image %}
              <img src="{{like.user.image.url}}" alt="Profile Picture">
          {% else %}
              <img src="{% static 'default/default.png' %}" alt="Profile Picture">

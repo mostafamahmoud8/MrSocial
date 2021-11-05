@@ -81,6 +81,17 @@ class CustomUser(AbstractUser):
                 users.append(friend.source)
 
         return users
+
+    def get_blocks(self):
+        users = []
+        blocks = Block.objects.filter((Q(source__id = self.id)|Q(target__id = self.id)) & Q(accepted=True)).select_related('source','target')
+        for block in blocks:
+            if self.id == block.source.id:
+                users.append(block.target)
+            else:
+                users.append(block.source)
+
+        return users
     
     def get_requests(self):
         users = []

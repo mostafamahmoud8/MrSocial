@@ -1,0 +1,81 @@
+{% load static %}
+{% load humanize %}
+<h3> People :</h3>
+<div class="peopleresult">
+    {% if users.count > 0%}
+    {%for person in users %}
+    <div class='useritem'>
+        <div class="containuserimag">
+            <div class="userimage">
+                {% if person.image %}
+                <a href="{% url 'accounts:profile' slug=person.slug %}">
+                    <img src="{{person.image.url}}" alt="Profile Picture">
+                </a>
+                {% else %}
+                <a href="{% url 'accounts:profile' slug=person.slug %}">
+                    <img src="{% static 'default/default.png' %}" alt="Profile Picture">
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class='useriteminfo'>
+            <span>{{person.first_name|title}}  {{person.last_name|title}}</span>
+            <span class='date'>{{person.username}}</span>
+        </div>
+    </div>
+    {%endfor%}
+    {%else%} 
+    <div class='norequest'>
+        <p> no person match the search text.</p>
+    </div>
+    {%endif%}
+</div>
+<h3> Groups :</h3>
+<div class='groupresult'>
+    {% if groups.count > 0 %}
+    {%for group in groups %}
+    <div class='groupitem'>
+        <div class="containgroupimag">
+            <div class="groupimage">
+                {% if group.image %}
+                <a href="{% url 'groups:group-detail' slug=group.slug %}">
+                    <img src="{{group.image.url}}" alt="Group Picture">
+                </a>
+                {% else %}
+                <a href="{% url 'groups:group-detail' slug=group.slug %}">
+                    <img src="{% static 'default/default-group.png' %}" alt="Group Picture">
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class='groupiteminfo'>
+            <ul>
+                <li>{{group.name|title}}</li>
+                <li>{{group.description|truncatechars:30}}</li>
+            </ul>
+        </div>
+    </div>
+    {%endfor%}
+    {%else%}
+    <div class='norequest'>
+        <p> no groups match the search text.</p>
+    </div>
+    {%endif%}
+</div>
+<h3> Posts :</h3>
+<div class="postssresult">
+    {% if posts.count > 0 %}
+    {%for post in posts %} 
+   <div class='postresult'>
+      <span>{{post.owner.first_name|title}} {{post.owner.last_name|title}}</span>
+      <a href="{% url 'posts:post_detail' pk=post.id %}"><span class='date'>{{post.created_at|date:'j M Y f a'}}</span></a>
+      <p>{{post.content|truncatechars:100}}</p>
+   </div>
+   {%endfor%}
+   {%else%}
+   <div class='norequest'>
+     <p> no post match the search text.</p>
+   </div>
+   {%endif%}
+</div>
+

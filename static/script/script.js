@@ -111,6 +111,29 @@ function showprofilebuttons()
         $('div.profileaction form button.cancel').css({"display":'none'})
     }
 }
+
+function BaseSearch(event,input,url)
+{
+    event.preventDefault();
+    var value = $(input).val();
+    if(value !== '')
+    {
+      console.log(url+'?'+'search'+'='+value);
+      $.get(url+'?'+'search'+'='+value, function(data, statustext){
+        if(statustext == 'success')
+        {
+          console.log(data)
+          $('#basesearchresult').html(data);
+          $('div.search #search').css({'border-radius':'10px 10px 0px 0px'})
+          $('#basesearchresult').slideDown();
+        }
+      });
+    }else
+    {
+        $('#basesearchresult').slideUp();
+        $('div.search #search').css({'border-radius':'10px'})
+    }  
+}
 function CreatPost(e,url,formid,group=null)
 {
     e.preventDefault();

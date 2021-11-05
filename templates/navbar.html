@@ -9,8 +9,12 @@
      </div>
      <div class="search">
          <form>
-             <input type="search" placeholder="Search MrSocial" id='search'/> 
+             {% url 'base-search' as url %}
+             <input type="search" placeholder="Search MrSocial" id='search' onkeyup="BaseSearch(event,this,'{{url}}')"/> 
          </form>
+         <div id='basesearchresult'>
+         
+        </div>
      </div>
      <div class="notification">
          {% url 'notifications:all' as url %}

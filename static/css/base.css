@@ -12,24 +12,28 @@ body
     overflow-y: auto;
 }
 body::-webkit-scrollbar,textarea::-webkit-scrollbar,div.groupmembers::-webkit-scrollbar
-,div.showscroll::-webkit-scrollbar,div.activityitem::-webkit-scrollbar,div.notificationlist::-webkit-scrollbar
+,div.showscroll::-webkit-scrollbar,div.activityitem::-webkit-scrollbar
+,div.notificationlist::-webkit-scrollbar,#basesearchresult::-webkit-scrollbar
 
 {
      width: 10px;
 }
 body::-webkit-scrollbar-track,textarea::-webkit-scrollbar-track,div.groupmembers::-webkit-scrollbar-track
-,div.showscroll::-webkit-scrollbar-track,div.activityitem::-webkit-scrollbar-track,div.notificationlist::-webkit-scrollbar-track
+,div.showscroll::-webkit-scrollbar-track,div.activityitem::-webkit-scrollbar-track
+,div.notificationlist::-webkit-scrollbar-track,#basesearchresult::-webkit-scrollbar-track
 {
      background: #F2EEE4;
 }
 body::-webkit-scrollbar-thumb,textarea::-webkit-scrollbar-thumb,div.groupmembers::-webkit-scrollbar-thumb
-,div.showscroll::-webkit-scrollbar-thumb,div.activityitem::-webkit-scrollbar-thumb,div.notificationlist::-webkit-scrollbar-thumb
+,div.showscroll::-webkit-scrollbar-thumb,div.activityitem::-webkit-scrollbar-thumb
+,div.notificationlist::-webkit-scrollbar-thumb,#basesearchresult::-webkit-scrollbar-thumb
 {
      background: lightgray;
      border-radius: 5px;
 }
 body::-webkit-scrollbar-thumb:hover,textarea::-webkit-scrollbar-thumb:hover
-,div.groupmembers::-webkit-scrollbar-thumb:hover,div.activityitem::-webkit-scrollbar-thumb:hover,div.notificationlist::-webkit-scrollbar-thumb:hover
+,div.groupmembers::-webkit-scrollbar-thumb:hover,div.activityitem::-webkit-scrollbar-thumb:hover
+,div.notificationlist::-webkit-scrollbar-thumb:hover,#basesearchresult::-webkit-scrollbar-thumb:hover
 {
      background: grey;
 }
@@ -489,20 +493,32 @@ div.emailsent div h1 ,div.emailsent div p
      right: 0vw;
      background-color: inherit;
      transition: width .5s;
-     background-color: inherit;
+     background-color: whitesmoke;
 }
-#notification_sidemenu
+#notification_sidemenu,#basesearchresult
 {
-     position:fixed;
      display: none;
-     top:4vw;
-     right:0.2vw;
      z-index: 2;
-     width:30%;
      border-radius: 10px;
      background-color: whitesmoke;
      border: 2px solid lightgray;
      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+#notification_sidemenu
+{
+     position:fixed;
+     right:0.2vw;
+     top:4vw;
+     width:30%;
+}
+#basesearchresult
+{
+     max-height: 35vw;
+     overflow-y: auto;
+     overflow-x: hidden;
+     position: absolute;
+     width: 100%;
+     border-radius: 0px 0px 10px 10px;
 }
 div.notification_header
 {
@@ -536,7 +552,10 @@ div.togglemenu,div.notification,div.search
      display:block;
      width: auto;
      height: auto;
-     top:1vw;
+}
+div.togglemenu,div.notification
+{
+     top: 1vw;
 }
 div.togglemenu
 {
@@ -549,7 +568,8 @@ div.search
      margin:auto;
      float: left;
      margin-left:32%;
-     margin-top: 1%;
+     margin-top:1vw;
+     margin-bottom: 0.5vw;
      border: none;
 }
 div.search #search,div.groupoptions div.groupsearch input
@@ -569,6 +589,10 @@ div.search #search,div.groupoptions div.groupsearch input
      font-family: QuikSand,sans-serif,serif;
      cursor: pointer;
      outline: none;
+}
+div.search #search
+{
+     width: 101%;
 }
 div.groupoptions div.groupsearch input
 {
@@ -613,7 +637,7 @@ div.togglemenu button,div.notification button
 div.togglemenu button
 {
      color: #5065A8;
-     background-color: #F2EEE4;
+     background-color: whitesmoke;
      padding-top:3px;
 }
 div.notification button
@@ -633,7 +657,7 @@ div.notification button:hover
 div.togglemenu button:hover
 {
      background-color: #5065A8;
-     color: #F2EEE4;
+     color: whitesmoke;
 }
 button.open
 {
@@ -1035,7 +1059,7 @@ div.grouplist
     background-color: whitesmoke;
     margin-top: 2vw;
 }
-div.grouplist h2,div.groupmembers h3,div.activitylist h3
+div.grouplist h2,div.groupmembers h3,div.activitylist h3,#basesearchresult h3
 {
      position: relative;
      display: block;
@@ -1045,11 +1069,11 @@ div.grouplist h2,div.groupmembers h3,div.activitylist h3
      font-family:Lato,sans-serif;
      border-bottom: 1px solid lightgray;
 }
-div.groupmembers h3,div.activitylist h3
+div.groupmembers h3,div.activitylist h3,#basesearchresult h3
 {
      text-indent: 0.5vw;
 }
-div.activitylist h3
+div.activitylist h3,#basesearchresult h3
 {
      padding-bottom:5px;
 }
@@ -1265,6 +1289,11 @@ div.addpost div.addpostinfo ,div.profile div.profileinfo,div.group div.groupinfo
      position: relative;
      display: flex;
      width: 100%;
+}
+#basesearchresult div.groupitem
+{
+     width: 98%;
+     margin: auto;
 }
 div.postdetail div.showlikes
 {
@@ -2414,6 +2443,46 @@ div.commentbuttons button,div.deletecomment button
 div.addcomment form button:hover,div.commentbuttons button:hover,div.deletecomment button:hover
 {
      opacity: 1;
+}
+div.postresult
+{
+     position: relative;
+     display: block;
+     width: 95%;
+     background-color: inherit;
+     border-radius: 5px;
+     border:1px solid lightgray;
+     margin: auto;
+     margin-bottom: 0.5vw;
+     padding: 5px;
+}
+div.postresult span
+{
+     position: relative;
+     display: block;
+     color: #5065A8;
+     font-family: Lato,sans-serif;
+     font-size: 1.3vw;
+}
+div.postresult span.date
+{
+     font-family: QuikSand,sans-serif;
+     font-size: 1vw;
+     color:rgb(63, 115, 133);
+}
+div.postresult a
+{
+     text-decoration: none;
+}
+div.postresult p
+{
+     position: relative;
+     display: block;
+     word-wrap: break-word;
+     font-family: QuikSand,sans-serif;
+     font-size: 1vw;
+     margin-top: 0vw;
+     padding: 0vw;
 }
 
 
