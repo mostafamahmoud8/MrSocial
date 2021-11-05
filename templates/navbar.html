@@ -13,7 +13,8 @@
          </form>
      </div>
      <div class="notification">
-         <button class="icon">
+         {% url 'notifications:all' as url %}
+         <button class="icon" onclick="ShownotificationSidemneu(event,'{{url}}')">
           <i class="material-icons">notifications</i>
          </button>
          <span class="badge" style="display: none;">

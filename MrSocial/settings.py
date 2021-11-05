@@ -30,8 +30,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH =  BASE_DIR / 'emails'
 
 # Application definition
 
@@ -42,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
+    #'django.contrib.sites',
     'django.contrib.humanize',
     'accounts',
     'posts',
@@ -50,7 +48,8 @@ INSTALLED_APPS = [
     'notifications',
     'activity',
 ]
-SITE_ID=1
+
+#SITE_ID=3
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -174,3 +173,11 @@ LOGOUT_REDIRECT_URL = 'home'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'tito68932@gmail.com'
+EMAIL_HOST_PASSWORD = 'pmnaqczdiuszkdja'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'MrSocial Team <noreply@Mrsocial.com>'

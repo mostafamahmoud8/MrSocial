@@ -494,12 +494,11 @@ div.emailsent div h1 ,div.emailsent div p
 #notification_sidemenu
 {
      position:fixed;
-     display: block;
+     display: none;
      top:4vw;
      right:0.2vw;
      z-index: 2;
      width:30%;
-     max-height: 35vw;
      border-radius: 10px;
      background-color: whitesmoke;
      border: 2px solid lightgray;
@@ -780,7 +779,7 @@ button.logout a
      color:#bf1f1f;
 }
 div.addpost,div.groupleft,#createdpost,#showpostdatail
-,#showprofilepost,div.groupoptions,div.optionsresult
+,#showprofilepost,#showhomepost,div.groupoptions,div.optionsresult
 ,div.grouplist,div.createpostgroup,div.groupposts
 ,div.groupmembers,div.activitylist,div.friendrequests,div.friends,div.blocks
 {
@@ -796,6 +795,10 @@ div.addpost,div.groupleft,#createdpost,#showpostdatail
 {
      display: none;
      margin-top: 2vw;
+}
+#showhomepost
+{
+   margin-top: 1vw;
 }
 div.activitylist
 {

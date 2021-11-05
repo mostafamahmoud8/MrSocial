@@ -6,18 +6,21 @@
 {% if profile %}
 <div id='showprofilepost'>
 {% endif %}
+{% if home %}
+<div id='showhomepost'>
+{% endif %}
 {% if post.belong_to != None and not detail  %}
 <div id='showgrouppost'>
 {% endif %}
 <div class='postdetail' id='{{sharedpost}}postdetail_{{post.id}}'>
     {% if share %}
-    <div class='sharedpost'>
-        {% if post.owner.id == user.id%}  
-         <p>you have shared this post</p>
+       <div class='sharedpost'>  
+        {% if user.id == shareduser.id %}      
+          <p>you have shared this post</p>
         {%else%}
-         <p>{{post.owner.username}} have shared this post</p>
+           <p>{{shareduser.username}} has shared this post</p>
         {%endif%}
-    </div>
+       </div>
     {%endif%}
     <div class='ownerinfo'>
         <div class="containuserimag">
@@ -209,6 +212,6 @@
         </div>
     </div>
 </div>
-{% if detail or profile or post.belong_to != None %}
+{% if detail or profile or home or post.belong_to != None %}
 </div>
 {% endif %}

@@ -1,6 +1,7 @@
 
 var remove = refuse = accept = add = cancel = false;
 var notificationnumber = 0;
+var unreadnotificationNumber = 0
 function SetNotificationNumber(url)
 {
     console.log(url);
@@ -8,16 +9,21 @@ function SetNotificationNumber(url)
         if(statustext == 'success')
         {
             console.log(data);
-            if(data.number > 0)
+            if(data.sent > 0)
             {
                 $('#navbar div.notification span').css({'display':'inline'})
-                $('#navbar div.notification span').html(data.number);
             }
+            $('#navbar div.notification span').html(data.sent)
             notificationnumber = data.all ;
+            unreadnotificationNumber = data.number ;
+            if(notificationnumber > 0)
+            {
+                $('#notification_sidemenu div.norequest').css({'display':'none'});
+            }
         }
     });
 }
-function ServerSentConnection(url)
+function ServerSentConnection(temevent,url,geturl)
 {
     const evtSource = new EventSource(url);
 
@@ -26,21 +32,24 @@ function ServerSentConnection(url)
     }
     evtSource.onmessage = function(event){
         data = JSON.parse(event.data)
-        number = $('#navbar div.notification span').html();
+        number = parseInt($('#navbar div.notification span').html());
         if(data.number > number)
         {
+            $('#navbar div.notification span').html(data.number);
             var audio = new Audio(audiopath)
-            audio.muted = true;
             audio.play()
+            if($('#notification_sidemenu').css('display') != 'none')
+            {
+                GetNewNotifcations(temevent,geturl);
+            }
         }
-        if(data.number == 0)
+        if(number == 0)
         {
             $('#navbar div.notification span').css({'display':'none'})
         }else
         {
-            $('#navbar div.notification span').css({'display':'block'})
+            $('#navbar div.notification span').css({'display':'inline'})
         }
-        $('#navbar div.notification span').html(data.number);
     }
     evtSource.onerror = function(error){
         evtSource.close();
@@ -978,7 +987,8 @@ function ClearAllNotifcation(event,url,id)
              contentType: false,
      });
 }
-function RemoveNotification(event,url,notid,optionsid)
+
+function RemoveNotification(event,url,notid,optionsid,status=false)
 {
     event.preventDefault();
     event.stopPropagation();
@@ -1001,6 +1011,7 @@ function RemoveNotification(event,url,notid,optionsid)
                        {
                          $('div.norequest').css({'display':'block'});
                        }
+                       
                      }
                 }            
              },
@@ -1016,6 +1027,54 @@ function GoToUrl(event,notifurl,pageurl)
         {
           console.log(data)
           window.location.href = pageurl;
+        }
+      });
+}
+function ShownotificationSidemneu(event,url)
+{ 
+    GetAllNotifcations(event,url)
+    $('#notification_sidemenu').slideToggle();
+}
+function GetAllNotifcations(event,url)
+{
+    event.preventDefault();
+    $.get(url, function(data, statustext){
+        if(statustext == 'success')
+        {
+            SetNotificationNumber('/notification/number/')
+            $('div.notificationlist').html(data);
+            $('#navbar div.notification span').css({'display':'none'})
+        }
+      });
+}
+function GetNewNotifcations(event,url)
+{
+    event.preventDefault();
+    $.get(url, function(data, statustext){
+        if(statustext == 'success')
+        {
+            SetNotificationNumber('/notification/number/')
+            var notifications = $('div.notificationlist').html();
+            $('div.notificationlist').html(data+notifications);
+            $('#navbar div.notification span').css({'display':'none'})
+        }
+      });
+}
+function GetUnreadNotifcations(event,url)
+{
+    event.preventDefault();
+    $.get(url, function(data, statustext){
+        if(statustext == 'success')
+        {
+            SetNotificationNumber('/notification/number/')
+            if(unreadnotificationNumber > 0)
+            {
+                $('div.notificationlist').html(data);
+
+            }else
+            {
+                $('div.notificationlist').html("<p style='font-family:lato;color:#5065A8;text-align:center;display:block'> you have no unread notifications.</p>");
+            }
         }
       });
 }

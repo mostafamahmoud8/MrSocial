@@ -1,4 +1,5 @@
 {% load static %}
+{% load filters %}
 <div id="sidemenu">
     <div class="profileimage">
         {% if user.image %}
@@ -13,7 +14,7 @@
     </div>
     <div class='userinfo'>
         <button class='myfirends'> {{ user.get_friends|length }} friends</button>
-        <button class='myposts'> {{ user.userposts.count }} posts</button>
+        <button class='myposts'> {{ user.userposts.all|get_posts }} posts</button>
     </div>
     <hr>
     <div class='navbarlist'>

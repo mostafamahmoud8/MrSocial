@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    path('feeds/',views.HomeView,name='home'),
+    path('',views.index,name='home'),
+    path('feeds/',views.HomeView,name='feeds'),
     path('accounts/',include('accounts.urls')),
     path('accounts/',include('django.contrib.auth.urls')),
     path('posts/',include('posts.urls')),

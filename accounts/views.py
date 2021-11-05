@@ -48,7 +48,7 @@ class ProfileView(LoginRequiredMixin,DetailView):
         for post in posts:
             userposts.append({'post':post,'share':False,'posttype':"original",'created_at':post.created_at})
         for share in sharedposts:
-            userposts.append({'post':share.post,'share':True,'posttype':"share",'created_at':share.created_at})
+            userposts.append({'post':share.post,'share':True,'shareduser':share.user,'posttype':"share",'created_at':share.created_at})
         
         userposts.sort(key=lambda posts: posts['created_at'])
         context['posts'] = userposts[::-1]

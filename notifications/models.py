@@ -17,6 +17,7 @@ class Notification(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type','object_id')
     status = models.BooleanField(default=False)
+    sent = models.BooleanField(default=False)
     created_at =models.DateTimeField(auto_now_add=True)
 
 
@@ -50,9 +51,9 @@ def notification_create_handler(sender, instance, created, **kwargs):
             notification = Notification(user = instance.target,sender = instance.source,content_object=instance)
             notification.save()
         else:
-            notification = Notification.objects.get(user = instance.target,sender = instance.source)
-            notification.content_object = instance
+            notification = Notification(user = instance.source,sender = instance.target,content_object=instance)
             notification.save()
+            
             
 
 @receiver(post_delete,sender=Comment)
@@ -62,18 +63,30 @@ def notification_create_handler(sender, instance, created, **kwargs):
 def notification_delete_handler(sender, instance,**kwargs):
         
     if sender == Comment:
-        notification = Notification.objects.get(user = instance.post.owner,sender = instance.user,object_id=instance.id)
-        notification.delete()
+        try:
+             notification = Notification.objects.get(user = instance.post.owner,sender = instance.user,object_id=instance.id)
+             notification.delete()
+        except Notification.DoesNotExist as e:
+            print(e)
 
     elif sender == Like :
-        notification = Notification.objects.get(user = instance.post.owner,sender = instance.user,object_id=instance.id)
-        notification.delete()
+        try:
+            notification = Notification.objects.get(user = instance.post.owner,sender = instance.user,object_id=instance.id)
+            notification.delete()
+        except Notification.DoesNotExist as e:
+            print(e)
 
     elif sender == Share :
-        notification = Notification.objects.get(user = instance.post.owner,sender = instance.user,object_id=instance.id)
-        notification.delete()
+        try:
+            notification = Notification.objects.get(user = instance.post.owner,sender = instance.user,object_id=instance.id)
+            notification.delete()
+        except Notification.DoesNotExist as e:
+            print(e)
 
     elif sender == FriendShip :
-        notification = Notification.objects.get(user = instance.target,sender = instance.source,object_id=instance.id)
-        notification.delete()
+        try:
+            notification = Notification.objects.get(user = instance.target,sender = instance.source,object_id=instance.id)
+            notification.delete()
+        except Notification.DoesNotExist as e:
+            print(e)
 

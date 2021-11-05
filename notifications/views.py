@@ -8,14 +8,45 @@ from django.http import StreamingHttpResponse
 from .models import Notification
 # Create your views here.
 
-class NotifcationListView(LoginRequiredMixin,ListView):
-    model = Notification
-    template_name = "notifications/notification_item.html"
-    context_object_name = 'notifications'
+@login_required
+def AllNotificationView(request):
+    if request.method == 'GET' and request.is_ajax():
+        try:
+            notifications = Notification.objects.filter(user__id=request.user.id).order_by('-created_at')
+            for notification in notifications:
+                notification.sent=True
+                notification.save()
+            return render(request,'notifications/notification_items.html',context={'notifications':notifications})
+        except:
+            return JsonResponse({'status':False})
+    else:
+         return redirect('home')
+@login_required
+def UnreadNotificationView(request):
+    if request.method == 'GET' and request.is_ajax():
+        try:
+            notifications = Notification.objects.filter(user__id=request.user.id,status=False)
+            
+            return render(request,'notifications/notification_items.html',context={'notifications':notifications})
+        except:
+            return JsonResponse({'status':False})
+    else:
+         return redirect('home')
 
-    def get_queryset(self):
-        queryset = Notification.objects.filter(user__id = self.request.user.id) 
-        return queryset
+@login_required
+def NewNotificationStatusView(request):
+    if request.method == 'GET' and request.is_ajax():
+        try:
+            notifications = Notification.objects.filter(user__id=request.user.id,status=False,sent=False)
+            for notification in notifications:
+                notification.sent=True
+                notification.save()
+
+            return render(request,'notifications/notification_items.html',context={'notifications':notifications})
+        except:
+            return JsonResponse({'status':False})
+    else:
+         return redirect('home')
 
 @login_required
 def ChangeAllNotificationStatusView(request):
@@ -69,18 +100,18 @@ def RemoveNotificationView(request,notid):
 def getNotificationNumber(request):
     if request.method == 'GET':
         unreadnotifications = Notification.objects.filter(user__id=request.user.id,status=False)
+        sentnotifications = Notification.objects.filter(user__id=request.user.id,status=False,sent=False)
         allnotifications = Notification.objects.filter(user__id=request.user.id)
 
-        return JsonResponse({'number':unreadnotifications.count(),'all':allnotifications.count()})
+        return JsonResponse({'number':unreadnotifications.count(),'sent':sentnotifications.count(),'all':allnotifications.count()})
     else:
          return redirect('home')
 
 def SourceEventNotification(request):
     def event_stream():
         while True:
-            notifications = Notification.objects.filter(user__id=request.user.id,status=False)
+            notifications = Notification.objects.filter(user__id=request.user.id,status=False,sent=False)
             data = {"number":notifications.count()}
-            time.sleep(3)
             yield 'data: '+json.dumps(data)+'\n\n'
     return StreamingHttpResponse(event_stream(), content_type='text/event-stream')
 

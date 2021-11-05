@@ -21,7 +21,9 @@
     </head>
     {% url 'notifications:source_event' as serverurl%}
     {% url 'notifications:number' as numberurl%}
-    <body onload="showprofilebuttons(),ServerSentConnection('{{serverurl}}'),SetNotificationNumber('{{numberurl}}')">
+    {% url 'notifications:new' as geturl%}
+
+    <body onload="showprofilebuttons(),ServerSentConnection(event,'{{serverurl}}','{{geturl}}'),SetNotificationNumber('{{numberurl}}')">
      {% if user.is_authenticated %}    
            {% include 'sidemenu.html' %}
           <div id='content'>

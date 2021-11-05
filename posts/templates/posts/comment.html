@@ -56,8 +56,10 @@
                 </span>
             </span>
             <div class='commentoptions' id="{{sharedpost}}commentoptions_{{comment.id}}">
-                <a><button class='updatecomment' onclick="showcommentaction('{{sharedpost}}updatecomment_{{comment.id}}','{{sharedpost}}commentoptions_{{comment.id}}','{{sharedpost}}commentcontent_{{comment.id}}')"><i class="fas fa-edit"></i> Update Comment</button></a>
-                <a><button class='deletecomment' onclick="showcommentaction('{{sharedpost}}deletecomment_{{comment.id}}','{{sharedpost}}commentoptions_{{comment.id}}','{{sharedpost}}commentcontent_{{comment.id}}')"><i class="fas fa-trash-alt"></i> Delete Comment </button></a>
+                {% if user.id == comment.user.id %}
+                 <a><button class='updatecomment' onclick="showcommentaction('{{sharedpost}}updatecomment_{{comment.id}}','{{sharedpost}}commentoptions_{{comment.id}}','{{sharedpost}}commentcontent_{{comment.id}}')"><i class="fas fa-edit"></i> Update Comment</button></a>
+                {%endif%}
+                 <a><button class='deletecomment' onclick="showcommentaction('{{sharedpost}}deletecomment_{{comment.id}}','{{sharedpost}}commentoptions_{{comment.id}}','{{sharedpost}}commentcontent_{{comment.id}}')"><i class="fas fa-trash-alt"></i> Delete Comment </button></a>
             </div>
         </div>
     </div>

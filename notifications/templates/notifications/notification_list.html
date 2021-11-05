@@ -1,5 +1,7 @@
 {% load static %}
 {% load humanize %}
+{% load filters %}
+
 <div id='notification_sidemenu'>
     <div class='notification_header'>
         <h2>
@@ -12,13 +14,16 @@
             <div class='options' id="notification_0">
                 {% url 'notifications:change-all' as url%}
                 <button class='changeall' onclick="ChangeAllStatus(event,'{{url}}','notification_0')"><i class="fas fa-eye"></i>Mark all as read</button>
+                {% url 'notifications:unread' as url%}
+                <button class='Unread'  onclick="GetUnreadNotifcations(event,'{{url}}')"><i class="fas fa-eye-slash"></i>Show Unread notifications</button>
                 {% url 'notifications:remove-all' as url%}
                 <button class='clearall'  onclick="ClearAllNotifcation(event,'{{url}}','notification_0')"><i class="fas fa-trash-alt"></i>Clear all notifications</button>
+            
             </div>
         </div> 
     </div>
     <div class='notificationlist'>
-        {% include 'notifications/notification_item.html' with notifications=user.UserNotifcations.all %}
+        {% include 'notifications/notification_items.html' with notifications=user.UserNotifcations.all|sent_notifications %}
     </div>
     {% if user.UserNotifcations.count == 0 %}
          <div class='norequest' style='display: block;'>
@@ -29,5 +34,6 @@
             <p> you have no new notifications yet.</p>
          </div>    
     {%endif%}
+   
 
 </div>

@@ -6,13 +6,19 @@
 {% include 'posts/create_post.html' with group=None %} 
 <div id='createdpost'>
 </div>
-{% if user.friendship.count == 0 %}
+{% if user.get_friends|length == 0 %}
    <div class='noposts'>
        <p> you have no friends yet, try to add friends to view their posts.</p>
    </div>
 {% else %}
-<div class='friendspost'>
-
-</div>
+    {% for post in posts %}
+       {%if post.share %} 
+          {% include 'posts/post.html' with post=post.post  home=True shareduser=post.shareduser share=post.share sharedpost=post.posttype %}
+       {%else%}
+          {% include 'posts/post.html' with post=post.post  home=True shareduser=None share=post.share sharedpost=post.posttype %}
+        {%endif%}
+    {%endfor%}
+    <div class='makespace'>
+    </div>
 {% endif%}
 {% endblock %}
