@@ -12,7 +12,7 @@ from .models import Notification
 def AllNotificationView(request):
     if request.method == 'GET' and request.is_ajax():
         try:
-            notifications = Notification.objects.filter(user__id=request.user.id).order_by('-created_at')
+            notifications = Notification.objects.filter(user__id=request.user.id).order_by('-created_at').exclude(sender__id=request.user.id)
             for notification in notifications:
                 notification.sent=True
                 notification.save()
@@ -25,7 +25,7 @@ def AllNotificationView(request):
 def UnreadNotificationView(request):
     if request.method == 'GET' and request.is_ajax():
         try:
-            notifications = Notification.objects.filter(user__id=request.user.id,status=False)
+            notifications = Notification.objects.filter(user__id=request.user.id,status=False).exclude(sender__id=request.user.id)
             
             return render(request,'notifications/notification_items.html',context={'notifications':notifications})
         except:
@@ -37,7 +37,7 @@ def UnreadNotificationView(request):
 def NewNotificationStatusView(request):
     if request.method == 'GET' and request.is_ajax():
         try:
-            notifications = Notification.objects.filter(user__id=request.user.id,status=False,sent=False)
+            notifications = Notification.objects.filter(user__id=request.user.id,status=False,sent=False).exclude(sender__id=request.user.id)
             for notification in notifications:
                 notification.sent=True
                 notification.save()
@@ -99,9 +99,9 @@ def RemoveNotificationView(request,notid):
 @login_required
 def getNotificationNumber(request):
     if request.method == 'GET':
-        unreadnotifications = Notification.objects.filter(user__id=request.user.id,status=False)
-        sentnotifications = Notification.objects.filter(user__id=request.user.id,status=False,sent=False)
-        allnotifications = Notification.objects.filter(user__id=request.user.id)
+        unreadnotifications = Notification.objects.filter(user__id=request.user.id,status=False).exclude(sender__id=request.user.id)
+        sentnotifications = Notification.objects.filter(user__id=request.user.id,status=False,sent=False).exclude(sender__id=request.user.id)
+        allnotifications = Notification.objects.filter(user__id=request.user.id).exclude(sender__id=request.user.id)
 
         return JsonResponse({'number':unreadnotifications.count(),'sent':sentnotifications.count(),'all':allnotifications.count()})
     else:
@@ -110,7 +110,7 @@ def getNotificationNumber(request):
 def SourceEventNotification(request):
     def event_stream():
         while True:
-            notifications = Notification.objects.filter(user__id=request.user.id,status=False,sent=False)
+            notifications = Notification.objects.filter(user__id=request.user.id,status=False,sent=False).exclude(sender__id=request.user.id)
             data = {"number":notifications.count()}
             yield 'data: '+json.dumps(data)+'\n\n'
     return StreamingHttpResponse(event_stream(), content_type='text/event-stream')
