@@ -803,7 +803,7 @@ button.logout a
      color:#bf1f1f;
 }
 div.addpost,div.groupleft,#createdpost,#showpostdatail
-,#showprofilepost,#showhomepost,div.groupoptions,div.optionsresult
+,#showprofilepost,div.feeds,div.groupoptions,div.optionsresult
 ,div.grouplist,div.createpostgroup,div.groupposts
 ,div.groupmembers,div.activitylist,div.friendrequests,div.friends,div.blocks
 {
@@ -820,9 +820,20 @@ div.addpost,div.groupleft,#createdpost,#showpostdatail
      display: none;
      margin-top: 2vw;
 }
-#showhomepost
+div.feeds
 {
    margin-top: 1vw;
+   border-radius:none;
+   border:none;
+}
+#showhomepost
+{
+     position: relative;
+     display: block;
+     width: 100%;
+     margin-bottom: 0.5vw;
+     border-radius: 10px;
+     border: 2px solid lightgray;
 }
 div.activitylist
 {

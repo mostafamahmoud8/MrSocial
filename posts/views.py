@@ -175,7 +175,24 @@ def RemoveShareView(request,postid):
     else:
         return redirect('home')
 
-
+@login_required
+def GetNewPostsView(request):
+    if request.method =='GET' and request.is_ajax():
+        usersposts = []
+        posts = Post.objects.filter(sent=False,owner__in=request.user.get_friends())
+        shares = Share.objects.filter(sent=False,user__in=request.user.get_friends())
+    
+        for post in posts: 
+            usersposts.append({'post':post,'share':False,'posttype':"original",'created_at':post.created_at})
+        for share in shares:
+            usersposts.append({'post':share.post,'share':True,'shareduser':share.user,'posttype':"share",'created_at':share.created_at})
+        
+        posts.update(sent=True)
+        shares.update(sent=True)
+        usersposts.sort(key=lambda posts: posts['created_at'])
+        return render(request,'posts/post_list.html',context={'posts':usersposts[::-1]})
+    else:
+        return redirect('home')
 
 
 

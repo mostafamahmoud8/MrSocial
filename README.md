@@ -11,7 +11,7 @@
 
 
 this project is built on Python web framework **Django**, and an structured database using **Postgresql**,
-and Server-sent Event for real time notification.
+and Server-sent Event for real time notification and live feeds.
 and for Frontend used  HTML,CSS,Jquery and AJAX technique.
 
 

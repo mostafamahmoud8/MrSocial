@@ -11,14 +11,16 @@
        <p> you have no friends yet, try to add friends to view their posts.</p>
    </div>
 {% else %}
-    {% for post in posts %}
-       {%if post.share %} 
-          {% include 'posts/post.html' with post=post.post  home=True shareduser=post.shareduser share=post.share sharedpost=post.posttype %}
-       {%else%}
-          {% include 'posts/post.html' with post=post.post  home=True shareduser=None share=post.share sharedpost=post.posttype %}
-        {%endif%}
-    {%endfor%}
-    <div class='makespace'>
-    </div>
+<div class='feeds'>
+   {% for post in posts %}
+   {%if post.share %} 
+      {% include 'posts/post.html' with post=post.post  home=True shareduser=post.shareduser share=post.share sharedpost=post.posttype %}
+   {%else%}
+      {% include 'posts/post.html' with post=post.post  home=True shareduser=None share=post.share sharedpost=post.posttype %}
+    {%endif%}
+   {%endfor%}
+</div>
+<div class='makespace'>
+</div>
 {% endif%}
 {% endblock %}

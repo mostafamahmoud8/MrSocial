@@ -19,6 +19,7 @@ class Post(models.Model):
     shares = models.ManyToManyField(User,through='Share',through_fields=('post','user'),related_name='usershares')
     comments = models.ManyToManyField(User,through='Comment',through_fields=('post','user'),related_name='usercomments')
     belong_to = models.ForeignKey(Group,on_delete=models.CASCADE,related_name='groupposts',null=True,blank=True)
+    sent = models.BooleanField(default=False)
     
     class Meta:
         verbose_name = 'Post'
@@ -59,6 +60,8 @@ class Share(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    sent = models.BooleanField(default=False)
+
 
     def __str__(self):
         return self.user.username

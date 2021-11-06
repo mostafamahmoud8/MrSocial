@@ -106,7 +106,8 @@ def getNotificationNumber(request):
         return JsonResponse({'number':unreadnotifications.count(),'sent':sentnotifications.count(),'all':allnotifications.count()})
     else:
          return redirect('home')
-
+         
+@login_required
 def SourceEventNotification(request):
     def event_stream():
         while True:

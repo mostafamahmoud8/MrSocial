@@ -12,7 +12,7 @@
          <script src="https://kit.fontawesome.com/46359849d7.js" crossorigin="anonymous"></script>
          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
          <script src="{% static 'script/base.js' %}"></script>
-         <script src="{% static 'script/script.js' %}"></script>
+         <script src="{% static 'script/ajax.js' %}"></script>
          <meta charset="UTF-8">
          <meta name="viewport" content="width=device-width, initial-scale=1.0">
          <script>
@@ -22,8 +22,12 @@
     {% url 'notifications:source_event' as serverurl%}
     {% url 'notifications:number' as numberurl%}
     {% url 'notifications:new' as geturl%}
+    {% url 'posts:news_feeds' as newfeedsurl %}
+    {% url 'server_feeds' as serverfeedurl %}
 
-    <body onload="showprofilebuttons(),ServerSentConnection(event,'{{serverurl}}','{{geturl}}'),SetNotificationNumber('{{numberurl}}')">
+    <body onload="showprofilebuttons(),
+    ServerSentConnection(event,'{{serverurl}}','{{geturl}}'),
+    SetNotificationNumber('{{numberurl}}'),ServerSentFeedSConnection('{{serverfeedurl}}','{{newfeedsurl}}')">
      {% if user.is_authenticated %}    
            {% include 'sidemenu.html' %}
           <div id='content'>

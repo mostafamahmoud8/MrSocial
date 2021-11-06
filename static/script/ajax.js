@@ -57,6 +57,26 @@ function ServerSentConnection(temevent,url,geturl)
     }
 
 }
+function ServerSentFeedSConnection(url,geturl)
+{
+    const feedsSource = new EventSource(url);
+
+    feedsSource.onopen = function(event){
+        console.log('connection open',event);
+    }
+    feedsSource.onmessage = function(event){
+        data = JSON.parse(event.data)
+        if(data.status)
+        {  
+          getnewPosts(geturl);
+        }
+    }
+    feedsSource.onerror = function(error){
+        feedsSource.close();
+        console.log('conncetion closed',error);
+    }
+
+}
 function changenumbers(word,action)
 {
     var numbers = word.match(/(\d+)/);
@@ -134,6 +154,18 @@ function BaseSearch(event,input,url)
         $('div.search #search').css({'border-radius':'10px'})
     }  
 }
+
+function getnewPosts(url)
+{
+  console.log(url);
+  $.get(url, function(data, statustext){
+      if(statustext == 'success')
+      {
+          $('div.feeds').prepend(data);
+      }
+  });
+}
+
 function CreatPost(e,url,formid,group=null)
 {
     e.preventDefault();

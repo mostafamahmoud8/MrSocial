@@ -1,4 +1,6 @@
 from django.shortcuts import redirect, render
+from django.http import StreamingHttpResponse
+import json
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from accounts.models import Block
@@ -46,3 +48,20 @@ def SearchView(request):
         groups = Group.objects.filter(name__icontains=text).order_by('-created_at')
         
         return render(request,'search_result.html',context={'posts':posts,'users':users,'groups':groups})
+
+
+@login_required
+def SourceEventFeeds(request):
+    def event_stream():
+        while True:
+
+            posts = Post.objects.filter(sent=False,owner__in=request.user.get_friends())
+            shares = Share.objects.filter(sent=False,user__in=request.user.get_friends())
+
+            if posts.count() > 0 or shares.count() > 0:
+                data = {"status":True}
+            else:
+                data = {"status":False}
+
+            yield 'data: '+json.dumps(data)+'\n\n'
+    return StreamingHttpResponse(event_stream(), content_type='text/event-stream')

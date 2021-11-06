@@ -1,0 +1,7 @@
+{% for post in posts%}
+{%if post.share %} 
+{% include 'posts/post.html' with post=post.post  home=True shareduser=post.shareduser share=post.share sharedpost=post.posttype %}
+{%else%}
+{% include 'posts/post.html' with post=post.post  home=True shareduser=None share=post.share sharedpost=post.posttype %}
+{%endif%}
+{% endfor %}

@@ -23,6 +23,7 @@ from . import views
 urlpatterns = [
     path('',views.index,name='home'),
     path('feeds/',views.HomeView,name='feeds'),
+    path('server/feeds/',views.SourceEventFeeds,name='server_feeds'),
     path('search/',views.SearchView,name='base-search'),
     path('accounts/',include('accounts.urls')),
     path('accounts/',include('django.contrib.auth.urls')),

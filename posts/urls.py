@@ -15,6 +15,7 @@ urlpatterns = [
     path('remove/like/<int:postid>/',views.RemoveLikeView,name='remove-like'),
     path('share/<int:postid>/',views.ShareView,name='share'),
     path('share/remove/<int:postid>/',views.RemoveShareView,name='remove-share'),
+    path('new/',views.GetNewPostsView,name='news_feeds'),
 
 
 ]
