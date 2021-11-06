@@ -69,7 +69,15 @@
    <div class='postresult'>
       <span>{{post.owner.first_name|title}} {{post.owner.last_name|title}}</span>
       <a href="{% url 'posts:post_detail' pk=post.id %}"><span class='date'>{{post.created_at|date:'j M Y f a'}}</span></a>
+      {%if post.content %}
       <p>{{post.content|truncatechars:100}}</p>
+      {%endif%}
+      {% if post.image %}
+      <div class='postimage'>
+        <img src="{{post.image.url}}" alt='Post Photo'>
+      </div>
+      {%endif%}
+
    </div>
    {%endfor%}
    {%else%}

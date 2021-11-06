@@ -2225,14 +2225,14 @@ div.groupdescription p
 {
      margin-left: 2vw;
 }
-div.postdetail div.postcontent div.postimage
+div.postdetail div.postcontent div.postimage,div.postssresult div.postimage
 {
      position: relative;
      display: block;
      width: 100%;
      margin-top: .5vw;
 }
-div.postdetail div.postcontent div.postimage img
+div.postdetail div.postcontent div.postimage img,div.postssresult div.postimage img
 {
      position: relative;
      object-fit: cover;
