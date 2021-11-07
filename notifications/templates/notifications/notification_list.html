@@ -25,15 +25,7 @@
     <div class='notificationlist'>
         {% include 'notifications/notification_items.html' with notifications=user.UserNotifcations.all|sent_notifications %}
     </div>
-    {% if user.UserNotifcations.count == 0 %}
-         <div class='norequest' style='display: block;'>
+    <div class='norequest' style='display: none;'>
             <p> you have no new notifications yet.</p>
-         </div>
-    {% else %}
-        <div class='norequest' style='display: none;'>
-            <p> you have no new notifications yet.</p>
-         </div>    
-    {%endif%}
-   
-
+    </div>
 </div>

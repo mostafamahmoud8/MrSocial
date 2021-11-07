@@ -1,6 +1,5 @@
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
-from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 import json,time
@@ -21,6 +20,7 @@ def AllNotificationView(request):
             return JsonResponse({'status':False})
     else:
          return redirect('home')
+         
 @login_required
 def UnreadNotificationView(request):
     if request.method == 'GET' and request.is_ajax():

@@ -19,6 +19,9 @@ function SetNotificationNumber(url)
             if(notificationnumber > 0)
             {
                 $('#notification_sidemenu div.norequest').css({'display':'none'});
+            }else
+            {
+                $('#notification_sidemenu div.norequest').css({'display':'block'});
             }
         }
     });

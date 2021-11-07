@@ -7,7 +7,7 @@
                 <div class="userimage">
                     {% if friend.image %}
                     <a href="{% url 'accounts:profile' slug=friend.slug %}">
-                        <img src="{{friend.user.image.url}}" alt="Profile Picture">
+                        <img src="{{friend.image.url}}" alt="Profile Picture">
                     </a>
                     {% else %}
                     <a href="{% url 'accounts:profile' slug=friend.slug %}">

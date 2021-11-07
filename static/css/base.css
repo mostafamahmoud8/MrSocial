@@ -488,7 +488,7 @@ div.emailsent div h1 ,div.emailsent div p
 {
      position: fixed;
      width: 100%;
-     z-index: 1;
+     z-index: 3;
      top: 0vw;
      right: 0vw;
      background-color: inherit;
@@ -498,7 +498,7 @@ div.emailsent div h1 ,div.emailsent div p
 #notification_sidemenu,#basesearchresult
 {
      display: none;
-     z-index: 2;
+     z-index: 3;
      border-radius: 10px;
      background-color: whitesmoke;
      border: 2px solid lightgray;
@@ -788,7 +788,7 @@ button.logout
      padding: 10px;
      width: 80%;
      margin: auto;
-     margin-top: 3vw;
+     margin-top: 2vw;
      background-color: #F2EEE4;
      border: 2px solid #c93a3a;
      border-radius: 10px;
