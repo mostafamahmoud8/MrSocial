@@ -32,7 +32,7 @@ class ProfileView(LoginRequiredMixin,DetailView):
 
     def get_object(self):
         try:
-            object = User.objects.get(username__iexact = self.kwargs['slug'])
+            object = User.objects.get(slug__iexact = self.kwargs['slug'])
         except User.DoesNotExist :
             return None
         else:
